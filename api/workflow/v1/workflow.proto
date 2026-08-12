@@ -1,0 +1,305 @@
+syntax = "proto3";
+
+package workflow.v1;
+
+import "gnostic/openapi/v3/annotations.proto";
+import "google/api/annotations.proto";
+import "google/api/field_behavior.proto";
+import "google/protobuf/struct.proto";
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/hobbyGG/workflow/api/workflow/v1;v1";
+
+// WorkflowService 提供工作流相关 API。
+service WorkflowService {
+  // Healthz 检查服务进程是否存活。
+  rpc Healthz(WorkflowServiceHealthzRequest) returns (WorkflowServiceHealthzResponse) {
+    option (google.api.http) = {get: "/healthz"};
+  }
+
+  // Readyz 检查服务是否可以接收请求。
+  rpc Readyz(WorkflowServiceReadyzRequest) returns (WorkflowServiceReadyzResponse) {
+    option (google.api.http) = {get: "/readyz"};
+  }
+
+  // CreateExecution 发起异步工作流执行。
+  rpc CreateExecution(CreateExecutionRequest) returns (CreateExecutionResponse) {
+    option (google.api.http) = {
+      post: "/internal/v1/executions"
+      body: "*"
+    };
+  }
+
+  // GetExecution 查询工作流执行。
+  rpc GetExecution(GetExecutionRequest) returns (GetExecutionResponse) {
+    option (google.api.http) = {get: "/internal/v1/executions/{execution_id}"};
+  }
+
+  // ListExecutions 查询工作流执行列表。
+  rpc ListExecutions(ListExecutionsRequest) returns (ListExecutionsResponse) {
+    option (google.api.http) = {get: "/internal/v1/executions"};
+  }
+
+  // ListNodeTypes 查询节点类型列表。
+  rpc ListNodeTypes(ListNodeTypesRequest) returns (ListNodeTypesResponse) {
+    option (google.api.http) = {get: "/internal/v1/node-types"};
+  }
+
+  // CreateWorkflow 创建工作流。
+  rpc CreateWorkflow(CreateWorkflowRequest) returns (CreateWorkflowResponse) {
+    option (google.api.http) = {
+      post: "/internal/v1/workflows"
+      body: "*"
+    };
+  }
+
+  // ListWorkflows 查询工作流列表。
+  rpc ListWorkflows(ListWorkflowsRequest) returns (ListWorkflowsResponse) {
+    option (google.api.http) = {get: "/internal/v1/workflows"};
+  }
+
+  // GetWorkflow 查询工作流。
+  rpc GetWorkflow(GetWorkflowRequest) returns (GetWorkflowResponse) {
+    option (google.api.http) = {get: "/internal/v1/workflows/{workflow_id}"};
+  }
+}
+
+message WorkflowServiceHealthzRequest {}
+
+message WorkflowServiceHealthzResponse {}
+
+message WorkflowServiceReadyzRequest {}
+
+message WorkflowServiceReadyzResponse {}
+
+message CreateExecutionRequest {
+  int64 uid = 1 [
+    (google.api.field_behavior) = REQUIRED,
+    (gnostic.openapi.v3.property) = {
+      type: "integer"
+      format: "int64"
+    }
+  ];
+  string idempotency_key = 2 [
+    json_name = "idempotency_key",
+    (google.api.field_behavior) = REQUIRED
+  ];
+  string workflow_id = 3 [
+    json_name = "workflow_id",
+    (google.api.field_behavior) = REQUIRED
+  ];
+  google.protobuf.Struct input = 4;
+}
+
+message CreateExecutionResponse {
+  int32 error_code = 1 [json_name = "error_code"];
+  string error_msg = 2 [json_name = "error_msg"];
+  int32 internal_error_code = 3 [json_name = "internal_error_code"];
+  string internal_error_msg = 4 [json_name = "internal_error_msg"];
+  CreateExecutionData data = 5;
+}
+
+message CreateExecutionData {
+  string execution_id = 1 [json_name = "execution_id"];
+}
+
+message GetExecutionRequest {
+  string execution_id = 1 [json_name = "execution_id"];
+}
+
+message GetExecutionResponse {
+  int32 error_code = 1 [json_name = "error_code"];
+  string error_msg = 2 [json_name = "error_msg"];
+  int32 internal_error_code = 3 [json_name = "internal_error_code"];
+  string internal_error_msg = 4 [json_name = "internal_error_msg"];
+  Execution data = 5;
+}
+
+message ListExecutionsRequest {
+  int64 uid = 1 [(gnostic.openapi.v3.property) = {
+    type: "integer"
+    format: "int64"
+  }];
+  string workflow_type = 2 [json_name = "workflow_type"];
+  int32 limit = 3;
+  int32 offset = 4;
+}
+
+message ListExecutionsResponse {
+  int32 error_code = 1 [json_name = "error_code"];
+  string error_msg = 2 [json_name = "error_msg"];
+  int32 internal_error_code = 3 [json_name = "internal_error_code"];
+  string internal_error_msg = 4 [json_name = "internal_error_msg"];
+  ExecutionPage data = 5;
+}
+
+message ExecutionPage {
+  int32 limit = 1;
+  int32 offset = 2;
+  repeated Execution executions = 4;
+}
+
+// Execution 表示一次工作流执行。
+message Execution {
+  string execution_id = 1 [json_name = "execution_id"];
+  int64 uid = 2 [(gnostic.openapi.v3.property) = {
+    type: "integer"
+    format: "int64"
+  }];
+  string idempotency_key = 3 [json_name = "idempotency_key"];
+  string workflow_id = 4 [json_name = "workflow_id"];
+  string workflow_type = 5 [json_name = "workflow_type"];
+  // Status 表示执行状态。
+  string status = 6;
+  google.protobuf.Struct input = 7;
+  google.protobuf.Value output = 8;
+  int32 internal_error_code = 9 [json_name = "internal_error_code"];
+  string internal_error_message = 10 [json_name = "internal_error_message"];
+  string failed_node_id = 11 [json_name = "failed_node_id"];
+  google.protobuf.Timestamp created_at = 12 [json_name = "created_at"];
+  google.protobuf.Timestamp started_at = 13 [json_name = "started_at"];
+  google.protobuf.Timestamp completed_at = 14 [json_name = "completed_at"];
+  google.protobuf.Timestamp updated_at = 15 [json_name = "updated_at"];
+}
+
+// ListNodeTypesRequest 是查询节点类型列表的请求。
+message ListNodeTypesRequest {}
+
+// ListNodeTypesResponse 是查询节点类型列表的响应。
+message ListNodeTypesResponse {
+  repeated NodeType node_types = 1 [json_name = "node_types"];
+}
+
+// NodeType 表示节点类型及其输入输出。
+message NodeType {
+  string type = 1;
+  map<string, InputDefinition> inputs = 2;
+  map<string, OutputDefinition> outputs = 3;
+}
+
+message InputDefinition {
+  // Type 表示输入值类型。
+  string type = 1;
+  bool required = 2;
+}
+
+message OutputDefinition {
+  // Type 表示输出值类型。
+  string type = 1;
+}
+
+message CreateWorkflowRequest {
+  // UID 标识工作流所属用户。
+  int64 uid = 1 [(gnostic.openapi.v3.property) = {
+    type: "integer"
+    format: "int64"
+  }];
+  // Name 是工作流的展示名称。
+  string name = 2;
+  // Type 标识工作流类型，例如 template 或 AI 工作流。
+  string type = 3;
+  // Definition 是需要保存的工作流图定义。
+  Definition definition = 4;
+}
+
+message CreateWorkflowResponse {
+  // ErrorCode 是对外错误码。
+  int32 error_code = 1 [json_name = "error_code"];
+  // ErrorMsg 是对外错误信息。
+  string error_msg = 2 [json_name = "error_msg"];
+  // InternalErrorCode 是内部错误码。
+  int32 internal_error_code = 3 [json_name = "internal_error_code"];
+  // InternalErrorMsg 是内部错误信息。
+  string internal_error_msg = 4 [json_name = "internal_error_msg"];
+  // Data 是创建后的工作流。
+  Workflow data = 5;
+}
+
+message ListWorkflowsRequest {
+  int64 uid = 1 [(gnostic.openapi.v3.property) = {
+    type: "integer"
+    format: "int64"
+  }];
+  string type = 2;
+  int32 limit = 3;
+  int32 offset = 4;
+}
+
+message ListWorkflowsResponse {
+  int32 error_code = 1 [json_name = "error_code"];
+  string error_msg = 2 [json_name = "error_msg"];
+  int32 internal_error_code = 3 [json_name = "internal_error_code"];
+  string internal_error_msg = 4 [json_name = "internal_error_msg"];
+  WorkflowPage data = 5;
+}
+
+message WorkflowPage {
+  int32 limit = 1;
+  int32 offset = 2;
+  repeated Workflow workflows = 4;
+}
+
+// GetWorkflowRequest 是查询工作流的请求。
+message GetWorkflowRequest {
+  string workflow_id = 1 [json_name = "workflow_id"];
+}
+
+message GetWorkflowResponse {
+  int32 error_code = 1 [json_name = "error_code"];
+  string error_msg = 2 [json_name = "error_msg"];
+  int32 internal_error_code = 3 [json_name = "internal_error_code"];
+  string internal_error_msg = 4 [json_name = "internal_error_msg"];
+  Workflow data = 5;
+}
+
+// Workflow 表示工作流定义。
+message Workflow {
+  // WorkflowID 是工作流的稳定标识。
+  string workflow_id = 1 [json_name = "workflow_id"];
+  // UID 标识工作流所属用户。
+  int64 uid = 2 [(gnostic.openapi.v3.property) = {
+    type: "integer"
+    format: "int64"
+  }];
+  // Name 是工作流的展示名称。
+  string name = 3;
+  // Type 标识工作流类型。
+  string type = 4;
+  // Definition 是当前工作流图定义。
+  Definition definition = 5;
+  // CreatedAt 是工作流的创建时间。
+  google.protobuf.Timestamp created_at = 6 [json_name = "created_at"];
+  // UpdatedAt 是工作流的更新时间。
+  google.protobuf.Timestamp updated_at = 7 [json_name = "updated_at"];
+}
+
+// Definition 表示工作流的图定义。
+message Definition {
+  // Nodes 保存图中的节点定义。
+  repeated Node nodes = 1;
+  // Edges 保存节点之间的连线定义。
+  repeated Edge edges = 2;
+}
+
+message Node {
+  // ID 在当前 Definition 内唯一，并供 Edge 引用。
+  string id = 1;
+  // Type 标识节点的执行类型。
+  string type = 2;
+  // Preset 保存节点定义中预先配置的数据。
+  map<string, google.protobuf.Value> preset = 3;
+}
+
+// Edge 表示节点之间的数据依赖或控制流分支。
+message Edge {
+  // FromNode 是连线起点的节点 ID。
+  string from_node = 1 [json_name = "from_node"];
+  // FromBranch 是 Router 分支 ID，非 Router 出边为空。
+  string from_branch = 2 [json_name = "from_branch"];
+  // FromPort 标识源数据字段。
+  string from_port = 3 [json_name = "from_port"];
+  // ToNode 是连线终点的节点 ID。
+  string to_node = 4 [json_name = "to_node"];
+  // ToInput 标识目标节点接收数据的输入字段，控制流中留空。
+  string to_input = 5 [json_name = "to_input"];
+}

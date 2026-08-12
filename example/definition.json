@@ -1,0 +1,240 @@
+{
+  "nodes": [
+    {
+      "id": "seed_route",
+      "type": "SAY_SOMETHING",
+      "preset": {
+        "prompt": "alpha"
+      }
+    },
+    {
+      "id": "seed_parallel",
+      "type": "SAY_SOMETHING",
+      "preset": {
+        "prompt": "parallel"
+      }
+    },
+    {
+      "id": "exclusive_router",
+      "type": "EXCLUSIVE",
+      "preset": {
+        "branches": [
+          {
+            "id": "alpha",
+            "expression": "inputs.route == \"alpha\""
+          },
+          {
+            "id": "fallback",
+            "expression": "true"
+          }
+        ]
+      }
+    },
+    {
+      "id": "exclusive_left",
+      "type": "SAY_SOMETHING",
+      "preset": {
+        "prompt": "overridden by exclusive router"
+      }
+    },
+    {
+      "id": "exclusive_right",
+      "type": "SAY_SOMETHING",
+      "preset": {
+        "prompt": "exclusive fan-out"
+      }
+    },
+    {
+      "id": "exclusive_fallback",
+      "type": "SAY_SOMETHING",
+      "preset": {
+        "prompt": "this node must be skipped"
+      }
+    },
+    {
+      "id": "exclusive_join",
+      "type": "SAY_SOMETHING",
+      "preset": {
+        "prompt": "inclusive-source"
+      }
+    },
+    {
+      "id": "inclusive_router",
+      "type": "INCLUSIVE",
+      "preset": {
+        "branches": [
+          {
+            "id": "primary",
+            "expression": "inputs.route == \"inclusive-source\""
+          },
+          {
+            "id": "also_selected",
+            "expression": "inputs.route != \"\""
+          },
+          {
+            "id": "never_selected",
+            "expression": "false"
+          }
+        ]
+      }
+    },
+    {
+      "id": "inclusive_primary",
+      "type": "SAY_SOMETHING",
+      "preset": {
+        "prompt": "overridden by inclusive router"
+      }
+    },
+    {
+      "id": "inclusive_secondary",
+      "type": "SAY_SOMETHING",
+      "preset": {
+        "prompt": "overridden by inclusive router"
+      }
+    },
+    {
+      "id": "inclusive_never",
+      "type": "SAY_SOMETHING",
+      "preset": {
+        "prompt": "this node must be skipped"
+      }
+    },
+    {
+      "id": "inclusive_join",
+      "type": "SAY_SOMETHING",
+      "preset": {
+        "prompt": "dag-complete"
+      }
+    },
+    {
+      "id": "no_match_router",
+      "type": "INCLUSIVE",
+      "preset": {
+        "branches": [
+          {
+            "id": "never",
+            "expression": "false"
+          }
+        ]
+      }
+    },
+    {
+      "id": "no_match_activity",
+      "type": "SAY_SOMETHING",
+      "preset": {
+        "prompt": "this entire path must be skipped"
+      }
+    },
+    {
+      "id": "output",
+      "type": "OUTPUT"
+    }
+  ],
+  "edges": [
+    {
+      "from_node": "seed_route",
+      "from_port": "text",
+      "to_node": "exclusive_router",
+      "to_input": "route"
+    },
+    {
+      "from_node": "seed_route",
+      "from_port": "text",
+      "to_node": "output",
+      "to_input": "seed"
+    },
+    {
+      "from_node": "seed_parallel",
+      "from_port": "text",
+      "to_node": "output",
+      "to_input": "parallel"
+    },
+    {
+      "from_node": "seed_parallel",
+      "from_port": "text",
+      "to_node": "no_match_router",
+      "to_input": "route"
+    },
+    {
+      "from_node": "exclusive_router",
+      "from_branch": "alpha",
+      "from_port": "route",
+      "to_node": "exclusive_left",
+      "to_input": "prompt"
+    },
+    {
+      "from_node": "exclusive_router",
+      "from_branch": "alpha",
+      "to_node": "exclusive_right"
+    },
+    {
+      "from_node": "exclusive_router",
+      "from_branch": "fallback",
+      "to_node": "exclusive_fallback"
+    },
+    {
+      "from_node": "exclusive_left",
+      "to_node": "exclusive_join"
+    },
+    {
+      "from_node": "exclusive_right",
+      "to_node": "exclusive_join"
+    },
+    {
+      "from_node": "exclusive_fallback",
+      "to_node": "exclusive_join"
+    },
+    {
+      "from_node": "exclusive_join",
+      "from_port": "text",
+      "to_node": "inclusive_router",
+      "to_input": "route"
+    },
+    {
+      "from_node": "inclusive_router",
+      "from_branch": "primary",
+      "from_port": "route",
+      "to_node": "inclusive_primary",
+      "to_input": "prompt"
+    },
+    {
+      "from_node": "inclusive_router",
+      "from_branch": "also_selected",
+      "from_port": "route",
+      "to_node": "inclusive_secondary",
+      "to_input": "prompt"
+    },
+    {
+      "from_node": "inclusive_router",
+      "from_branch": "never_selected",
+      "to_node": "inclusive_never"
+    },
+    {
+      "from_node": "inclusive_primary",
+      "to_node": "inclusive_join"
+    },
+    {
+      "from_node": "inclusive_secondary",
+      "to_node": "inclusive_join"
+    },
+    {
+      "from_node": "inclusive_never",
+      "to_node": "inclusive_join"
+    },
+    {
+      "from_node": "inclusive_join",
+      "from_port": "text",
+      "to_node": "output",
+      "to_input": "result"
+    },
+    {
+      "from_node": "no_match_router",
+      "from_branch": "never",
+      "to_node": "no_match_activity"
+    },
+    {
+      "from_node": "no_match_activity",
+      "to_node": "output"
+    }
+  ]
+}

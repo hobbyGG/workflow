@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package workflow.v1;
+
+option go_package = "github.com/hobbyGG/workflow/api/workflow/v1;v1";
+
+enum ErrorReason {
+  WORKFLOW_UNSPECIFIED = 0;
+  EXECUTION_NOT_FOUND = 1;
+  EXECUTION_ALREADY_EXISTS = 2;
+  EXECUTION_INVALID_ARGUMENT = 3;
+  EXECUTION_INTERNAL = 4;
+  WORKFLOW_NOT_FOUND = 5;
+  WORKFLOW_INTERNAL = 6;
+  WORKFLOW_INVALID_ARGUMENT = 7;
+}
