@@ -1,5 +1,5 @@
-CREATE TABLE workflow (
-    workflow_id  VARCHAR(128) PRIMARY KEY,
+CREATE TABLE workflow_definition (
+    definition_id  VARCHAR(128) PRIMARY KEY,
     uid          BIGINT,
     name         VARCHAR(128) NOT NULL,
     -- 标识工作流类型，例如 template 或 AI 工作流。
@@ -9,11 +9,11 @@ CREATE TABLE workflow (
     updated_at   TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
-CREATE TABLE execution (
-    execution_id           VARCHAR(64) PRIMARY KEY,
+CREATE TABLE workflow_execution (
+    workflow_execution_id  VARCHAR(64) PRIMARY KEY,
     uid                    BIGINT NOT NULL,
     idempotency_key        VARCHAR(128),
-    workflow_id            VARCHAR(128) NOT NULL,
+    definition_id          VARCHAR(128) NOT NULL,
     definition             JSONB NOT NULL,
     status                 VARCHAR(16) NOT NULL,
     input                  JSONB NOT NULL,
@@ -27,14 +27,38 @@ CREATE TABLE execution (
     updated_at             TIMESTAMPTZ NOT NULL DEFAULT now(),
 
     UNIQUE (uid, idempotency_key),
-    FOREIGN KEY (workflow_id) REFERENCES workflow (workflow_id)
+    FOREIGN KEY (definition_id) REFERENCES workflow_definition (definition_id)
 );
 
-CREATE INDEX workflow_uid_type_idx
-    ON workflow (uid, type);
+-- 记录每次 ActivityNode 调用，包括 MCP 直接调用和 workflow DAG 节点执行。
+CREATE TABLE node_execution (
+    node_execution_id      VARCHAR(64) PRIMARY KEY,
+    workflow_execution_id  VARCHAR(64),
+    idempotency_key        VARCHAR(128) NOT NULL UNIQUE,
+    node_id                VARCHAR(128),
+    node_type              VARCHAR(128) NOT NULL,
+    input                  JSONB NOT NULL,
+    status                 VARCHAR(16) NOT NULL DEFAULT 'pending',
+    output                 JSONB,
+    internal_error_message TEXT,
+    created_at             TIMESTAMPTZ NOT NULL DEFAULT now(),
+    duration_ms            BIGINT,
 
-CREATE INDEX execution_workflow_id_idx
-    ON execution (workflow_id);
+    CHECK (status IN ('pending', 'running', 'completed', 'failed')),
+    FOREIGN KEY (workflow_execution_id) REFERENCES workflow_execution (workflow_execution_id)
+);
 
-CREATE INDEX execution_uid_created_at_execution_id_idx
-    ON execution (uid, created_at DESC, execution_id DESC);
+CREATE INDEX workflow_definition_uid_type_idx
+    ON workflow_definition (uid, type);
+
+CREATE INDEX workflow_execution_definition_id_idx
+    ON workflow_execution (definition_id);
+
+CREATE INDEX workflow_execution_uid_created_at_id_idx
+    ON workflow_execution (uid, created_at DESC, workflow_execution_id DESC);
+
+CREATE INDEX node_execution_workflow_execution_id_idx
+    ON node_execution (workflow_execution_id);
+
+CREATE INDEX node_execution_created_at_node_type_idx
+    ON node_execution (created_at, node_type);

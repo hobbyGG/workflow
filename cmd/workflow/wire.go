@@ -13,6 +13,7 @@ import (
 	"github.com/hobbyGG/workflow/internal/data"
 	"github.com/hobbyGG/workflow/internal/server"
 	"github.com/hobbyGG/workflow/internal/service"
+	"github.com/hobbyGG/workflow/pkg/metrics"
 
 	"github.com/go-kratos/kratos/v3"
 	"github.com/google/wire"
@@ -20,5 +21,13 @@ import (
 
 // wireApp init kratos application.
 func wireApp(*conf.Server, *conf.Data, *slog.Logger) (*kratos.App, func(), error) {
-	panic(wire.Build(server.ProviderSet, data.ProviderSet, biz.ProviderSet, service.ProviderSet, newApp))
+	panic(wire.Build(
+		metrics.New,
+		metrics.NewTemporalHandler,
+		server.ProviderSet,
+		data.ProviderSet,
+		biz.ProviderSet,
+		service.ProviderSet,
+		newApp,
+	))
 }

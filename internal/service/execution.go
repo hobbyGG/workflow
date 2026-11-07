@@ -12,122 +12,122 @@ import (
 )
 
 const (
-	defaultListExecutionsLimit int32 = 20
-	maxListExecutionsLimit     int32 = 200
+	defaultListWfExecutionsLimit int32 = 20
+	maxListWfExecutionsLimit     int32 = 200
 )
 
-func (s *WorkflowService) CreateExecution(ctx context.Context, req *pb.CreateExecutionRequest) (*pb.CreateExecutionResponse, error) {
+func (s *WorkflowService) CreateWorkflowExecution(ctx context.Context, req *pb.CreateWorkflowExecutionRequest) (*pb.CreateWorkflowExecutionResponse, error) {
 	if req == nil ||
 		req.GetUid() <= 0 ||
 		strings.TrimSpace(req.GetIdempotencyKey()) == "" ||
-		strings.TrimSpace(req.GetWorkflowId()) == "" {
-		return nil, biz.ErrExecutionInvalidArgument
+		strings.TrimSpace(req.GetDefinitionId()) == "" {
+		return nil, biz.ErrWfExecutionInvalidArgument
 	}
-	execution, err := s.execution.CreateExecution(ctx, convertExecution(req))
+	wfExecution, err := s.wfExecution.CreateWfExecution(ctx, convertWfExecution(req))
 	if err != nil {
 		return nil, err
 	}
-	return &pb.CreateExecutionResponse{
-		Data: &pb.CreateExecutionData{
-			ExecutionId: execution.ID,
+	return &pb.CreateWorkflowExecutionResponse{
+		Data: &pb.CreateWorkflowExecutionData{
+			WorkflowExecutionId: wfExecution.ID,
 		},
 	}, nil
 }
 
-func convertExecution(req *pb.CreateExecutionRequest) *biz.CreateExecutionInput {
+func convertWfExecution(req *pb.CreateWorkflowExecutionRequest) *biz.CreateWfExecutionParam {
 	input := make(map[string]any)
 	if req.GetInput() != nil {
 		input = req.GetInput().AsMap()
 	}
-	return &biz.CreateExecutionInput{
+	return &biz.CreateWfExecutionParam{
 		UID:            req.GetUid(),
 		IdempotencyKey: req.GetIdempotencyKey(),
-		WorkflowID:     req.GetWorkflowId(),
+		DefinitionID:   req.GetDefinitionId(),
 		Input:          input,
 	}
 }
 
-// GetExecution 返回指定的执行记录。
-func (s *WorkflowService) GetExecution(ctx context.Context, req *pb.GetExecutionRequest) (*pb.GetExecutionResponse, error) {
+// GetWorkflowExecution 返回指定的工作流执行记录。
+func (s *WorkflowService) GetWorkflowExecution(ctx context.Context, req *pb.GetWorkflowExecutionRequest) (*pb.GetWorkflowExecutionResponse, error) {
 	if req == nil {
-		return nil, biz.ErrExecutionInvalidArgument
+		return nil, biz.ErrWfExecutionInvalidArgument
 	}
-	executionID := strings.TrimSpace(req.GetExecutionId())
-	if executionID == "" {
-		return nil, biz.ErrExecutionInvalidArgument
+	workflowExecutionID := strings.TrimSpace(req.GetWorkflowExecutionId())
+	if workflowExecutionID == "" {
+		return nil, biz.ErrWfExecutionInvalidArgument
 	}
 
-	execution, err := s.execution.GetExecution(ctx, executionID)
+	wfExecution, err := s.wfExecution.GetWfExecution(ctx, workflowExecutionID)
 	if err != nil {
 		return nil, err
 	}
-	reply, err := convertExecutionReply(execution)
+	reply, err := convertWfExecutionReply(wfExecution)
 	if err != nil {
 		return nil, err
 	}
-	return &pb.GetExecutionResponse{Data: reply}, nil
+	return &pb.GetWorkflowExecutionResponse{Data: reply}, nil
 }
 
-// ListExecutions 返回满足查询条件的执行记录。
-func (s *WorkflowService) ListExecutions(ctx context.Context, req *pb.ListExecutionsRequest) (*pb.ListExecutionsResponse, error) {
+// ListWorkflowExecutions 返回满足查询条件的工作流执行记录。
+func (s *WorkflowService) ListWorkflowExecutions(ctx context.Context, req *pb.ListWorkflowExecutionsRequest) (*pb.ListWorkflowExecutionsResponse, error) {
 	if req == nil ||
 		req.GetUid() <= 0 ||
 		req.GetLimit() < 0 ||
-		req.GetLimit() > maxListExecutionsLimit ||
+		req.GetLimit() > maxListWfExecutionsLimit ||
 		req.GetOffset() < 0 {
-		return nil, biz.ErrExecutionInvalidArgument
+		return nil, biz.ErrWfExecutionInvalidArgument
 	}
 
 	limit := req.GetLimit()
 	if limit == 0 {
-		limit = defaultListExecutionsLimit
+		limit = defaultListWfExecutionsLimit
 	}
-	executions, err := s.execution.ListExecutions(ctx, biz.ListExecutionsQuery{
-		UID:          req.GetUid(),
-		WorkflowType: strings.TrimSpace(req.GetWorkflowType()),
-		Limit:        limit,
-		Offset:       req.GetOffset(),
+	wfExecutions, err := s.wfExecution.ListWfExecutions(ctx, biz.ListWfExecutionsQuery{
+		UID:            req.GetUid(),
+		DefinitionType: strings.TrimSpace(req.GetDefinitionType()),
+		Limit:          limit,
+		Offset:         req.GetOffset(),
 	})
 	if err != nil {
 		return nil, err
 	}
 
-	page := &pb.ExecutionPage{
-		Limit:      limit,
-		Offset:     req.GetOffset(),
-		Executions: make([]*pb.Execution, 0, len(executions)),
+	page := &pb.WorkflowExecutionPage{
+		Limit:              limit,
+		Offset:             req.GetOffset(),
+		WorkflowExecutions: make([]*pb.WorkflowExecution, 0, len(wfExecutions)),
 	}
-	for _, execution := range executions {
-		reply, err := convertExecutionReply(execution)
+	for _, wfExecution := range wfExecutions {
+		reply, err := convertWfExecutionReply(wfExecution)
 		if err != nil {
 			return nil, err
 		}
-		page.Executions = append(page.Executions, reply)
+		page.WorkflowExecutions = append(page.WorkflowExecutions, reply)
 	}
-	return &pb.ListExecutionsResponse{Data: page}, nil
+	return &pb.ListWorkflowExecutionsResponse{Data: page}, nil
 }
 
-func convertExecutionReply(in *biz.Execution) (*pb.Execution, error) {
+func convertWfExecutionReply(in *biz.WfExecution) (*pb.WorkflowExecution, error) {
 	if in == nil {
-		return nil, biz.ErrExecutionInternal
+		return nil, biz.ErrWfExecutionInternal
 	}
 	input, err := structpb.NewStruct(in.Input)
 	if err != nil {
-		return nil, biz.ErrExecutionInternal
+		return nil, biz.ErrWfExecutionInternal
 	}
-	reply := &pb.Execution{
-		ExecutionId:    in.ID,
-		Uid:            in.UID,
-		IdempotencyKey: in.IdempotencyKey,
-		WorkflowId:     in.WorkflowID,
-		WorkflowType:   in.WorkflowType,
-		Status:         string(in.Status),
-		Input:          input,
+	reply := &pb.WorkflowExecution{
+		WorkflowExecutionId: in.ID,
+		Uid:                 in.UID,
+		IdempotencyKey:      in.IdempotencyKey,
+		DefinitionId:        in.DefinitionID,
+		DefinitionType:      in.DefinitionType,
+		Status:              string(in.Status),
+		Input:               input,
 	}
 	if in.Output != nil {
 		reply.Output, err = structpb.NewValue(in.Output)
 		if err != nil {
-			return nil, biz.ErrExecutionInternal
+			return nil, biz.ErrWfExecutionInternal
 		}
 	}
 	if in.ErrorInfo != nil {

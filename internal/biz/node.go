@@ -6,17 +6,23 @@ import (
 
 	"github.com/expr-lang/expr"
 	"github.com/expr-lang/expr/vm"
+	"github.com/google/jsonschema-go/jsonschema"
+	"go.temporal.io/sdk/temporal"
 )
 
 type NodeType string
 
+func (nt *NodeType) String() string {
+	return string(*nt)
+}
+
 // 这里定义需要的节点类型
 const (
-	NodeTypeOutput                   NodeType = "OUTPUT"
-	NodeTypeExclusive                NodeType = "EXCLUSIVE"
-	NodeTypeInclusive                NodeType = "INCLUSIVE"
-	NodeTypeSaySomething             NodeType = "SAY_SOMETHING"
-	NodeTypeExample                  NodeType = "EXAMPLE"
+	NodeTypeOutput       NodeType = "OUTPUT"
+	NodeTypeExclusive    NodeType = "EXCLUSIVE"
+	NodeTypeInclusive    NodeType = "INCLUSIVE"
+	NodeTypeSaySomething NodeType = "SAY_SOMETHING"
+	NodeTypeExample      NodeType = "EXAMPLE"
 
 	presetBranchesKey = "branches"
 )
@@ -28,6 +34,7 @@ type Node interface {
 
 type ActivityNode interface {
 	Node
+	RetryPolicy() temporal.RetryPolicy
 	Activity(ctx context.Context, inputValues map[string]any) (map[string]any, error)
 }
 
@@ -38,20 +45,9 @@ type RouterNode interface {
 
 // NodeSchema 描述节点类型的数据端口。
 type NodeSchema struct {
-	Type    NodeType
-	Inputs  map[string]InputDefinition
-	Outputs map[string]OutputDefinition
-}
-
-// InputDefinition 描述节点输入。
-type InputDefinition struct {
-	Type     string
-	Required bool
-}
-
-// OutputDefinition 描述节点输出。
-type OutputDefinition struct {
-	Type string
+	Type         NodeType
+	InputSchema  *jsonschema.Schema
+	OutputSchema *jsonschema.Schema
 }
 
 // NodeRepo 提供节点信息查询能力。
@@ -69,8 +65,8 @@ func NewNodeUsecase(repo NodeRepo) *NodeUsecase {
 	return &NodeUsecase{repo: repo}
 }
 
-// GetNodeTypes 返回当前支持的节点类型。
-func (uc *NodeUsecase) GetNodeTypes() []NodeSchema {
+// GetNodeSchemas 返回画布可选节点的 schema。
+func (uc *NodeUsecase) GetNodeSchemas() []NodeSchema {
 	nodes := []Node{
 		&outputNode{},
 		&routerNode{nodeType: NodeTypeExclusive},
@@ -94,11 +90,7 @@ func (*outputNode) Type() NodeType {
 }
 
 func (*outputNode) Schema() NodeSchema {
-	return NodeSchema{
-		Type:    NodeTypeOutput,
-		Inputs:  map[string]InputDefinition{},
-		Outputs: map[string]OutputDefinition{},
-	}
+	return objectNodeSchema(NodeTypeOutput)
 }
 
 type Branch struct {
@@ -118,10 +110,14 @@ func (n *routerNode) Type() NodeType {
 }
 
 func (n *routerNode) Schema() NodeSchema {
+	return objectNodeSchema(n.nodeType)
+}
+
+func objectNodeSchema(nodeType NodeType) NodeSchema {
 	return NodeSchema{
-		Type:    n.nodeType,
-		Inputs:  map[string]InputDefinition{},
-		Outputs: map[string]OutputDefinition{},
+		Type:         nodeType,
+		InputSchema:  &jsonschema.Schema{Type: "object"},
+		OutputSchema: &jsonschema.Schema{Type: "object"},
 	}
 }
 

@@ -8,11 +8,35 @@ import (
 	"github.com/jackc/pgx/v5/pgtype"
 )
 
-type Execution struct {
-	ExecutionID          string
+type NodeExecution struct {
+	NodeExecutionID      string
+	WorkflowExecutionID  pgtype.Text
+	IdempotencyKey       string
+	NodeID               pgtype.Text
+	NodeType             string
+	Input                []byte
+	Status               string
+	Output               []byte
+	InternalErrorMessage pgtype.Text
+	CreatedAt            pgtype.Timestamptz
+	DurationMs           pgtype.Int8
+}
+
+type WorkflowDefinition struct {
+	DefinitionID string
+	Uid          pgtype.Int8
+	Name         string
+	Type         string
+	Definition   []byte
+	CreatedAt    pgtype.Timestamptz
+	UpdatedAt    pgtype.Timestamptz
+}
+
+type WorkflowExecution struct {
+	WorkflowExecutionID  string
 	Uid                  int64
 	IdempotencyKey       pgtype.Text
-	WorkflowID           string
+	DefinitionID         string
 	Definition           []byte
 	Status               string
 	Input                []byte
@@ -24,14 +48,4 @@ type Execution struct {
 	StartedAt            pgtype.Timestamptz
 	CompletedAt          pgtype.Timestamptz
 	UpdatedAt            pgtype.Timestamptz
-}
-
-type Workflow struct {
-	WorkflowID string
-	Uid        pgtype.Int8
-	Name       string
-	Type       string
-	Definition []byte
-	CreatedAt  pgtype.Timestamptz
-	UpdatedAt  pgtype.Timestamptz
 }

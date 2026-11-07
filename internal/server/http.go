@@ -5,6 +5,11 @@ import (
 	"log/slog"
 	"time"
 
+	workflowv1 "github.com/hobbyGG/workflow/api/workflow/v1"
+	"github.com/hobbyGG/workflow/internal/conf"
+	"github.com/hobbyGG/workflow/internal/service"
+	"github.com/hobbyGG/workflow/pkg/metrics"
+
 	"github.com/go-kratos/kratos/contrib/otel/v3/tracing"
 	"github.com/go-kratos/kratos/v3/errors"
 	"github.com/go-kratos/kratos/v3/middleware"
@@ -12,10 +17,6 @@ import (
 	"github.com/go-kratos/kratos/v3/middleware/validate"
 	"github.com/go-kratos/kratos/v3/transport"
 	"github.com/go-kratos/kratos/v3/transport/http"
-	workflowv1 "github.com/hobbyGG/workflow/api/workflow/v1"
-	"github.com/hobbyGG/workflow/internal/conf"
-	"github.com/hobbyGG/workflow/internal/service"
-	"go.opentelemetry.io/otel/trace"
 
 	"go.einride.tech/aip/fieldbehavior"
 	"google.golang.org/protobuf/proto"
@@ -24,19 +25,22 @@ import (
 func NewHTTPServer(
 	c *conf.Server,
 	workflow *service.WorkflowService,
+	tool *service.ToolService,
 	logger *slog.Logger,
+	metricsRegistry *metrics.Registry,
 ) *http.Server {
-	srv := newHTTPServer(c, logger)
+	srv := newHTTPServer(c, logger, metricsRegistry)
 	workflowv1.RegisterWorkflowServiceHTTPServer(srv, workflow)
+	workflowv1.RegisterToolServiceHTTPServer(srv, tool)
 	return srv
 }
 
-func newHTTPServer(c *conf.Server, logger *slog.Logger) *http.Server {
+func newHTTPServer(c *conf.Server, logger *slog.Logger, metricsRegistry *metrics.Registry) *http.Server {
 	var opts = []http.ServerOption{
 		http.Middleware(
 			tracing.Server(),
-			requestContext(),
 			accessLog(logger),
+			metricsRegistry.HTTPMiddleware(),
 			recovery.Recovery(recovery.WithLogger(logger)),
 			validate.Validator(func(req any) error {
 				if msg, ok := req.(proto.Message); ok {
@@ -57,21 +61,9 @@ func newHTTPServer(c *conf.Server, logger *slog.Logger) *http.Server {
 	if c.Http.Timeout != nil {
 		opts = append(opts, http.Timeout(c.Http.Timeout.AsDuration()))
 	}
-	return http.NewServer(opts...)
-}
-
-// requestContext collects information associated with the current request.
-func requestContext() middleware.Middleware {
-	return func(handler middleware.Handler) middleware.Handler {
-		return func(ctx context.Context, req any) (any, error) {
-			tr, hasTransport := transport.FromServerContext(ctx)
-			spanContext := trace.SpanContextFromContext(ctx)
-			if spanContext.HasTraceID() && hasTransport && tr.ReplyHeader() != nil {
-				tr.ReplyHeader().Set("X-Trace-Id", spanContext.TraceID().String())
-			}
-			return handler(ctx, req)
-		}
-	}
+	srv := http.NewServer(opts...)
+	srv.Handle("/metrics", metricsRegistry.Handler())
+	return srv
 }
 
 // accessLog records HTTP metadata without serializing decoded request or
@@ -96,7 +88,7 @@ func accessLog(logger *slog.Logger) middleware.Middleware {
 				operation = tr.Operation()
 			}
 			status := errors.Code(err)
-			if err == nil && (path == "/healthz" || path == "/readyz") {
+			if err == nil && (path == "/live" || path == "/ready") {
 				return reply, nil
 			}
 			attrs := []slog.Attr{

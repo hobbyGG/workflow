@@ -28,12 +28,22 @@ func (s *WorkerService) RegisterTemporalWorker(w worker.Worker) {
 	w.RegisterWorkflowWithOptions(s.worker.DynamicWorkflow, temporalworkflow.RegisterOptions{
 		Name: biz.DynamicWorkflowType,
 	})
-	w.RegisterActivityWithOptions(s.worker.UpdateExecutionStatus, activity.RegisterOptions{
-		Name: biz.UpdateExecutionStatusActivityType,
+	w.RegisterWorkflowWithOptions(s.worker.StandAloneNodeWorkflow, temporalworkflow.RegisterOptions{
+		Name: biz.ActivityNodeWorkflowType,
+	})
+	w.RegisterActivityWithOptions(s.worker.UpdateWfExecutionStatus, activity.RegisterOptions{
+		Name: biz.UpdateWfExecutionStatusActivityType,
+	})
+	w.RegisterActivityWithOptions(s.worker.MarkNodeExecutionRunning, activity.RegisterOptions{
+		Name: biz.MarkNodeExecutionRunningActivityType,
+	})
+	w.RegisterActivityWithOptions(s.worker.FinishNodeExecution, activity.RegisterOptions{
+		Name: biz.FinishNodeExecutionActivityType,
 	})
 	for _, node := range s.worker.GetActivityNodes() {
+		nodeType := node.Type()
 		w.RegisterActivityWithOptions(node.Activity, activity.RegisterOptions{
-			Name: string(node.Type()),
+			Name: nodeType.String(),
 		})
 	}
 }

@@ -9,6 +9,7 @@ import (
 	workerv1 "github.com/hobbyGG/workflow/api/worker/v1"
 	"github.com/hobbyGG/workflow/internal/conf"
 	"github.com/hobbyGG/workflow/internal/service"
+	"github.com/hobbyGG/workflow/pkg/metrics"
 
 	"github.com/go-kratos/kratos/v3/transport/grpc"
 	"github.com/go-kratos/kratos/v3/transport/http"
@@ -17,8 +18,13 @@ import (
 )
 
 // NewWorkerHTTPServer 创建并注册 Worker HTTP 服务。
-func NewWorkerHTTPServer(c *conf.Server, workerService *service.WorkerService, logger *slog.Logger) *http.Server {
-	srv := newHTTPServer(c, logger)
+func NewWorkerHTTPServer(
+	c *conf.Server,
+	workerService *service.WorkerService,
+	logger *slog.Logger,
+	metricsRegistry *metrics.Registry,
+) *http.Server {
+	srv := newHTTPServer(c, logger, metricsRegistry)
 	workerv1.RegisterWorkerServiceHTTPServer(srv, workerService)
 	return srv
 }
@@ -41,6 +47,7 @@ type TemporalWorker struct {
 // NewTemporalWorker 创建 Temporal Worker 并注册 WorkerService。
 func NewTemporalWorker(c *conf.Data, temporalClient client.Client, workerService *service.WorkerService) *TemporalWorker {
 	taskQueue := strings.TrimSpace(c.Temporal.TaskQueue)
+
 	s := &TemporalWorker{
 		stopSignal: make(chan any),
 		done:       make(chan struct{}),

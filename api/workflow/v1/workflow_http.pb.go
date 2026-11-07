@@ -17,48 +17,48 @@ var _ = new(context.Context)
 
 const _ = http.SupportPackageIsVersion3
 
-const OperationWorkflowServiceCreateExecution = "/workflow.v1.WorkflowService/CreateExecution"
-const OperationWorkflowServiceCreateWorkflow = "/workflow.v1.WorkflowService/CreateWorkflow"
-const OperationWorkflowServiceGetExecution = "/workflow.v1.WorkflowService/GetExecution"
-const OperationWorkflowServiceGetWorkflow = "/workflow.v1.WorkflowService/GetWorkflow"
+const OperationWorkflowServiceCreateDefinition = "/workflow.v1.WorkflowService/CreateDefinition"
+const OperationWorkflowServiceCreateWorkflowExecution = "/workflow.v1.WorkflowService/CreateWorkflowExecution"
+const OperationWorkflowServiceGetDefinition = "/workflow.v1.WorkflowService/GetDefinition"
+const OperationWorkflowServiceGetWorkflowExecution = "/workflow.v1.WorkflowService/GetWorkflowExecution"
 const OperationWorkflowServiceHealthz = "/workflow.v1.WorkflowService/Healthz"
-const OperationWorkflowServiceListExecutions = "/workflow.v1.WorkflowService/ListExecutions"
-const OperationWorkflowServiceListNodeTypes = "/workflow.v1.WorkflowService/ListNodeTypes"
-const OperationWorkflowServiceListWorkflows = "/workflow.v1.WorkflowService/ListWorkflows"
+const OperationWorkflowServiceListDefinitions = "/workflow.v1.WorkflowService/ListDefinitions"
+const OperationWorkflowServiceListNodeSchemas = "/workflow.v1.WorkflowService/ListNodeSchemas"
+const OperationWorkflowServiceListWorkflowExecutions = "/workflow.v1.WorkflowService/ListWorkflowExecutions"
 const OperationWorkflowServiceReadyz = "/workflow.v1.WorkflowService/Readyz"
 
 type WorkflowServiceHTTPServer interface {
-	// CreateExecution CreateExecution 发起异步工作流执行。
-	CreateExecution(context.Context, *CreateExecutionRequest) (*CreateExecutionResponse, error)
-	// CreateWorkflow CreateWorkflow 创建工作流。
-	CreateWorkflow(context.Context, *CreateWorkflowRequest) (*CreateWorkflowResponse, error)
-	// GetExecution GetExecution 查询工作流执行。
-	GetExecution(context.Context, *GetExecutionRequest) (*GetExecutionResponse, error)
-	// GetWorkflow GetWorkflow 查询工作流。
-	GetWorkflow(context.Context, *GetWorkflowRequest) (*GetWorkflowResponse, error)
+	// CreateDefinition CreateDefinition 创建工作流定义。
+	CreateDefinition(context.Context, *CreateDefinitionRequest) (*CreateDefinitionResponse, error)
+	// CreateWorkflowExecution CreateWorkflowExecution 发起异步工作流执行。
+	CreateWorkflowExecution(context.Context, *CreateWorkflowExecutionRequest) (*CreateWorkflowExecutionResponse, error)
+	// GetDefinition GetDefinition 查询工作流定义。
+	GetDefinition(context.Context, *GetDefinitionRequest) (*GetDefinitionResponse, error)
+	// GetWorkflowExecution GetWorkflowExecution 查询工作流执行。
+	GetWorkflowExecution(context.Context, *GetWorkflowExecutionRequest) (*GetWorkflowExecutionResponse, error)
 	// Healthz Healthz 检查服务进程是否存活。
 	Healthz(context.Context, *WorkflowServiceHealthzRequest) (*WorkflowServiceHealthzResponse, error)
-	// ListExecutions ListExecutions 查询工作流执行列表。
-	ListExecutions(context.Context, *ListExecutionsRequest) (*ListExecutionsResponse, error)
-	// ListNodeTypes ListNodeTypes 查询节点类型列表。
-	ListNodeTypes(context.Context, *ListNodeTypesRequest) (*ListNodeTypesResponse, error)
-	// ListWorkflows ListWorkflows 查询工作流列表。
-	ListWorkflows(context.Context, *ListWorkflowsRequest) (*ListWorkflowsResponse, error)
+	// ListDefinitions ListDefinitions 查询工作流定义列表。
+	ListDefinitions(context.Context, *ListDefinitionsRequest) (*ListDefinitionsResponse, error)
+	// ListNodeSchemas ListNodeSchemas 查询画布可选节点的 schema 列表。
+	ListNodeSchemas(context.Context, *ListNodeSchemasRequest) (*ListNodeSchemasResponse, error)
+	// ListWorkflowExecutions ListWorkflowExecutions 查询工作流执行列表。
+	ListWorkflowExecutions(context.Context, *ListWorkflowExecutionsRequest) (*ListWorkflowExecutionsResponse, error)
 	// Readyz Readyz 检查服务是否可以接收请求。
 	Readyz(context.Context, *WorkflowServiceReadyzRequest) (*WorkflowServiceReadyzResponse, error)
 }
 
 func RegisterWorkflowServiceHTTPServer(s *http.Server, srv WorkflowServiceHTTPServer) {
 	r := s.Route("/")
-	r.Handle("GET", "/healthz", _WorkflowService_Healthz0_HTTP_Handler(srv))
-	r.Handle("GET", "/readyz", _WorkflowService_Readyz0_HTTP_Handler(srv))
-	r.Handle("POST", "/internal/v1/executions", _WorkflowService_CreateExecution0_HTTP_Handler(srv))
-	r.Handle("GET", "/internal/v1/executions/{execution_id}", _WorkflowService_GetExecution0_HTTP_Handler(srv))
-	r.Handle("GET", "/internal/v1/executions", _WorkflowService_ListExecutions0_HTTP_Handler(srv))
-	r.Handle("GET", "/internal/v1/node-types", _WorkflowService_ListNodeTypes0_HTTP_Handler(srv))
-	r.Handle("POST", "/internal/v1/workflows", _WorkflowService_CreateWorkflow0_HTTP_Handler(srv))
-	r.Handle("GET", "/internal/v1/workflows", _WorkflowService_ListWorkflows0_HTTP_Handler(srv))
-	r.Handle("GET", "/internal/v1/workflows/{workflow_id}", _WorkflowService_GetWorkflow0_HTTP_Handler(srv))
+	r.Handle("GET", "/live", _WorkflowService_Healthz0_HTTP_Handler(srv))
+	r.Handle("GET", "/ready", _WorkflowService_Readyz0_HTTP_Handler(srv))
+	r.Handle("POST", "/internal/v1/workflow-executions", _WorkflowService_CreateWorkflowExecution0_HTTP_Handler(srv))
+	r.Handle("GET", "/internal/v1/workflow-executions/{workflow_execution_id}", _WorkflowService_GetWorkflowExecution0_HTTP_Handler(srv))
+	r.Handle("GET", "/internal/v1/workflow-executions", _WorkflowService_ListWorkflowExecutions0_HTTP_Handler(srv))
+	r.Handle("GET", "/internal/v1/node-schemas", _WorkflowService_ListNodeSchemas0_HTTP_Handler(srv))
+	r.Handle("POST", "/internal/v1/definitions", _WorkflowService_CreateDefinition0_HTTP_Handler(srv))
+	r.Handle("GET", "/internal/v1/definitions", _WorkflowService_ListDefinitions0_HTTP_Handler(srv))
+	r.Handle("GET", "/internal/v1/definitions/{definition_id}", _WorkflowService_GetDefinition0_HTTP_Handler(srv))
 }
 
 func _WorkflowService_Healthz0_HTTP_Handler(srv WorkflowServiceHTTPServer) func(ctx http.Context) error {
@@ -99,162 +99,162 @@ func _WorkflowService_Readyz0_HTTP_Handler(srv WorkflowServiceHTTPServer) func(c
 	}
 }
 
-func _WorkflowService_CreateExecution0_HTTP_Handler(srv WorkflowServiceHTTPServer) func(ctx http.Context) error {
+func _WorkflowService_CreateWorkflowExecution0_HTTP_Handler(srv WorkflowServiceHTTPServer) func(ctx http.Context) error {
 	return func(ctx http.Context) error {
-		var in CreateExecutionRequest
+		var in CreateWorkflowExecutionRequest
 		if err := ctx.Bind(&in); err != nil {
 			return err
 		}
-		http.SetOperation(ctx, OperationWorkflowServiceCreateExecution)
+		http.SetOperation(ctx, OperationWorkflowServiceCreateWorkflowExecution)
 		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
-			return srv.CreateExecution(ctx, req.(*CreateExecutionRequest))
+			return srv.CreateWorkflowExecution(ctx, req.(*CreateWorkflowExecutionRequest))
 		})
 		out, err := h(ctx, &in)
 		if err != nil {
 			return err
 		}
-		reply := out.(*CreateExecutionResponse)
+		reply := out.(*CreateWorkflowExecutionResponse)
 		return ctx.Result(200, reply)
 	}
 }
 
-func _WorkflowService_GetExecution0_HTTP_Handler(srv WorkflowServiceHTTPServer) func(ctx http.Context) error {
+func _WorkflowService_GetWorkflowExecution0_HTTP_Handler(srv WorkflowServiceHTTPServer) func(ctx http.Context) error {
 	return func(ctx http.Context) error {
-		var in GetExecutionRequest
+		var in GetWorkflowExecutionRequest
 		if err := ctx.BindQuery(&in); err != nil {
 			return err
 		}
 		if err := ctx.BindVars(&in); err != nil {
 			return err
 		}
-		http.SetOperation(ctx, OperationWorkflowServiceGetExecution)
+		http.SetOperation(ctx, OperationWorkflowServiceGetWorkflowExecution)
 		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
-			return srv.GetExecution(ctx, req.(*GetExecutionRequest))
+			return srv.GetWorkflowExecution(ctx, req.(*GetWorkflowExecutionRequest))
 		})
 		out, err := h(ctx, &in)
 		if err != nil {
 			return err
 		}
-		reply := out.(*GetExecutionResponse)
+		reply := out.(*GetWorkflowExecutionResponse)
 		return ctx.Result(200, reply)
 	}
 }
 
-func _WorkflowService_ListExecutions0_HTTP_Handler(srv WorkflowServiceHTTPServer) func(ctx http.Context) error {
+func _WorkflowService_ListWorkflowExecutions0_HTTP_Handler(srv WorkflowServiceHTTPServer) func(ctx http.Context) error {
 	return func(ctx http.Context) error {
-		var in ListExecutionsRequest
+		var in ListWorkflowExecutionsRequest
 		if err := ctx.BindQuery(&in); err != nil {
 			return err
 		}
-		http.SetOperation(ctx, OperationWorkflowServiceListExecutions)
+		http.SetOperation(ctx, OperationWorkflowServiceListWorkflowExecutions)
 		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
-			return srv.ListExecutions(ctx, req.(*ListExecutionsRequest))
+			return srv.ListWorkflowExecutions(ctx, req.(*ListWorkflowExecutionsRequest))
 		})
 		out, err := h(ctx, &in)
 		if err != nil {
 			return err
 		}
-		reply := out.(*ListExecutionsResponse)
+		reply := out.(*ListWorkflowExecutionsResponse)
 		return ctx.Result(200, reply)
 	}
 }
 
-func _WorkflowService_ListNodeTypes0_HTTP_Handler(srv WorkflowServiceHTTPServer) func(ctx http.Context) error {
+func _WorkflowService_ListNodeSchemas0_HTTP_Handler(srv WorkflowServiceHTTPServer) func(ctx http.Context) error {
 	return func(ctx http.Context) error {
-		var in ListNodeTypesRequest
+		var in ListNodeSchemasRequest
 		if err := ctx.BindQuery(&in); err != nil {
 			return err
 		}
-		http.SetOperation(ctx, OperationWorkflowServiceListNodeTypes)
+		http.SetOperation(ctx, OperationWorkflowServiceListNodeSchemas)
 		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
-			return srv.ListNodeTypes(ctx, req.(*ListNodeTypesRequest))
+			return srv.ListNodeSchemas(ctx, req.(*ListNodeSchemasRequest))
 		})
 		out, err := h(ctx, &in)
 		if err != nil {
 			return err
 		}
-		reply := out.(*ListNodeTypesResponse)
+		reply := out.(*ListNodeSchemasResponse)
 		return ctx.Result(200, reply)
 	}
 }
 
-func _WorkflowService_CreateWorkflow0_HTTP_Handler(srv WorkflowServiceHTTPServer) func(ctx http.Context) error {
+func _WorkflowService_CreateDefinition0_HTTP_Handler(srv WorkflowServiceHTTPServer) func(ctx http.Context) error {
 	return func(ctx http.Context) error {
-		var in CreateWorkflowRequest
+		var in CreateDefinitionRequest
 		if err := ctx.Bind(&in); err != nil {
 			return err
 		}
-		http.SetOperation(ctx, OperationWorkflowServiceCreateWorkflow)
+		http.SetOperation(ctx, OperationWorkflowServiceCreateDefinition)
 		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
-			return srv.CreateWorkflow(ctx, req.(*CreateWorkflowRequest))
+			return srv.CreateDefinition(ctx, req.(*CreateDefinitionRequest))
 		})
 		out, err := h(ctx, &in)
 		if err != nil {
 			return err
 		}
-		reply := out.(*CreateWorkflowResponse)
+		reply := out.(*CreateDefinitionResponse)
 		return ctx.Result(200, reply)
 	}
 }
 
-func _WorkflowService_ListWorkflows0_HTTP_Handler(srv WorkflowServiceHTTPServer) func(ctx http.Context) error {
+func _WorkflowService_ListDefinitions0_HTTP_Handler(srv WorkflowServiceHTTPServer) func(ctx http.Context) error {
 	return func(ctx http.Context) error {
-		var in ListWorkflowsRequest
+		var in ListDefinitionsRequest
 		if err := ctx.BindQuery(&in); err != nil {
 			return err
 		}
-		http.SetOperation(ctx, OperationWorkflowServiceListWorkflows)
+		http.SetOperation(ctx, OperationWorkflowServiceListDefinitions)
 		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
-			return srv.ListWorkflows(ctx, req.(*ListWorkflowsRequest))
+			return srv.ListDefinitions(ctx, req.(*ListDefinitionsRequest))
 		})
 		out, err := h(ctx, &in)
 		if err != nil {
 			return err
 		}
-		reply := out.(*ListWorkflowsResponse)
+		reply := out.(*ListDefinitionsResponse)
 		return ctx.Result(200, reply)
 	}
 }
 
-func _WorkflowService_GetWorkflow0_HTTP_Handler(srv WorkflowServiceHTTPServer) func(ctx http.Context) error {
+func _WorkflowService_GetDefinition0_HTTP_Handler(srv WorkflowServiceHTTPServer) func(ctx http.Context) error {
 	return func(ctx http.Context) error {
-		var in GetWorkflowRequest
+		var in GetDefinitionRequest
 		if err := ctx.BindQuery(&in); err != nil {
 			return err
 		}
 		if err := ctx.BindVars(&in); err != nil {
 			return err
 		}
-		http.SetOperation(ctx, OperationWorkflowServiceGetWorkflow)
+		http.SetOperation(ctx, OperationWorkflowServiceGetDefinition)
 		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
-			return srv.GetWorkflow(ctx, req.(*GetWorkflowRequest))
+			return srv.GetDefinition(ctx, req.(*GetDefinitionRequest))
 		})
 		out, err := h(ctx, &in)
 		if err != nil {
 			return err
 		}
-		reply := out.(*GetWorkflowResponse)
+		reply := out.(*GetDefinitionResponse)
 		return ctx.Result(200, reply)
 	}
 }
 
 type WorkflowServiceHTTPClient interface {
-	// CreateExecution CreateExecution 发起异步工作流执行。
-	CreateExecution(ctx context.Context, req *CreateExecutionRequest, opts ...http.CallOption) (rsp *CreateExecutionResponse, err error)
-	// CreateWorkflow CreateWorkflow 创建工作流。
-	CreateWorkflow(ctx context.Context, req *CreateWorkflowRequest, opts ...http.CallOption) (rsp *CreateWorkflowResponse, err error)
-	// GetExecution GetExecution 查询工作流执行。
-	GetExecution(ctx context.Context, req *GetExecutionRequest, opts ...http.CallOption) (rsp *GetExecutionResponse, err error)
-	// GetWorkflow GetWorkflow 查询工作流。
-	GetWorkflow(ctx context.Context, req *GetWorkflowRequest, opts ...http.CallOption) (rsp *GetWorkflowResponse, err error)
+	// CreateDefinition CreateDefinition 创建工作流定义。
+	CreateDefinition(ctx context.Context, req *CreateDefinitionRequest, opts ...http.CallOption) (rsp *CreateDefinitionResponse, err error)
+	// CreateWorkflowExecution CreateWorkflowExecution 发起异步工作流执行。
+	CreateWorkflowExecution(ctx context.Context, req *CreateWorkflowExecutionRequest, opts ...http.CallOption) (rsp *CreateWorkflowExecutionResponse, err error)
+	// GetDefinition GetDefinition 查询工作流定义。
+	GetDefinition(ctx context.Context, req *GetDefinitionRequest, opts ...http.CallOption) (rsp *GetDefinitionResponse, err error)
+	// GetWorkflowExecution GetWorkflowExecution 查询工作流执行。
+	GetWorkflowExecution(ctx context.Context, req *GetWorkflowExecutionRequest, opts ...http.CallOption) (rsp *GetWorkflowExecutionResponse, err error)
 	// Healthz Healthz 检查服务进程是否存活。
 	Healthz(ctx context.Context, req *WorkflowServiceHealthzRequest, opts ...http.CallOption) (rsp *WorkflowServiceHealthzResponse, err error)
-	// ListExecutions ListExecutions 查询工作流执行列表。
-	ListExecutions(ctx context.Context, req *ListExecutionsRequest, opts ...http.CallOption) (rsp *ListExecutionsResponse, err error)
-	// ListNodeTypes ListNodeTypes 查询节点类型列表。
-	ListNodeTypes(ctx context.Context, req *ListNodeTypesRequest, opts ...http.CallOption) (rsp *ListNodeTypesResponse, err error)
-	// ListWorkflows ListWorkflows 查询工作流列表。
-	ListWorkflows(ctx context.Context, req *ListWorkflowsRequest, opts ...http.CallOption) (rsp *ListWorkflowsResponse, err error)
+	// ListDefinitions ListDefinitions 查询工作流定义列表。
+	ListDefinitions(ctx context.Context, req *ListDefinitionsRequest, opts ...http.CallOption) (rsp *ListDefinitionsResponse, err error)
+	// ListNodeSchemas ListNodeSchemas 查询画布可选节点的 schema 列表。
+	ListNodeSchemas(ctx context.Context, req *ListNodeSchemasRequest, opts ...http.CallOption) (rsp *ListNodeSchemasResponse, err error)
+	// ListWorkflowExecutions ListWorkflowExecutions 查询工作流执行列表。
+	ListWorkflowExecutions(ctx context.Context, req *ListWorkflowExecutionsRequest, opts ...http.CallOption) (rsp *ListWorkflowExecutionsResponse, err error)
 	// Readyz Readyz 检查服务是否可以接收请求。
 	Readyz(ctx context.Context, req *WorkflowServiceReadyzRequest, opts ...http.CallOption) (rsp *WorkflowServiceReadyzResponse, err error)
 }
@@ -267,15 +267,15 @@ func NewWorkflowServiceHTTPClient(client *http.Client) WorkflowServiceHTTPClient
 	return &WorkflowServiceHTTPClientImpl{client}
 }
 
-// CreateExecution CreateExecution 发起异步工作流执行。
-func (c *WorkflowServiceHTTPClientImpl) CreateExecution(ctx context.Context, in *CreateExecutionRequest, opts ...http.CallOption) (*CreateExecutionResponse, error) {
-	var out CreateExecutionResponse
-	pattern := "/internal/v1/executions"
+// CreateDefinition CreateDefinition 创建工作流定义。
+func (c *WorkflowServiceHTTPClientImpl) CreateDefinition(ctx context.Context, in *CreateDefinitionRequest, opts ...http.CallOption) (*CreateDefinitionResponse, error) {
+	var out CreateDefinitionResponse
+	pattern := "/internal/v1/definitions"
 	path := http.BuildPath(pattern, in)
 	opts = append([]http.CallOption{
 		http.Accept("application/protojson"),
 		http.ContentType("application/protojson"),
-		http.Operation(OperationWorkflowServiceCreateExecution),
+		http.Operation(OperationWorkflowServiceCreateDefinition),
 		http.PathTemplate(pattern),
 	}, opts...)
 	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
@@ -285,15 +285,15 @@ func (c *WorkflowServiceHTTPClientImpl) CreateExecution(ctx context.Context, in 
 	return &out, nil
 }
 
-// CreateWorkflow CreateWorkflow 创建工作流。
-func (c *WorkflowServiceHTTPClientImpl) CreateWorkflow(ctx context.Context, in *CreateWorkflowRequest, opts ...http.CallOption) (*CreateWorkflowResponse, error) {
-	var out CreateWorkflowResponse
-	pattern := "/internal/v1/workflows"
+// CreateWorkflowExecution CreateWorkflowExecution 发起异步工作流执行。
+func (c *WorkflowServiceHTTPClientImpl) CreateWorkflowExecution(ctx context.Context, in *CreateWorkflowExecutionRequest, opts ...http.CallOption) (*CreateWorkflowExecutionResponse, error) {
+	var out CreateWorkflowExecutionResponse
+	pattern := "/internal/v1/workflow-executions"
 	path := http.BuildPath(pattern, in)
 	opts = append([]http.CallOption{
 		http.Accept("application/protojson"),
 		http.ContentType("application/protojson"),
-		http.Operation(OperationWorkflowServiceCreateWorkflow),
+		http.Operation(OperationWorkflowServiceCreateWorkflowExecution),
 		http.PathTemplate(pattern),
 	}, opts...)
 	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
@@ -303,14 +303,14 @@ func (c *WorkflowServiceHTTPClientImpl) CreateWorkflow(ctx context.Context, in *
 	return &out, nil
 }
 
-// GetExecution GetExecution 查询工作流执行。
-func (c *WorkflowServiceHTTPClientImpl) GetExecution(ctx context.Context, in *GetExecutionRequest, opts ...http.CallOption) (*GetExecutionResponse, error) {
-	var out GetExecutionResponse
-	pattern := "/internal/v1/executions/{execution_id}"
+// GetDefinition GetDefinition 查询工作流定义。
+func (c *WorkflowServiceHTTPClientImpl) GetDefinition(ctx context.Context, in *GetDefinitionRequest, opts ...http.CallOption) (*GetDefinitionResponse, error) {
+	var out GetDefinitionResponse
+	pattern := "/internal/v1/definitions/{definition_id}"
 	path := http.BuildPath(pattern, in, http.WithQueryParams())
 	opts = append([]http.CallOption{
 		http.Accept("application/protojson"),
-		http.Operation(OperationWorkflowServiceGetExecution),
+		http.Operation(OperationWorkflowServiceGetDefinition),
 		http.PathTemplate(pattern),
 	}, opts...)
 	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
@@ -320,14 +320,14 @@ func (c *WorkflowServiceHTTPClientImpl) GetExecution(ctx context.Context, in *Ge
 	return &out, nil
 }
 
-// GetWorkflow GetWorkflow 查询工作流。
-func (c *WorkflowServiceHTTPClientImpl) GetWorkflow(ctx context.Context, in *GetWorkflowRequest, opts ...http.CallOption) (*GetWorkflowResponse, error) {
-	var out GetWorkflowResponse
-	pattern := "/internal/v1/workflows/{workflow_id}"
+// GetWorkflowExecution GetWorkflowExecution 查询工作流执行。
+func (c *WorkflowServiceHTTPClientImpl) GetWorkflowExecution(ctx context.Context, in *GetWorkflowExecutionRequest, opts ...http.CallOption) (*GetWorkflowExecutionResponse, error) {
+	var out GetWorkflowExecutionResponse
+	pattern := "/internal/v1/workflow-executions/{workflow_execution_id}"
 	path := http.BuildPath(pattern, in, http.WithQueryParams())
 	opts = append([]http.CallOption{
 		http.Accept("application/protojson"),
-		http.Operation(OperationWorkflowServiceGetWorkflow),
+		http.Operation(OperationWorkflowServiceGetWorkflowExecution),
 		http.PathTemplate(pattern),
 	}, opts...)
 	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
@@ -340,7 +340,7 @@ func (c *WorkflowServiceHTTPClientImpl) GetWorkflow(ctx context.Context, in *Get
 // Healthz Healthz 检查服务进程是否存活。
 func (c *WorkflowServiceHTTPClientImpl) Healthz(ctx context.Context, in *WorkflowServiceHealthzRequest, opts ...http.CallOption) (*WorkflowServiceHealthzResponse, error) {
 	var out WorkflowServiceHealthzResponse
-	pattern := "/healthz"
+	pattern := "/live"
 	path := http.BuildPath(pattern, in, http.WithQueryParams())
 	opts = append([]http.CallOption{
 		http.Accept("application/protojson"),
@@ -354,14 +354,14 @@ func (c *WorkflowServiceHTTPClientImpl) Healthz(ctx context.Context, in *Workflo
 	return &out, nil
 }
 
-// ListExecutions ListExecutions 查询工作流执行列表。
-func (c *WorkflowServiceHTTPClientImpl) ListExecutions(ctx context.Context, in *ListExecutionsRequest, opts ...http.CallOption) (*ListExecutionsResponse, error) {
-	var out ListExecutionsResponse
-	pattern := "/internal/v1/executions"
+// ListDefinitions ListDefinitions 查询工作流定义列表。
+func (c *WorkflowServiceHTTPClientImpl) ListDefinitions(ctx context.Context, in *ListDefinitionsRequest, opts ...http.CallOption) (*ListDefinitionsResponse, error) {
+	var out ListDefinitionsResponse
+	pattern := "/internal/v1/definitions"
 	path := http.BuildPath(pattern, in, http.WithQueryParams())
 	opts = append([]http.CallOption{
 		http.Accept("application/protojson"),
-		http.Operation(OperationWorkflowServiceListExecutions),
+		http.Operation(OperationWorkflowServiceListDefinitions),
 		http.PathTemplate(pattern),
 	}, opts...)
 	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
@@ -371,14 +371,14 @@ func (c *WorkflowServiceHTTPClientImpl) ListExecutions(ctx context.Context, in *
 	return &out, nil
 }
 
-// ListNodeTypes ListNodeTypes 查询节点类型列表。
-func (c *WorkflowServiceHTTPClientImpl) ListNodeTypes(ctx context.Context, in *ListNodeTypesRequest, opts ...http.CallOption) (*ListNodeTypesResponse, error) {
-	var out ListNodeTypesResponse
-	pattern := "/internal/v1/node-types"
+// ListNodeSchemas ListNodeSchemas 查询画布可选节点的 schema 列表。
+func (c *WorkflowServiceHTTPClientImpl) ListNodeSchemas(ctx context.Context, in *ListNodeSchemasRequest, opts ...http.CallOption) (*ListNodeSchemasResponse, error) {
+	var out ListNodeSchemasResponse
+	pattern := "/internal/v1/node-schemas"
 	path := http.BuildPath(pattern, in, http.WithQueryParams())
 	opts = append([]http.CallOption{
 		http.Accept("application/protojson"),
-		http.Operation(OperationWorkflowServiceListNodeTypes),
+		http.Operation(OperationWorkflowServiceListNodeSchemas),
 		http.PathTemplate(pattern),
 	}, opts...)
 	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
@@ -388,14 +388,14 @@ func (c *WorkflowServiceHTTPClientImpl) ListNodeTypes(ctx context.Context, in *L
 	return &out, nil
 }
 
-// ListWorkflows ListWorkflows 查询工作流列表。
-func (c *WorkflowServiceHTTPClientImpl) ListWorkflows(ctx context.Context, in *ListWorkflowsRequest, opts ...http.CallOption) (*ListWorkflowsResponse, error) {
-	var out ListWorkflowsResponse
-	pattern := "/internal/v1/workflows"
+// ListWorkflowExecutions ListWorkflowExecutions 查询工作流执行列表。
+func (c *WorkflowServiceHTTPClientImpl) ListWorkflowExecutions(ctx context.Context, in *ListWorkflowExecutionsRequest, opts ...http.CallOption) (*ListWorkflowExecutionsResponse, error) {
+	var out ListWorkflowExecutionsResponse
+	pattern := "/internal/v1/workflow-executions"
 	path := http.BuildPath(pattern, in, http.WithQueryParams())
 	opts = append([]http.CallOption{
 		http.Accept("application/protojson"),
-		http.Operation(OperationWorkflowServiceListWorkflows),
+		http.Operation(OperationWorkflowServiceListWorkflowExecutions),
 		http.PathTemplate(pattern),
 	}, opts...)
 	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
@@ -408,7 +408,7 @@ func (c *WorkflowServiceHTTPClientImpl) ListWorkflows(ctx context.Context, in *L
 // Readyz Readyz 检查服务是否可以接收请求。
 func (c *WorkflowServiceHTTPClientImpl) Readyz(ctx context.Context, in *WorkflowServiceReadyzRequest, opts ...http.CallOption) (*WorkflowServiceReadyzResponse, error) {
 	var out WorkflowServiceReadyzResponse
-	pattern := "/readyz"
+	pattern := "/ready"
 	path := http.BuildPath(pattern, in, http.WithQueryParams())
 	opts = append([]http.CallOption{
 		http.Accept("application/protojson"),

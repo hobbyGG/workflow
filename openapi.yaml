@@ -7,107 +7,12 @@ info:
     description: WorkflowService 提供工作流相关 API。
     version: 0.0.1
 paths:
-    /healthz:
+    /internal/v1/definitions:
         get:
             tags:
                 - WorkflowService
-            description: Healthz 检查服务进程是否存活。
-            operationId: WorkflowService_Healthz
-            responses:
-                "200":
-                    description: OK
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/workflow.v1.WorkflowServiceHealthzResponse'
-    /internal/v1/executions:
-        get:
-            tags:
-                - WorkflowService
-            description: ListExecutions 查询工作流执行列表。
-            operationId: WorkflowService_ListExecutions
-            parameters:
-                - name: uid
-                  in: query
-                  schema:
-                    type: string
-                - name: workflow_type
-                  in: query
-                  schema:
-                    type: string
-                - name: limit
-                  in: query
-                  schema:
-                    type: integer
-                    format: int32
-                - name: offset
-                  in: query
-                  schema:
-                    type: integer
-                    format: int32
-            responses:
-                "200":
-                    description: OK
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/workflow.v1.ListExecutionsResponse'
-        post:
-            tags:
-                - WorkflowService
-            description: CreateExecution 发起异步工作流执行。
-            operationId: WorkflowService_CreateExecution
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            $ref: '#/components/schemas/workflow.v1.CreateExecutionRequest'
-                required: true
-            responses:
-                "200":
-                    description: OK
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/workflow.v1.CreateExecutionResponse'
-    /internal/v1/executions/{execution_id}:
-        get:
-            tags:
-                - WorkflowService
-            description: GetExecution 查询工作流执行。
-            operationId: WorkflowService_GetExecution
-            parameters:
-                - name: execution_id
-                  in: path
-                  required: true
-                  schema:
-                    type: string
-            responses:
-                "200":
-                    description: OK
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/workflow.v1.GetExecutionResponse'
-    /internal/v1/node-types:
-        get:
-            tags:
-                - WorkflowService
-            description: ListNodeTypes 查询节点类型列表。
-            operationId: WorkflowService_ListNodeTypes
-            responses:
-                "200":
-                    description: OK
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/workflow.v1.ListNodeTypesResponse'
-    /internal/v1/workflows:
-        get:
-            tags:
-                - WorkflowService
-            description: ListWorkflows 查询工作流列表。
-            operationId: WorkflowService_ListWorkflows
+            description: ListDefinitions 查询工作流定义列表。
+            operationId: WorkflowService_ListDefinitions
             parameters:
                 - name: uid
                   in: query
@@ -133,17 +38,17 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/workflow.v1.ListWorkflowsResponse'
+                                $ref: '#/components/schemas/workflow.v1.ListDefinitionsResponse'
         post:
             tags:
                 - WorkflowService
-            description: CreateWorkflow 创建工作流。
-            operationId: WorkflowService_CreateWorkflow
+            description: CreateDefinition 创建工作流定义。
+            operationId: WorkflowService_CreateDefinition
             requestBody:
                 content:
                     application/json:
                         schema:
-                            $ref: '#/components/schemas/workflow.v1.CreateWorkflowRequest'
+                            $ref: '#/components/schemas/workflow.v1.CreateDefinitionRequest'
                 required: true
             responses:
                 "200":
@@ -151,15 +56,15 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/workflow.v1.CreateWorkflowResponse'
-    /internal/v1/workflows/{workflow_id}:
+                                $ref: '#/components/schemas/workflow.v1.CreateDefinitionResponse'
+    /internal/v1/definitions/{definition_id}:
         get:
             tags:
                 - WorkflowService
-            description: GetWorkflow 查询工作流。
-            operationId: WorkflowService_GetWorkflow
+            description: GetDefinition 查询工作流定义。
+            operationId: WorkflowService_GetDefinition
             parameters:
-                - name: workflow_id
+                - name: definition_id
                   in: path
                   required: true
                   schema:
@@ -170,8 +75,103 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/workflow.v1.GetWorkflowResponse'
-    /readyz:
+                                $ref: '#/components/schemas/workflow.v1.GetDefinitionResponse'
+    /internal/v1/node-schemas:
+        get:
+            tags:
+                - WorkflowService
+            description: ListNodeSchemas 查询画布可选节点的 schema 列表。
+            operationId: WorkflowService_ListNodeSchemas
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/workflow.v1.ListNodeSchemasResponse'
+    /internal/v1/workflow-executions:
+        get:
+            tags:
+                - WorkflowService
+            description: ListWorkflowExecutions 查询工作流执行列表。
+            operationId: WorkflowService_ListWorkflowExecutions
+            parameters:
+                - name: uid
+                  in: query
+                  schema:
+                    type: string
+                - name: definition_type
+                  in: query
+                  schema:
+                    type: string
+                - name: limit
+                  in: query
+                  schema:
+                    type: integer
+                    format: int32
+                - name: offset
+                  in: query
+                  schema:
+                    type: integer
+                    format: int32
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/workflow.v1.ListWorkflowExecutionsResponse'
+        post:
+            tags:
+                - WorkflowService
+            description: CreateWorkflowExecution 发起异步工作流执行。
+            operationId: WorkflowService_CreateWorkflowExecution
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/workflow.v1.CreateWorkflowExecutionRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/workflow.v1.CreateWorkflowExecutionResponse'
+    /internal/v1/workflow-executions/{workflow_execution_id}:
+        get:
+            tags:
+                - WorkflowService
+            description: GetWorkflowExecution 查询工作流执行。
+            operationId: WorkflowService_GetWorkflowExecution
+            parameters:
+                - name: workflow_execution_id
+                  in: path
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/workflow.v1.GetWorkflowExecutionResponse'
+    /live:
+        get:
+            tags:
+                - WorkflowService
+            description: Healthz 检查服务进程是否存活。
+            operationId: WorkflowService_Healthz
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/workflow.v1.WorkflowServiceHealthzResponse'
+    /ready:
         get:
             tags:
                 - WorkflowService
@@ -188,60 +188,24 @@ components:
     schemas:
         google.protobuf.Value:
             description: Represents a dynamically typed value which can be either null, a number, a string, a boolean, a recursive struct value, or a list of values.
-        workflow.v1.CreateExecutionData:
-            type: object
-            properties:
-                execution_id:
-                    type: string
-        workflow.v1.CreateExecutionRequest:
-            required:
-                - uid
-                - idempotency_key
-                - workflow_id
+        workflow.v1.CreateDefinitionRequest:
             type: object
             properties:
                 uid:
                     type: integer
-                    format: int64
-                idempotency_key:
-                    type: string
-                workflow_id:
-                    type: string
-                input:
-                    type: object
-        workflow.v1.CreateExecutionResponse:
-            type: object
-            properties:
-                error_code:
-                    type: integer
-                    format: int32
-                error_msg:
-                    type: string
-                internal_error_code:
-                    type: integer
-                    format: int32
-                internal_error_msg:
-                    type: string
-                data:
-                    $ref: '#/components/schemas/workflow.v1.CreateExecutionData'
-        workflow.v1.CreateWorkflowRequest:
-            type: object
-            properties:
-                uid:
-                    type: integer
-                    description: UID 标识工作流所属用户。
+                    description: UID 标识工作流定义所属用户。
                     format: int64
                 name:
                     type: string
-                    description: Name 是工作流的展示名称。
+                    description: Name 是工作流定义的展示名称。
                 type:
                     type: string
-                    description: Type 标识工作流类型，例如 template 或 AI 工作流。
+                    description: Type 标识工作流定义类型，例如 template 或 AI 工作流。
                 definition:
                     allOf:
-                        - $ref: '#/components/schemas/workflow.v1.Definition'
+                        - $ref: '#/components/schemas/workflow.v1.DefinitionGraph'
                     description: Definition 是需要保存的工作流图定义。
-        workflow.v1.CreateWorkflowResponse:
+        workflow.v1.CreateDefinitionResponse:
             type: object
             properties:
                 error_code:
@@ -260,9 +224,74 @@ components:
                     description: InternalErrorMsg 是内部错误信息。
                 data:
                     allOf:
-                        - $ref: '#/components/schemas/workflow.v1.Workflow'
-                    description: Data 是创建后的工作流。
+                        - $ref: '#/components/schemas/workflow.v1.Definition'
+                    description: Data 是创建后的工作流定义。
+        workflow.v1.CreateWorkflowExecutionData:
+            type: object
+            properties:
+                workflow_execution_id:
+                    type: string
+        workflow.v1.CreateWorkflowExecutionRequest:
+            required:
+                - uid
+                - idempotency_key
+                - definition_id
+            type: object
+            properties:
+                uid:
+                    type: integer
+                    format: int64
+                idempotency_key:
+                    type: string
+                definition_id:
+                    type: string
+                input:
+                    type: object
+        workflow.v1.CreateWorkflowExecutionResponse:
+            type: object
+            properties:
+                error_code:
+                    type: integer
+                    format: int32
+                error_msg:
+                    type: string
+                internal_error_code:
+                    type: integer
+                    format: int32
+                internal_error_msg:
+                    type: string
+                data:
+                    $ref: '#/components/schemas/workflow.v1.CreateWorkflowExecutionData'
         workflow.v1.Definition:
+            type: object
+            properties:
+                definition_id:
+                    type: string
+                    description: DefinitionID 是工作流定义的稳定标识。
+                uid:
+                    type: integer
+                    description: UID 标识工作流所属用户。
+                    format: int64
+                name:
+                    type: string
+                    description: Name 是工作流定义的展示名称。
+                type:
+                    type: string
+                    description: Type 标识工作流定义类型。
+                definition:
+                    allOf:
+                        - $ref: '#/components/schemas/workflow.v1.DefinitionGraph'
+                    description: Definition 是当前工作流图定义。
+                created_at:
+                    type: string
+                    description: CreatedAt 是工作流的创建时间。
+                    format: date-time
+                updated_at:
+                    type: string
+                    description: UpdatedAt 是工作流的更新时间。
+                    format: date-time
+            description: Definition 表示工作流定义资源。
+        workflow.v1.DefinitionGraph:
             type: object
             properties:
                 nodes:
@@ -275,7 +304,20 @@ components:
                     items:
                         $ref: '#/components/schemas/workflow.v1.Edge'
                     description: Edges 保存节点之间的连线定义。
-            description: Definition 表示工作流的图定义。
+            description: DefinitionGraph 表示工作流的图定义。
+        workflow.v1.DefinitionPage:
+            type: object
+            properties:
+                limit:
+                    type: integer
+                    format: int32
+                offset:
+                    type: integer
+                    format: int32
+                definitions:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/workflow.v1.Definition'
         workflow.v1.Edge:
             type: object
             properties:
@@ -295,19 +337,111 @@ components:
                     type: string
                     description: ToInput 标识目标节点接收数据的输入字段，控制流中留空。
             description: Edge 表示节点之间的数据依赖或控制流分支。
-        workflow.v1.Execution:
+        workflow.v1.GetDefinitionResponse:
             type: object
             properties:
-                execution_id:
+                error_code:
+                    type: integer
+                    format: int32
+                error_msg:
+                    type: string
+                internal_error_code:
+                    type: integer
+                    format: int32
+                internal_error_msg:
+                    type: string
+                data:
+                    $ref: '#/components/schemas/workflow.v1.Definition'
+        workflow.v1.GetWorkflowExecutionResponse:
+            type: object
+            properties:
+                error_code:
+                    type: integer
+                    format: int32
+                error_msg:
+                    type: string
+                internal_error_code:
+                    type: integer
+                    format: int32
+                internal_error_msg:
+                    type: string
+                data:
+                    $ref: '#/components/schemas/workflow.v1.WorkflowExecution'
+        workflow.v1.ListDefinitionsResponse:
+            type: object
+            properties:
+                error_code:
+                    type: integer
+                    format: int32
+                error_msg:
+                    type: string
+                internal_error_code:
+                    type: integer
+                    format: int32
+                internal_error_msg:
+                    type: string
+                data:
+                    $ref: '#/components/schemas/workflow.v1.DefinitionPage'
+        workflow.v1.ListNodeSchemasResponse:
+            type: object
+            properties:
+                node_schemas:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/workflow.v1.NodeSchema'
+            description: ListNodeSchemasResponse 是查询画布可选节点 schema 列表的响应。
+        workflow.v1.ListWorkflowExecutionsResponse:
+            type: object
+            properties:
+                error_code:
+                    type: integer
+                    format: int32
+                error_msg:
+                    type: string
+                internal_error_code:
+                    type: integer
+                    format: int32
+                internal_error_msg:
+                    type: string
+                data:
+                    $ref: '#/components/schemas/workflow.v1.WorkflowExecutionPage'
+        workflow.v1.Node:
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: ID 在当前 DefinitionGraph 内唯一，并供 Edge 引用。
+                type:
+                    type: string
+                    description: Type 标识节点的执行类型。
+                preset:
+                    type: object
+                    additionalProperties:
+                        $ref: '#/components/schemas/google.protobuf.Value'
+                    description: Preset 保存节点定义中预先配置的数据。
+        workflow.v1.NodeSchema:
+            type: object
+            properties:
+                type:
+                    type: string
+                input_schema:
+                    type: object
+                output_schema:
+                    type: object
+            description: NodeSchema 描述一种画布可选节点及其输入输出。
+        workflow.v1.WorkflowExecution:
+            type: object
+            properties:
+                workflow_execution_id:
                     type: string
                 uid:
                     type: integer
                     format: int64
                 idempotency_key:
                     type: string
-                workflow_id:
+                definition_id:
                     type: string
-                workflow_type:
+                definition_type:
                     type: string
                 status:
                     type: string
@@ -335,8 +469,8 @@ components:
                 updated_at:
                     type: string
                     format: date-time
-            description: Execution 表示一次工作流执行。
-        workflow.v1.ExecutionPage:
+            description: WorkflowExecution 表示一次工作流执行。
+        workflow.v1.WorkflowExecutionPage:
             type: object
             properties:
                 limit:
@@ -345,162 +479,10 @@ components:
                 offset:
                     type: integer
                     format: int32
-                executions:
+                workflow_executions:
                     type: array
                     items:
-                        $ref: '#/components/schemas/workflow.v1.Execution'
-        workflow.v1.GetExecutionResponse:
-            type: object
-            properties:
-                error_code:
-                    type: integer
-                    format: int32
-                error_msg:
-                    type: string
-                internal_error_code:
-                    type: integer
-                    format: int32
-                internal_error_msg:
-                    type: string
-                data:
-                    $ref: '#/components/schemas/workflow.v1.Execution'
-        workflow.v1.GetWorkflowResponse:
-            type: object
-            properties:
-                error_code:
-                    type: integer
-                    format: int32
-                error_msg:
-                    type: string
-                internal_error_code:
-                    type: integer
-                    format: int32
-                internal_error_msg:
-                    type: string
-                data:
-                    $ref: '#/components/schemas/workflow.v1.Workflow'
-        workflow.v1.InputDefinition:
-            type: object
-            properties:
-                type:
-                    type: string
-                    description: Type 表示输入值类型。
-                required:
-                    type: boolean
-        workflow.v1.ListExecutionsResponse:
-            type: object
-            properties:
-                error_code:
-                    type: integer
-                    format: int32
-                error_msg:
-                    type: string
-                internal_error_code:
-                    type: integer
-                    format: int32
-                internal_error_msg:
-                    type: string
-                data:
-                    $ref: '#/components/schemas/workflow.v1.ExecutionPage'
-        workflow.v1.ListNodeTypesResponse:
-            type: object
-            properties:
-                node_types:
-                    type: array
-                    items:
-                        $ref: '#/components/schemas/workflow.v1.NodeType'
-            description: ListNodeTypesResponse 是查询节点类型列表的响应。
-        workflow.v1.ListWorkflowsResponse:
-            type: object
-            properties:
-                error_code:
-                    type: integer
-                    format: int32
-                error_msg:
-                    type: string
-                internal_error_code:
-                    type: integer
-                    format: int32
-                internal_error_msg:
-                    type: string
-                data:
-                    $ref: '#/components/schemas/workflow.v1.WorkflowPage'
-        workflow.v1.Node:
-            type: object
-            properties:
-                id:
-                    type: string
-                    description: ID 在当前 Definition 内唯一，并供 Edge 引用。
-                type:
-                    type: string
-                    description: Type 标识节点的执行类型。
-                preset:
-                    type: object
-                    additionalProperties:
-                        $ref: '#/components/schemas/google.protobuf.Value'
-                    description: Preset 保存节点定义中预先配置的数据。
-        workflow.v1.NodeType:
-            type: object
-            properties:
-                type:
-                    type: string
-                inputs:
-                    type: object
-                    additionalProperties:
-                        $ref: '#/components/schemas/workflow.v1.InputDefinition'
-                outputs:
-                    type: object
-                    additionalProperties:
-                        $ref: '#/components/schemas/workflow.v1.OutputDefinition'
-            description: NodeType 表示节点类型及其输入输出。
-        workflow.v1.OutputDefinition:
-            type: object
-            properties:
-                type:
-                    type: string
-                    description: Type 表示输出值类型。
-        workflow.v1.Workflow:
-            type: object
-            properties:
-                workflow_id:
-                    type: string
-                    description: WorkflowID 是工作流的稳定标识。
-                uid:
-                    type: integer
-                    description: UID 标识工作流所属用户。
-                    format: int64
-                name:
-                    type: string
-                    description: Name 是工作流的展示名称。
-                type:
-                    type: string
-                    description: Type 标识工作流类型。
-                definition:
-                    allOf:
-                        - $ref: '#/components/schemas/workflow.v1.Definition'
-                    description: Definition 是当前工作流图定义。
-                created_at:
-                    type: string
-                    description: CreatedAt 是工作流的创建时间。
-                    format: date-time
-                updated_at:
-                    type: string
-                    description: UpdatedAt 是工作流的更新时间。
-                    format: date-time
-            description: Workflow 表示工作流定义。
-        workflow.v1.WorkflowPage:
-            type: object
-            properties:
-                limit:
-                    type: integer
-                    format: int32
-                offset:
-                    type: integer
-                    format: int32
-                workflows:
-                    type: array
-                    items:
-                        $ref: '#/components/schemas/workflow.v1.Workflow'
+                        $ref: '#/components/schemas/workflow.v1.WorkflowExecution'
         workflow.v1.WorkflowServiceHealthzResponse:
             type: object
             properties: {}

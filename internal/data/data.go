@@ -9,9 +9,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/google/wire"
 	"github.com/hobbyGG/workflow/internal/conf"
 	"github.com/hobbyGG/workflow/internal/data/db/sqlcgen"
+
+	"github.com/google/wire"
 	"github.com/jackc/pgx/v5/pgxpool"
 	"go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp"
 	"go.opentelemetry.io/otel"
@@ -27,10 +28,12 @@ var ProviderSet = wire.NewSet(
 	NewTemporalClient,
 	NewHTTPClient,
 	NewData,
-	NewExecutionRepo,
-	NewExecutionStatusRepo,
-	NewWorkflowRepo,
+	NewWfExecutionRepo,
+	NewWfExecutionStatusRepo,
+	NewDefinitionRepo,
 	NewNodeRepo,
+	NewNodeExecutionRepo,
+	NewNodeExecutionStatusRepo,
 	NewWorkerNodeRepo,
 )
 
@@ -50,6 +53,7 @@ type Data struct {
 // NewData 组装 data 层共享依赖。
 func NewData(c *conf.Data, db *pgxpool.Pool, temporalClient client.Client, httpClient *http.Client) *Data {
 	taskQueue := strings.TrimSpace(c.Temporal.TaskQueue)
+
 	return &Data{
 		db:             db,
 		queries:        sqlcgen.New(db),
@@ -80,7 +84,7 @@ func NewDB(c *conf.Data) (*pgxpool.Pool, func(), error) {
 }
 
 // NewTemporalClient 创建 Temporal 客户端。
-func NewTemporalClient(c *conf.Data, logger *slog.Logger) (client.Client, func(), error) {
+func NewTemporalClient(c *conf.Data, logger *slog.Logger, metricsHandler client.MetricsHandler) (client.Client, func(), error) {
 	if c == nil ||
 		c.Temporal == nil ||
 		strings.TrimSpace(c.Temporal.Addr) == "" ||
@@ -97,10 +101,11 @@ func NewTemporalClient(c *conf.Data, logger *slog.Logger) (client.Client, func()
 	}
 
 	temporalClient, err := client.Dial(client.Options{
-		HostPort:     c.Temporal.Addr,
-		Namespace:    c.Temporal.Namespace,
-		Logger:       temporallog.NewStructuredLogger(logger),
-		Interceptors: []interceptor.ClientInterceptor{tracingInterceptor},
+		HostPort:       c.Temporal.Addr,
+		Namespace:      c.Temporal.Namespace,
+		Logger:         temporallog.NewStructuredLogger(logger),
+		MetricsHandler: metricsHandler,
+		Interceptors:   []interceptor.ClientInterceptor{tracingInterceptor},
 	})
 	if err != nil {
 		return nil, nil, fmt.Errorf("dial temporal: %w", err)

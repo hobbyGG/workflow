@@ -21,40 +21,56 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+// buf:lint:ignore ENUM_VALUE_PREFIX
 type ErrorReason int32
 
 const (
-	ErrorReason_WORKFLOW_UNSPECIFIED       ErrorReason = 0
-	ErrorReason_EXECUTION_NOT_FOUND        ErrorReason = 1
-	ErrorReason_EXECUTION_ALREADY_EXISTS   ErrorReason = 2
-	ErrorReason_EXECUTION_INVALID_ARGUMENT ErrorReason = 3
-	ErrorReason_EXECUTION_INTERNAL         ErrorReason = 4
-	ErrorReason_WORKFLOW_NOT_FOUND         ErrorReason = 5
-	ErrorReason_WORKFLOW_INTERNAL          ErrorReason = 6
-	ErrorReason_WORKFLOW_INVALID_ARGUMENT  ErrorReason = 7
+	ErrorReason_ERROR_REASON_UNSPECIFIED            ErrorReason = 0
+	ErrorReason_WORKFLOW_EXECUTION_NOT_FOUND        ErrorReason = 1
+	ErrorReason_WORKFLOW_EXECUTION_ALREADY_EXISTS   ErrorReason = 2
+	ErrorReason_WORKFLOW_EXECUTION_INVALID_ARGUMENT ErrorReason = 3
+	ErrorReason_WORKFLOW_EXECUTION_INTERNAL         ErrorReason = 4
+	ErrorReason_DEFINITION_NOT_FOUND                ErrorReason = 5
+	ErrorReason_DEFINITION_INTERNAL                 ErrorReason = 6
+	ErrorReason_DEFINITION_INVALID_ARGUMENT         ErrorReason = 7
+	ErrorReason_DYNAMIC_WORKFLOW_INVALID_ARGUMENT   ErrorReason = 8
+	ErrorReason_TOOL_INVALID_ARGUMENT               ErrorReason = 9
+	ErrorReason_TOOL_EXECUTION_NOT_FOUND            ErrorReason = 10
+	ErrorReason_TOOL_INTERNAL                       ErrorReason = 11
+	ErrorReason_TOOL_EXECUTION_NOT_IMPLEMENTED      ErrorReason = 12
 )
 
 // Enum value maps for ErrorReason.
 var (
 	ErrorReason_name = map[int32]string{
-		0: "WORKFLOW_UNSPECIFIED",
-		1: "EXECUTION_NOT_FOUND",
-		2: "EXECUTION_ALREADY_EXISTS",
-		3: "EXECUTION_INVALID_ARGUMENT",
-		4: "EXECUTION_INTERNAL",
-		5: "WORKFLOW_NOT_FOUND",
-		6: "WORKFLOW_INTERNAL",
-		7: "WORKFLOW_INVALID_ARGUMENT",
+		0:  "ERROR_REASON_UNSPECIFIED",
+		1:  "WORKFLOW_EXECUTION_NOT_FOUND",
+		2:  "WORKFLOW_EXECUTION_ALREADY_EXISTS",
+		3:  "WORKFLOW_EXECUTION_INVALID_ARGUMENT",
+		4:  "WORKFLOW_EXECUTION_INTERNAL",
+		5:  "DEFINITION_NOT_FOUND",
+		6:  "DEFINITION_INTERNAL",
+		7:  "DEFINITION_INVALID_ARGUMENT",
+		8:  "DYNAMIC_WORKFLOW_INVALID_ARGUMENT",
+		9:  "TOOL_INVALID_ARGUMENT",
+		10: "TOOL_EXECUTION_NOT_FOUND",
+		11: "TOOL_INTERNAL",
+		12: "TOOL_EXECUTION_NOT_IMPLEMENTED",
 	}
 	ErrorReason_value = map[string]int32{
-		"WORKFLOW_UNSPECIFIED":       0,
-		"EXECUTION_NOT_FOUND":        1,
-		"EXECUTION_ALREADY_EXISTS":   2,
-		"EXECUTION_INVALID_ARGUMENT": 3,
-		"EXECUTION_INTERNAL":         4,
-		"WORKFLOW_NOT_FOUND":         5,
-		"WORKFLOW_INTERNAL":          6,
-		"WORKFLOW_INVALID_ARGUMENT":  7,
+		"ERROR_REASON_UNSPECIFIED":            0,
+		"WORKFLOW_EXECUTION_NOT_FOUND":        1,
+		"WORKFLOW_EXECUTION_ALREADY_EXISTS":   2,
+		"WORKFLOW_EXECUTION_INVALID_ARGUMENT": 3,
+		"WORKFLOW_EXECUTION_INTERNAL":         4,
+		"DEFINITION_NOT_FOUND":                5,
+		"DEFINITION_INTERNAL":                 6,
+		"DEFINITION_INVALID_ARGUMENT":         7,
+		"DYNAMIC_WORKFLOW_INVALID_ARGUMENT":   8,
+		"TOOL_INVALID_ARGUMENT":               9,
+		"TOOL_EXECUTION_NOT_FOUND":            10,
+		"TOOL_INTERNAL":                       11,
+		"TOOL_EXECUTION_NOT_IMPLEMENTED":      12,
 	}
 )
 
@@ -89,16 +105,22 @@ var File_workflow_v1_error_reason_proto protoreflect.FileDescriptor
 
 const file_workflow_v1_error_reason_proto_rawDesc = "" +
 	"\n" +
-	"\x1eworkflow/v1/error_reason.proto\x12\vworkflow.v1*\xe4\x01\n" +
-	"\vErrorReason\x12\x18\n" +
-	"\x14WORKFLOW_UNSPECIFIED\x10\x00\x12\x17\n" +
-	"\x13EXECUTION_NOT_FOUND\x10\x01\x12\x1c\n" +
-	"\x18EXECUTION_ALREADY_EXISTS\x10\x02\x12\x1e\n" +
-	"\x1aEXECUTION_INVALID_ARGUMENT\x10\x03\x12\x16\n" +
-	"\x12EXECUTION_INTERNAL\x10\x04\x12\x16\n" +
-	"\x12WORKFLOW_NOT_FOUND\x10\x05\x12\x15\n" +
-	"\x11WORKFLOW_INTERNAL\x10\x06\x12\x1d\n" +
-	"\x19WORKFLOW_INVALID_ARGUMENT\x10\aB0Z.github.com/hobbyGG/workflow/api/workflow/v1;v1b\x06proto3"
+	"\x1eworkflow/v1/error_reason.proto\x12\vworkflow.v1*\xa9\x03\n" +
+	"\vErrorReason\x12\x1c\n" +
+	"\x18ERROR_REASON_UNSPECIFIED\x10\x00\x12 \n" +
+	"\x1cWORKFLOW_EXECUTION_NOT_FOUND\x10\x01\x12%\n" +
+	"!WORKFLOW_EXECUTION_ALREADY_EXISTS\x10\x02\x12'\n" +
+	"#WORKFLOW_EXECUTION_INVALID_ARGUMENT\x10\x03\x12\x1f\n" +
+	"\x1bWORKFLOW_EXECUTION_INTERNAL\x10\x04\x12\x18\n" +
+	"\x14DEFINITION_NOT_FOUND\x10\x05\x12\x17\n" +
+	"\x13DEFINITION_INTERNAL\x10\x06\x12\x1f\n" +
+	"\x1bDEFINITION_INVALID_ARGUMENT\x10\a\x12%\n" +
+	"!DYNAMIC_WORKFLOW_INVALID_ARGUMENT\x10\b\x12\x19\n" +
+	"\x15TOOL_INVALID_ARGUMENT\x10\t\x12\x1c\n" +
+	"\x18TOOL_EXECUTION_NOT_FOUND\x10\n" +
+	"\x12\x11\n" +
+	"\rTOOL_INTERNAL\x10\v\x12\"\n" +
+	"\x1eTOOL_EXECUTION_NOT_IMPLEMENTED\x10\fB0Z.github.com/hobbyGG/workflow/api/workflow/v1;v1b\x06proto3"
 
 var (
 	file_workflow_v1_error_reason_proto_rawDescOnce sync.Once

@@ -10,12 +10,12 @@ option go_package = "github.com/hobbyGG/workflow/api/worker/v1;v1";
 service WorkerService {
   // Healthz 检查 Worker 进程是否存活。
   rpc Healthz(HealthzRequest) returns (HealthzResponse) {
-    option (google.api.http) = {get: "/healthz"};
+    option (google.api.http) = {get: "/live"};
   }
 
   // Readyz 检查 Worker 是否可以接收任务。
   rpc Readyz(ReadyzRequest) returns (ReadyzResponse) {
-    option (google.api.http) = {get: "/readyz"};
+    option (google.api.http) = {get: "/ready"};
   }
 }
 

@@ -169,30 +169,30 @@ func (*WorkflowServiceReadyzResponse) Descriptor() ([]byte, []int) {
 	return file_workflow_v1_workflow_proto_rawDescGZIP(), []int{3}
 }
 
-type CreateExecutionRequest struct {
+type CreateWorkflowExecutionRequest struct {
 	state          protoimpl.MessageState `protogen:"open.v1"`
 	Uid            int64                  `protobuf:"varint,1,opt,name=uid,proto3" json:"uid,omitempty"`
 	IdempotencyKey string                 `protobuf:"bytes,2,opt,name=idempotency_key,proto3" json:"idempotency_key,omitempty"`
-	WorkflowId     string                 `protobuf:"bytes,3,opt,name=workflow_id,proto3" json:"workflow_id,omitempty"`
+	DefinitionId   string                 `protobuf:"bytes,3,opt,name=definition_id,proto3" json:"definition_id,omitempty"`
 	Input          *structpb.Struct       `protobuf:"bytes,4,opt,name=input,proto3" json:"input,omitempty"`
 	unknownFields  protoimpl.UnknownFields
 	sizeCache      protoimpl.SizeCache
 }
 
-func (x *CreateExecutionRequest) Reset() {
-	*x = CreateExecutionRequest{}
+func (x *CreateWorkflowExecutionRequest) Reset() {
+	*x = CreateWorkflowExecutionRequest{}
 	mi := &file_workflow_v1_workflow_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *CreateExecutionRequest) String() string {
+func (x *CreateWorkflowExecutionRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*CreateExecutionRequest) ProtoMessage() {}
+func (*CreateWorkflowExecutionRequest) ProtoMessage() {}
 
-func (x *CreateExecutionRequest) ProtoReflect() protoreflect.Message {
+func (x *CreateWorkflowExecutionRequest) ProtoReflect() protoreflect.Message {
 	mi := &file_workflow_v1_workflow_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -204,64 +204,64 @@ func (x *CreateExecutionRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use CreateExecutionRequest.ProtoReflect.Descriptor instead.
-func (*CreateExecutionRequest) Descriptor() ([]byte, []int) {
+// Deprecated: Use CreateWorkflowExecutionRequest.ProtoReflect.Descriptor instead.
+func (*CreateWorkflowExecutionRequest) Descriptor() ([]byte, []int) {
 	return file_workflow_v1_workflow_proto_rawDescGZIP(), []int{4}
 }
 
-func (x *CreateExecutionRequest) GetUid() int64 {
+func (x *CreateWorkflowExecutionRequest) GetUid() int64 {
 	if x != nil {
 		return x.Uid
 	}
 	return 0
 }
 
-func (x *CreateExecutionRequest) GetIdempotencyKey() string {
+func (x *CreateWorkflowExecutionRequest) GetIdempotencyKey() string {
 	if x != nil {
 		return x.IdempotencyKey
 	}
 	return ""
 }
 
-func (x *CreateExecutionRequest) GetWorkflowId() string {
+func (x *CreateWorkflowExecutionRequest) GetDefinitionId() string {
 	if x != nil {
-		return x.WorkflowId
+		return x.DefinitionId
 	}
 	return ""
 }
 
-func (x *CreateExecutionRequest) GetInput() *structpb.Struct {
+func (x *CreateWorkflowExecutionRequest) GetInput() *structpb.Struct {
 	if x != nil {
 		return x.Input
 	}
 	return nil
 }
 
-type CreateExecutionResponse struct {
-	state             protoimpl.MessageState `protogen:"open.v1"`
-	ErrorCode         int32                  `protobuf:"varint,1,opt,name=error_code,proto3" json:"error_code,omitempty"`
-	ErrorMsg          string                 `protobuf:"bytes,2,opt,name=error_msg,proto3" json:"error_msg,omitempty"`
-	InternalErrorCode int32                  `protobuf:"varint,3,opt,name=internal_error_code,proto3" json:"internal_error_code,omitempty"`
-	InternalErrorMsg  string                 `protobuf:"bytes,4,opt,name=internal_error_msg,proto3" json:"internal_error_msg,omitempty"`
-	Data              *CreateExecutionData   `protobuf:"bytes,5,opt,name=data,proto3" json:"data,omitempty"`
+type CreateWorkflowExecutionResponse struct {
+	state             protoimpl.MessageState       `protogen:"open.v1"`
+	ErrorCode         int32                        `protobuf:"varint,1,opt,name=error_code,proto3" json:"error_code,omitempty"`
+	ErrorMsg          string                       `protobuf:"bytes,2,opt,name=error_msg,proto3" json:"error_msg,omitempty"`
+	InternalErrorCode int32                        `protobuf:"varint,3,opt,name=internal_error_code,proto3" json:"internal_error_code,omitempty"`
+	InternalErrorMsg  string                       `protobuf:"bytes,4,opt,name=internal_error_msg,proto3" json:"internal_error_msg,omitempty"`
+	Data              *CreateWorkflowExecutionData `protobuf:"bytes,5,opt,name=data,proto3" json:"data,omitempty"`
 	unknownFields     protoimpl.UnknownFields
 	sizeCache         protoimpl.SizeCache
 }
 
-func (x *CreateExecutionResponse) Reset() {
-	*x = CreateExecutionResponse{}
+func (x *CreateWorkflowExecutionResponse) Reset() {
+	*x = CreateWorkflowExecutionResponse{}
 	mi := &file_workflow_v1_workflow_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *CreateExecutionResponse) String() string {
+func (x *CreateWorkflowExecutionResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*CreateExecutionResponse) ProtoMessage() {}
+func (*CreateWorkflowExecutionResponse) ProtoMessage() {}
 
-func (x *CreateExecutionResponse) ProtoReflect() protoreflect.Message {
+func (x *CreateWorkflowExecutionResponse) ProtoReflect() protoreflect.Message {
 	mi := &file_workflow_v1_workflow_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -273,67 +273,67 @@ func (x *CreateExecutionResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use CreateExecutionResponse.ProtoReflect.Descriptor instead.
-func (*CreateExecutionResponse) Descriptor() ([]byte, []int) {
+// Deprecated: Use CreateWorkflowExecutionResponse.ProtoReflect.Descriptor instead.
+func (*CreateWorkflowExecutionResponse) Descriptor() ([]byte, []int) {
 	return file_workflow_v1_workflow_proto_rawDescGZIP(), []int{5}
 }
 
-func (x *CreateExecutionResponse) GetErrorCode() int32 {
+func (x *CreateWorkflowExecutionResponse) GetErrorCode() int32 {
 	if x != nil {
 		return x.ErrorCode
 	}
 	return 0
 }
 
-func (x *CreateExecutionResponse) GetErrorMsg() string {
+func (x *CreateWorkflowExecutionResponse) GetErrorMsg() string {
 	if x != nil {
 		return x.ErrorMsg
 	}
 	return ""
 }
 
-func (x *CreateExecutionResponse) GetInternalErrorCode() int32 {
+func (x *CreateWorkflowExecutionResponse) GetInternalErrorCode() int32 {
 	if x != nil {
 		return x.InternalErrorCode
 	}
 	return 0
 }
 
-func (x *CreateExecutionResponse) GetInternalErrorMsg() string {
+func (x *CreateWorkflowExecutionResponse) GetInternalErrorMsg() string {
 	if x != nil {
 		return x.InternalErrorMsg
 	}
 	return ""
 }
 
-func (x *CreateExecutionResponse) GetData() *CreateExecutionData {
+func (x *CreateWorkflowExecutionResponse) GetData() *CreateWorkflowExecutionData {
 	if x != nil {
 		return x.Data
 	}
 	return nil
 }
 
-type CreateExecutionData struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	ExecutionId   string                 `protobuf:"bytes,1,opt,name=execution_id,proto3" json:"execution_id,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+type CreateWorkflowExecutionData struct {
+	state               protoimpl.MessageState `protogen:"open.v1"`
+	WorkflowExecutionId string                 `protobuf:"bytes,1,opt,name=workflow_execution_id,proto3" json:"workflow_execution_id,omitempty"`
+	unknownFields       protoimpl.UnknownFields
+	sizeCache           protoimpl.SizeCache
 }
 
-func (x *CreateExecutionData) Reset() {
-	*x = CreateExecutionData{}
+func (x *CreateWorkflowExecutionData) Reset() {
+	*x = CreateWorkflowExecutionData{}
 	mi := &file_workflow_v1_workflow_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *CreateExecutionData) String() string {
+func (x *CreateWorkflowExecutionData) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*CreateExecutionData) ProtoMessage() {}
+func (*CreateWorkflowExecutionData) ProtoMessage() {}
 
-func (x *CreateExecutionData) ProtoReflect() protoreflect.Message {
+func (x *CreateWorkflowExecutionData) ProtoReflect() protoreflect.Message {
 	mi := &file_workflow_v1_workflow_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -345,39 +345,39 @@ func (x *CreateExecutionData) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use CreateExecutionData.ProtoReflect.Descriptor instead.
-func (*CreateExecutionData) Descriptor() ([]byte, []int) {
+// Deprecated: Use CreateWorkflowExecutionData.ProtoReflect.Descriptor instead.
+func (*CreateWorkflowExecutionData) Descriptor() ([]byte, []int) {
 	return file_workflow_v1_workflow_proto_rawDescGZIP(), []int{6}
 }
 
-func (x *CreateExecutionData) GetExecutionId() string {
+func (x *CreateWorkflowExecutionData) GetWorkflowExecutionId() string {
 	if x != nil {
-		return x.ExecutionId
+		return x.WorkflowExecutionId
 	}
 	return ""
 }
 
-type GetExecutionRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	ExecutionId   string                 `protobuf:"bytes,1,opt,name=execution_id,proto3" json:"execution_id,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+type GetWorkflowExecutionRequest struct {
+	state               protoimpl.MessageState `protogen:"open.v1"`
+	WorkflowExecutionId string                 `protobuf:"bytes,1,opt,name=workflow_execution_id,proto3" json:"workflow_execution_id,omitempty"`
+	unknownFields       protoimpl.UnknownFields
+	sizeCache           protoimpl.SizeCache
 }
 
-func (x *GetExecutionRequest) Reset() {
-	*x = GetExecutionRequest{}
+func (x *GetWorkflowExecutionRequest) Reset() {
+	*x = GetWorkflowExecutionRequest{}
 	mi := &file_workflow_v1_workflow_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *GetExecutionRequest) String() string {
+func (x *GetWorkflowExecutionRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*GetExecutionRequest) ProtoMessage() {}
+func (*GetWorkflowExecutionRequest) ProtoMessage() {}
 
-func (x *GetExecutionRequest) ProtoReflect() protoreflect.Message {
+func (x *GetWorkflowExecutionRequest) ProtoReflect() protoreflect.Message {
 	mi := &file_workflow_v1_workflow_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -389,43 +389,43 @@ func (x *GetExecutionRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use GetExecutionRequest.ProtoReflect.Descriptor instead.
-func (*GetExecutionRequest) Descriptor() ([]byte, []int) {
+// Deprecated: Use GetWorkflowExecutionRequest.ProtoReflect.Descriptor instead.
+func (*GetWorkflowExecutionRequest) Descriptor() ([]byte, []int) {
 	return file_workflow_v1_workflow_proto_rawDescGZIP(), []int{7}
 }
 
-func (x *GetExecutionRequest) GetExecutionId() string {
+func (x *GetWorkflowExecutionRequest) GetWorkflowExecutionId() string {
 	if x != nil {
-		return x.ExecutionId
+		return x.WorkflowExecutionId
 	}
 	return ""
 }
 
-type GetExecutionResponse struct {
+type GetWorkflowExecutionResponse struct {
 	state             protoimpl.MessageState `protogen:"open.v1"`
 	ErrorCode         int32                  `protobuf:"varint,1,opt,name=error_code,proto3" json:"error_code,omitempty"`
 	ErrorMsg          string                 `protobuf:"bytes,2,opt,name=error_msg,proto3" json:"error_msg,omitempty"`
 	InternalErrorCode int32                  `protobuf:"varint,3,opt,name=internal_error_code,proto3" json:"internal_error_code,omitempty"`
 	InternalErrorMsg  string                 `protobuf:"bytes,4,opt,name=internal_error_msg,proto3" json:"internal_error_msg,omitempty"`
-	Data              *Execution             `protobuf:"bytes,5,opt,name=data,proto3" json:"data,omitempty"`
+	Data              *WorkflowExecution     `protobuf:"bytes,5,opt,name=data,proto3" json:"data,omitempty"`
 	unknownFields     protoimpl.UnknownFields
 	sizeCache         protoimpl.SizeCache
 }
 
-func (x *GetExecutionResponse) Reset() {
-	*x = GetExecutionResponse{}
+func (x *GetWorkflowExecutionResponse) Reset() {
+	*x = GetWorkflowExecutionResponse{}
 	mi := &file_workflow_v1_workflow_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *GetExecutionResponse) String() string {
+func (x *GetWorkflowExecutionResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*GetExecutionResponse) ProtoMessage() {}
+func (*GetWorkflowExecutionResponse) ProtoMessage() {}
 
-func (x *GetExecutionResponse) ProtoReflect() protoreflect.Message {
+func (x *GetWorkflowExecutionResponse) ProtoReflect() protoreflect.Message {
 	mi := &file_workflow_v1_workflow_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -437,70 +437,70 @@ func (x *GetExecutionResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use GetExecutionResponse.ProtoReflect.Descriptor instead.
-func (*GetExecutionResponse) Descriptor() ([]byte, []int) {
+// Deprecated: Use GetWorkflowExecutionResponse.ProtoReflect.Descriptor instead.
+func (*GetWorkflowExecutionResponse) Descriptor() ([]byte, []int) {
 	return file_workflow_v1_workflow_proto_rawDescGZIP(), []int{8}
 }
 
-func (x *GetExecutionResponse) GetErrorCode() int32 {
+func (x *GetWorkflowExecutionResponse) GetErrorCode() int32 {
 	if x != nil {
 		return x.ErrorCode
 	}
 	return 0
 }
 
-func (x *GetExecutionResponse) GetErrorMsg() string {
+func (x *GetWorkflowExecutionResponse) GetErrorMsg() string {
 	if x != nil {
 		return x.ErrorMsg
 	}
 	return ""
 }
 
-func (x *GetExecutionResponse) GetInternalErrorCode() int32 {
+func (x *GetWorkflowExecutionResponse) GetInternalErrorCode() int32 {
 	if x != nil {
 		return x.InternalErrorCode
 	}
 	return 0
 }
 
-func (x *GetExecutionResponse) GetInternalErrorMsg() string {
+func (x *GetWorkflowExecutionResponse) GetInternalErrorMsg() string {
 	if x != nil {
 		return x.InternalErrorMsg
 	}
 	return ""
 }
 
-func (x *GetExecutionResponse) GetData() *Execution {
+func (x *GetWorkflowExecutionResponse) GetData() *WorkflowExecution {
 	if x != nil {
 		return x.Data
 	}
 	return nil
 }
 
-type ListExecutionsRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Uid           int64                  `protobuf:"varint,1,opt,name=uid,proto3" json:"uid,omitempty"`
-	WorkflowType  string                 `protobuf:"bytes,2,opt,name=workflow_type,proto3" json:"workflow_type,omitempty"`
-	Limit         int32                  `protobuf:"varint,3,opt,name=limit,proto3" json:"limit,omitempty"`
-	Offset        int32                  `protobuf:"varint,4,opt,name=offset,proto3" json:"offset,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+type ListWorkflowExecutionsRequest struct {
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	Uid            int64                  `protobuf:"varint,1,opt,name=uid,proto3" json:"uid,omitempty"`
+	DefinitionType string                 `protobuf:"bytes,2,opt,name=definition_type,proto3" json:"definition_type,omitempty"`
+	Limit          int32                  `protobuf:"varint,3,opt,name=limit,proto3" json:"limit,omitempty"`
+	Offset         int32                  `protobuf:"varint,4,opt,name=offset,proto3" json:"offset,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
 }
 
-func (x *ListExecutionsRequest) Reset() {
-	*x = ListExecutionsRequest{}
+func (x *ListWorkflowExecutionsRequest) Reset() {
+	*x = ListWorkflowExecutionsRequest{}
 	mi := &file_workflow_v1_workflow_proto_msgTypes[9]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *ListExecutionsRequest) String() string {
+func (x *ListWorkflowExecutionsRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*ListExecutionsRequest) ProtoMessage() {}
+func (*ListWorkflowExecutionsRequest) ProtoMessage() {}
 
-func (x *ListExecutionsRequest) ProtoReflect() protoreflect.Message {
+func (x *ListWorkflowExecutionsRequest) ProtoReflect() protoreflect.Message {
 	mi := &file_workflow_v1_workflow_proto_msgTypes[9]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -512,64 +512,64 @@ func (x *ListExecutionsRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use ListExecutionsRequest.ProtoReflect.Descriptor instead.
-func (*ListExecutionsRequest) Descriptor() ([]byte, []int) {
+// Deprecated: Use ListWorkflowExecutionsRequest.ProtoReflect.Descriptor instead.
+func (*ListWorkflowExecutionsRequest) Descriptor() ([]byte, []int) {
 	return file_workflow_v1_workflow_proto_rawDescGZIP(), []int{9}
 }
 
-func (x *ListExecutionsRequest) GetUid() int64 {
+func (x *ListWorkflowExecutionsRequest) GetUid() int64 {
 	if x != nil {
 		return x.Uid
 	}
 	return 0
 }
 
-func (x *ListExecutionsRequest) GetWorkflowType() string {
+func (x *ListWorkflowExecutionsRequest) GetDefinitionType() string {
 	if x != nil {
-		return x.WorkflowType
+		return x.DefinitionType
 	}
 	return ""
 }
 
-func (x *ListExecutionsRequest) GetLimit() int32 {
+func (x *ListWorkflowExecutionsRequest) GetLimit() int32 {
 	if x != nil {
 		return x.Limit
 	}
 	return 0
 }
 
-func (x *ListExecutionsRequest) GetOffset() int32 {
+func (x *ListWorkflowExecutionsRequest) GetOffset() int32 {
 	if x != nil {
 		return x.Offset
 	}
 	return 0
 }
 
-type ListExecutionsResponse struct {
+type ListWorkflowExecutionsResponse struct {
 	state             protoimpl.MessageState `protogen:"open.v1"`
 	ErrorCode         int32                  `protobuf:"varint,1,opt,name=error_code,proto3" json:"error_code,omitempty"`
 	ErrorMsg          string                 `protobuf:"bytes,2,opt,name=error_msg,proto3" json:"error_msg,omitempty"`
 	InternalErrorCode int32                  `protobuf:"varint,3,opt,name=internal_error_code,proto3" json:"internal_error_code,omitempty"`
 	InternalErrorMsg  string                 `protobuf:"bytes,4,opt,name=internal_error_msg,proto3" json:"internal_error_msg,omitempty"`
-	Data              *ExecutionPage         `protobuf:"bytes,5,opt,name=data,proto3" json:"data,omitempty"`
+	Data              *WorkflowExecutionPage `protobuf:"bytes,5,opt,name=data,proto3" json:"data,omitempty"`
 	unknownFields     protoimpl.UnknownFields
 	sizeCache         protoimpl.SizeCache
 }
 
-func (x *ListExecutionsResponse) Reset() {
-	*x = ListExecutionsResponse{}
+func (x *ListWorkflowExecutionsResponse) Reset() {
+	*x = ListWorkflowExecutionsResponse{}
 	mi := &file_workflow_v1_workflow_proto_msgTypes[10]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *ListExecutionsResponse) String() string {
+func (x *ListWorkflowExecutionsResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*ListExecutionsResponse) ProtoMessage() {}
+func (*ListWorkflowExecutionsResponse) ProtoMessage() {}
 
-func (x *ListExecutionsResponse) ProtoReflect() protoreflect.Message {
+func (x *ListWorkflowExecutionsResponse) ProtoReflect() protoreflect.Message {
 	mi := &file_workflow_v1_workflow_proto_msgTypes[10]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -581,69 +581,69 @@ func (x *ListExecutionsResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use ListExecutionsResponse.ProtoReflect.Descriptor instead.
-func (*ListExecutionsResponse) Descriptor() ([]byte, []int) {
+// Deprecated: Use ListWorkflowExecutionsResponse.ProtoReflect.Descriptor instead.
+func (*ListWorkflowExecutionsResponse) Descriptor() ([]byte, []int) {
 	return file_workflow_v1_workflow_proto_rawDescGZIP(), []int{10}
 }
 
-func (x *ListExecutionsResponse) GetErrorCode() int32 {
+func (x *ListWorkflowExecutionsResponse) GetErrorCode() int32 {
 	if x != nil {
 		return x.ErrorCode
 	}
 	return 0
 }
 
-func (x *ListExecutionsResponse) GetErrorMsg() string {
+func (x *ListWorkflowExecutionsResponse) GetErrorMsg() string {
 	if x != nil {
 		return x.ErrorMsg
 	}
 	return ""
 }
 
-func (x *ListExecutionsResponse) GetInternalErrorCode() int32 {
+func (x *ListWorkflowExecutionsResponse) GetInternalErrorCode() int32 {
 	if x != nil {
 		return x.InternalErrorCode
 	}
 	return 0
 }
 
-func (x *ListExecutionsResponse) GetInternalErrorMsg() string {
+func (x *ListWorkflowExecutionsResponse) GetInternalErrorMsg() string {
 	if x != nil {
 		return x.InternalErrorMsg
 	}
 	return ""
 }
 
-func (x *ListExecutionsResponse) GetData() *ExecutionPage {
+func (x *ListWorkflowExecutionsResponse) GetData() *WorkflowExecutionPage {
 	if x != nil {
 		return x.Data
 	}
 	return nil
 }
 
-type ExecutionPage struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Limit         int32                  `protobuf:"varint,1,opt,name=limit,proto3" json:"limit,omitempty"`
-	Offset        int32                  `protobuf:"varint,2,opt,name=offset,proto3" json:"offset,omitempty"`
-	Executions    []*Execution           `protobuf:"bytes,4,rep,name=executions,proto3" json:"executions,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+type WorkflowExecutionPage struct {
+	state              protoimpl.MessageState `protogen:"open.v1"`
+	Limit              int32                  `protobuf:"varint,1,opt,name=limit,proto3" json:"limit,omitempty"`
+	Offset             int32                  `protobuf:"varint,2,opt,name=offset,proto3" json:"offset,omitempty"`
+	WorkflowExecutions []*WorkflowExecution   `protobuf:"bytes,4,rep,name=workflow_executions,proto3" json:"workflow_executions,omitempty"`
+	unknownFields      protoimpl.UnknownFields
+	sizeCache          protoimpl.SizeCache
 }
 
-func (x *ExecutionPage) Reset() {
-	*x = ExecutionPage{}
+func (x *WorkflowExecutionPage) Reset() {
+	*x = WorkflowExecutionPage{}
 	mi := &file_workflow_v1_workflow_proto_msgTypes[11]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *ExecutionPage) String() string {
+func (x *WorkflowExecutionPage) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*ExecutionPage) ProtoMessage() {}
+func (*WorkflowExecutionPage) ProtoMessage() {}
 
-func (x *ExecutionPage) ProtoReflect() protoreflect.Message {
+func (x *WorkflowExecutionPage) ProtoReflect() protoreflect.Message {
 	mi := &file_workflow_v1_workflow_proto_msgTypes[11]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -655,40 +655,40 @@ func (x *ExecutionPage) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use ExecutionPage.ProtoReflect.Descriptor instead.
-func (*ExecutionPage) Descriptor() ([]byte, []int) {
+// Deprecated: Use WorkflowExecutionPage.ProtoReflect.Descriptor instead.
+func (*WorkflowExecutionPage) Descriptor() ([]byte, []int) {
 	return file_workflow_v1_workflow_proto_rawDescGZIP(), []int{11}
 }
 
-func (x *ExecutionPage) GetLimit() int32 {
+func (x *WorkflowExecutionPage) GetLimit() int32 {
 	if x != nil {
 		return x.Limit
 	}
 	return 0
 }
 
-func (x *ExecutionPage) GetOffset() int32 {
+func (x *WorkflowExecutionPage) GetOffset() int32 {
 	if x != nil {
 		return x.Offset
 	}
 	return 0
 }
 
-func (x *ExecutionPage) GetExecutions() []*Execution {
+func (x *WorkflowExecutionPage) GetWorkflowExecutions() []*WorkflowExecution {
 	if x != nil {
-		return x.Executions
+		return x.WorkflowExecutions
 	}
 	return nil
 }
 
-// Execution 表示一次工作流执行。
-type Execution struct {
-	state          protoimpl.MessageState `protogen:"open.v1"`
-	ExecutionId    string                 `protobuf:"bytes,1,opt,name=execution_id,proto3" json:"execution_id,omitempty"`
-	Uid            int64                  `protobuf:"varint,2,opt,name=uid,proto3" json:"uid,omitempty"`
-	IdempotencyKey string                 `protobuf:"bytes,3,opt,name=idempotency_key,proto3" json:"idempotency_key,omitempty"`
-	WorkflowId     string                 `protobuf:"bytes,4,opt,name=workflow_id,proto3" json:"workflow_id,omitempty"`
-	WorkflowType   string                 `protobuf:"bytes,5,opt,name=workflow_type,proto3" json:"workflow_type,omitempty"`
+// WorkflowExecution 表示一次工作流执行。
+type WorkflowExecution struct {
+	state               protoimpl.MessageState `protogen:"open.v1"`
+	WorkflowExecutionId string                 `protobuf:"bytes,1,opt,name=workflow_execution_id,proto3" json:"workflow_execution_id,omitempty"`
+	Uid                 int64                  `protobuf:"varint,2,opt,name=uid,proto3" json:"uid,omitempty"`
+	IdempotencyKey      string                 `protobuf:"bytes,3,opt,name=idempotency_key,proto3" json:"idempotency_key,omitempty"`
+	DefinitionId        string                 `protobuf:"bytes,4,opt,name=definition_id,proto3" json:"definition_id,omitempty"`
+	DefinitionType      string                 `protobuf:"bytes,5,opt,name=definition_type,proto3" json:"definition_type,omitempty"`
 	// Status 表示执行状态。
 	Status               string                 `protobuf:"bytes,6,opt,name=status,proto3" json:"status,omitempty"`
 	Input                *structpb.Struct       `protobuf:"bytes,7,opt,name=input,proto3" json:"input,omitempty"`
@@ -704,20 +704,20 @@ type Execution struct {
 	sizeCache            protoimpl.SizeCache
 }
 
-func (x *Execution) Reset() {
-	*x = Execution{}
+func (x *WorkflowExecution) Reset() {
+	*x = WorkflowExecution{}
 	mi := &file_workflow_v1_workflow_proto_msgTypes[12]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *Execution) String() string {
+func (x *WorkflowExecution) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*Execution) ProtoMessage() {}
+func (*WorkflowExecution) ProtoMessage() {}
 
-func (x *Execution) ProtoReflect() protoreflect.Message {
+func (x *WorkflowExecution) ProtoReflect() protoreflect.Message {
 	mi := &file_workflow_v1_workflow_proto_msgTypes[12]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -729,137 +729,137 @@ func (x *Execution) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use Execution.ProtoReflect.Descriptor instead.
-func (*Execution) Descriptor() ([]byte, []int) {
+// Deprecated: Use WorkflowExecution.ProtoReflect.Descriptor instead.
+func (*WorkflowExecution) Descriptor() ([]byte, []int) {
 	return file_workflow_v1_workflow_proto_rawDescGZIP(), []int{12}
 }
 
-func (x *Execution) GetExecutionId() string {
+func (x *WorkflowExecution) GetWorkflowExecutionId() string {
 	if x != nil {
-		return x.ExecutionId
+		return x.WorkflowExecutionId
 	}
 	return ""
 }
 
-func (x *Execution) GetUid() int64 {
+func (x *WorkflowExecution) GetUid() int64 {
 	if x != nil {
 		return x.Uid
 	}
 	return 0
 }
 
-func (x *Execution) GetIdempotencyKey() string {
+func (x *WorkflowExecution) GetIdempotencyKey() string {
 	if x != nil {
 		return x.IdempotencyKey
 	}
 	return ""
 }
 
-func (x *Execution) GetWorkflowId() string {
+func (x *WorkflowExecution) GetDefinitionId() string {
 	if x != nil {
-		return x.WorkflowId
+		return x.DefinitionId
 	}
 	return ""
 }
 
-func (x *Execution) GetWorkflowType() string {
+func (x *WorkflowExecution) GetDefinitionType() string {
 	if x != nil {
-		return x.WorkflowType
+		return x.DefinitionType
 	}
 	return ""
 }
 
-func (x *Execution) GetStatus() string {
+func (x *WorkflowExecution) GetStatus() string {
 	if x != nil {
 		return x.Status
 	}
 	return ""
 }
 
-func (x *Execution) GetInput() *structpb.Struct {
+func (x *WorkflowExecution) GetInput() *structpb.Struct {
 	if x != nil {
 		return x.Input
 	}
 	return nil
 }
 
-func (x *Execution) GetOutput() *structpb.Value {
+func (x *WorkflowExecution) GetOutput() *structpb.Value {
 	if x != nil {
 		return x.Output
 	}
 	return nil
 }
 
-func (x *Execution) GetInternalErrorCode() int32 {
+func (x *WorkflowExecution) GetInternalErrorCode() int32 {
 	if x != nil {
 		return x.InternalErrorCode
 	}
 	return 0
 }
 
-func (x *Execution) GetInternalErrorMessage() string {
+func (x *WorkflowExecution) GetInternalErrorMessage() string {
 	if x != nil {
 		return x.InternalErrorMessage
 	}
 	return ""
 }
 
-func (x *Execution) GetFailedNodeId() string {
+func (x *WorkflowExecution) GetFailedNodeId() string {
 	if x != nil {
 		return x.FailedNodeId
 	}
 	return ""
 }
 
-func (x *Execution) GetCreatedAt() *timestamppb.Timestamp {
+func (x *WorkflowExecution) GetCreatedAt() *timestamppb.Timestamp {
 	if x != nil {
 		return x.CreatedAt
 	}
 	return nil
 }
 
-func (x *Execution) GetStartedAt() *timestamppb.Timestamp {
+func (x *WorkflowExecution) GetStartedAt() *timestamppb.Timestamp {
 	if x != nil {
 		return x.StartedAt
 	}
 	return nil
 }
 
-func (x *Execution) GetCompletedAt() *timestamppb.Timestamp {
+func (x *WorkflowExecution) GetCompletedAt() *timestamppb.Timestamp {
 	if x != nil {
 		return x.CompletedAt
 	}
 	return nil
 }
 
-func (x *Execution) GetUpdatedAt() *timestamppb.Timestamp {
+func (x *WorkflowExecution) GetUpdatedAt() *timestamppb.Timestamp {
 	if x != nil {
 		return x.UpdatedAt
 	}
 	return nil
 }
 
-// ListNodeTypesRequest 是查询节点类型列表的请求。
-type ListNodeTypesRequest struct {
+// ListNodeSchemasRequest 是查询画布可选节点 schema 列表的请求。
+type ListNodeSchemasRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *ListNodeTypesRequest) Reset() {
-	*x = ListNodeTypesRequest{}
+func (x *ListNodeSchemasRequest) Reset() {
+	*x = ListNodeSchemasRequest{}
 	mi := &file_workflow_v1_workflow_proto_msgTypes[13]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *ListNodeTypesRequest) String() string {
+func (x *ListNodeSchemasRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*ListNodeTypesRequest) ProtoMessage() {}
+func (*ListNodeSchemasRequest) ProtoMessage() {}
 
-func (x *ListNodeTypesRequest) ProtoReflect() protoreflect.Message {
+func (x *ListNodeSchemasRequest) ProtoReflect() protoreflect.Message {
 	mi := &file_workflow_v1_workflow_proto_msgTypes[13]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -871,33 +871,33 @@ func (x *ListNodeTypesRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use ListNodeTypesRequest.ProtoReflect.Descriptor instead.
-func (*ListNodeTypesRequest) Descriptor() ([]byte, []int) {
+// Deprecated: Use ListNodeSchemasRequest.ProtoReflect.Descriptor instead.
+func (*ListNodeSchemasRequest) Descriptor() ([]byte, []int) {
 	return file_workflow_v1_workflow_proto_rawDescGZIP(), []int{13}
 }
 
-// ListNodeTypesResponse 是查询节点类型列表的响应。
-type ListNodeTypesResponse struct {
+// ListNodeSchemasResponse 是查询画布可选节点 schema 列表的响应。
+type ListNodeSchemasResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	NodeTypes     []*NodeType            `protobuf:"bytes,1,rep,name=node_types,proto3" json:"node_types,omitempty"`
+	NodeSchemas   []*NodeSchema          `protobuf:"bytes,1,rep,name=node_schemas,proto3" json:"node_schemas,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *ListNodeTypesResponse) Reset() {
-	*x = ListNodeTypesResponse{}
+func (x *ListNodeSchemasResponse) Reset() {
+	*x = ListNodeSchemasResponse{}
 	mi := &file_workflow_v1_workflow_proto_msgTypes[14]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *ListNodeTypesResponse) String() string {
+func (x *ListNodeSchemasResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*ListNodeTypesResponse) ProtoMessage() {}
+func (*ListNodeSchemasResponse) ProtoMessage() {}
 
-func (x *ListNodeTypesResponse) ProtoReflect() protoreflect.Message {
+func (x *ListNodeSchemasResponse) ProtoReflect() protoreflect.Message {
 	mi := &file_workflow_v1_workflow_proto_msgTypes[14]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -909,42 +909,42 @@ func (x *ListNodeTypesResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use ListNodeTypesResponse.ProtoReflect.Descriptor instead.
-func (*ListNodeTypesResponse) Descriptor() ([]byte, []int) {
+// Deprecated: Use ListNodeSchemasResponse.ProtoReflect.Descriptor instead.
+func (*ListNodeSchemasResponse) Descriptor() ([]byte, []int) {
 	return file_workflow_v1_workflow_proto_rawDescGZIP(), []int{14}
 }
 
-func (x *ListNodeTypesResponse) GetNodeTypes() []*NodeType {
+func (x *ListNodeSchemasResponse) GetNodeSchemas() []*NodeSchema {
 	if x != nil {
-		return x.NodeTypes
+		return x.NodeSchemas
 	}
 	return nil
 }
 
-// NodeType 表示节点类型及其输入输出。
-type NodeType struct {
-	state         protoimpl.MessageState       `protogen:"open.v1"`
-	Type          string                       `protobuf:"bytes,1,opt,name=type,proto3" json:"type,omitempty"`
-	Inputs        map[string]*InputDefinition  `protobuf:"bytes,2,rep,name=inputs,proto3" json:"inputs,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
-	Outputs       map[string]*OutputDefinition `protobuf:"bytes,3,rep,name=outputs,proto3" json:"outputs,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
+// NodeSchema 描述一种画布可选节点及其输入输出。
+type NodeSchema struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Type          string                 `protobuf:"bytes,1,opt,name=type,proto3" json:"type,omitempty"`
+	InputSchema   *structpb.Struct       `protobuf:"bytes,4,opt,name=input_schema,proto3" json:"input_schema,omitempty"`
+	OutputSchema  *structpb.Struct       `protobuf:"bytes,5,opt,name=output_schema,proto3" json:"output_schema,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *NodeType) Reset() {
-	*x = NodeType{}
+func (x *NodeSchema) Reset() {
+	*x = NodeSchema{}
 	mi := &file_workflow_v1_workflow_proto_msgTypes[15]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *NodeType) String() string {
+func (x *NodeSchema) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*NodeType) ProtoMessage() {}
+func (*NodeSchema) ProtoMessage() {}
 
-func (x *NodeType) ProtoReflect() protoreflect.Message {
+func (x *NodeSchema) ProtoReflect() protoreflect.Message {
 	mi := &file_workflow_v1_workflow_proto_msgTypes[15]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -956,55 +956,60 @@ func (x *NodeType) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use NodeType.ProtoReflect.Descriptor instead.
-func (*NodeType) Descriptor() ([]byte, []int) {
+// Deprecated: Use NodeSchema.ProtoReflect.Descriptor instead.
+func (*NodeSchema) Descriptor() ([]byte, []int) {
 	return file_workflow_v1_workflow_proto_rawDescGZIP(), []int{15}
 }
 
-func (x *NodeType) GetType() string {
+func (x *NodeSchema) GetType() string {
 	if x != nil {
 		return x.Type
 	}
 	return ""
 }
 
-func (x *NodeType) GetInputs() map[string]*InputDefinition {
+func (x *NodeSchema) GetInputSchema() *structpb.Struct {
 	if x != nil {
-		return x.Inputs
+		return x.InputSchema
 	}
 	return nil
 }
 
-func (x *NodeType) GetOutputs() map[string]*OutputDefinition {
+func (x *NodeSchema) GetOutputSchema() *structpb.Struct {
 	if x != nil {
-		return x.Outputs
+		return x.OutputSchema
 	}
 	return nil
 }
 
-type InputDefinition struct {
+type CreateDefinitionRequest struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
-	// Type 表示输入值类型。
-	Type          string `protobuf:"bytes,1,opt,name=type,proto3" json:"type,omitempty"`
-	Required      bool   `protobuf:"varint,2,opt,name=required,proto3" json:"required,omitempty"`
+	// UID 标识工作流定义所属用户。
+	Uid int64 `protobuf:"varint,1,opt,name=uid,proto3" json:"uid,omitempty"`
+	// Name 是工作流定义的展示名称。
+	Name string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	// Type 标识工作流定义类型，例如 template 或 AI 工作流。
+	Type string `protobuf:"bytes,3,opt,name=type,proto3" json:"type,omitempty"`
+	// Definition 是需要保存的工作流图定义。
+	Definition    *DefinitionGraph `protobuf:"bytes,4,opt,name=definition,proto3" json:"definition,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *InputDefinition) Reset() {
-	*x = InputDefinition{}
+func (x *CreateDefinitionRequest) Reset() {
+	*x = CreateDefinitionRequest{}
 	mi := &file_workflow_v1_workflow_proto_msgTypes[16]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *InputDefinition) String() string {
+func (x *CreateDefinitionRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*InputDefinition) ProtoMessage() {}
+func (*CreateDefinitionRequest) ProtoMessage() {}
 
-func (x *InputDefinition) ProtoReflect() protoreflect.Message {
+func (x *CreateDefinitionRequest) ProtoReflect() protoreflect.Message {
 	mi := &file_workflow_v1_workflow_proto_msgTypes[16]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -1016,143 +1021,40 @@ func (x *InputDefinition) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use InputDefinition.ProtoReflect.Descriptor instead.
-func (*InputDefinition) Descriptor() ([]byte, []int) {
+// Deprecated: Use CreateDefinitionRequest.ProtoReflect.Descriptor instead.
+func (*CreateDefinitionRequest) Descriptor() ([]byte, []int) {
 	return file_workflow_v1_workflow_proto_rawDescGZIP(), []int{16}
 }
 
-func (x *InputDefinition) GetType() string {
-	if x != nil {
-		return x.Type
-	}
-	return ""
-}
-
-func (x *InputDefinition) GetRequired() bool {
-	if x != nil {
-		return x.Required
-	}
-	return false
-}
-
-type OutputDefinition struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// Type 表示输出值类型。
-	Type          string `protobuf:"bytes,1,opt,name=type,proto3" json:"type,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *OutputDefinition) Reset() {
-	*x = OutputDefinition{}
-	mi := &file_workflow_v1_workflow_proto_msgTypes[17]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *OutputDefinition) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*OutputDefinition) ProtoMessage() {}
-
-func (x *OutputDefinition) ProtoReflect() protoreflect.Message {
-	mi := &file_workflow_v1_workflow_proto_msgTypes[17]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use OutputDefinition.ProtoReflect.Descriptor instead.
-func (*OutputDefinition) Descriptor() ([]byte, []int) {
-	return file_workflow_v1_workflow_proto_rawDescGZIP(), []int{17}
-}
-
-func (x *OutputDefinition) GetType() string {
-	if x != nil {
-		return x.Type
-	}
-	return ""
-}
-
-type CreateWorkflowRequest struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// UID 标识工作流所属用户。
-	Uid int64 `protobuf:"varint,1,opt,name=uid,proto3" json:"uid,omitempty"`
-	// Name 是工作流的展示名称。
-	Name string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
-	// Type 标识工作流类型，例如 template 或 AI 工作流。
-	Type string `protobuf:"bytes,3,opt,name=type,proto3" json:"type,omitempty"`
-	// Definition 是需要保存的工作流图定义。
-	Definition    *Definition `protobuf:"bytes,4,opt,name=definition,proto3" json:"definition,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *CreateWorkflowRequest) Reset() {
-	*x = CreateWorkflowRequest{}
-	mi := &file_workflow_v1_workflow_proto_msgTypes[18]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *CreateWorkflowRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*CreateWorkflowRequest) ProtoMessage() {}
-
-func (x *CreateWorkflowRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_workflow_v1_workflow_proto_msgTypes[18]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use CreateWorkflowRequest.ProtoReflect.Descriptor instead.
-func (*CreateWorkflowRequest) Descriptor() ([]byte, []int) {
-	return file_workflow_v1_workflow_proto_rawDescGZIP(), []int{18}
-}
-
-func (x *CreateWorkflowRequest) GetUid() int64 {
+func (x *CreateDefinitionRequest) GetUid() int64 {
 	if x != nil {
 		return x.Uid
 	}
 	return 0
 }
 
-func (x *CreateWorkflowRequest) GetName() string {
+func (x *CreateDefinitionRequest) GetName() string {
 	if x != nil {
 		return x.Name
 	}
 	return ""
 }
 
-func (x *CreateWorkflowRequest) GetType() string {
+func (x *CreateDefinitionRequest) GetType() string {
 	if x != nil {
 		return x.Type
 	}
 	return ""
 }
 
-func (x *CreateWorkflowRequest) GetDefinition() *Definition {
+func (x *CreateDefinitionRequest) GetDefinition() *DefinitionGraph {
 	if x != nil {
 		return x.Definition
 	}
 	return nil
 }
 
-type CreateWorkflowResponse struct {
+type CreateDefinitionResponse struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
 	// ErrorCode 是对外错误码。
 	ErrorCode int32 `protobuf:"varint,1,opt,name=error_code,proto3" json:"error_code,omitempty"`
@@ -1162,27 +1064,27 @@ type CreateWorkflowResponse struct {
 	InternalErrorCode int32 `protobuf:"varint,3,opt,name=internal_error_code,proto3" json:"internal_error_code,omitempty"`
 	// InternalErrorMsg 是内部错误信息。
 	InternalErrorMsg string `protobuf:"bytes,4,opt,name=internal_error_msg,proto3" json:"internal_error_msg,omitempty"`
-	// Data 是创建后的工作流。
-	Data          *Workflow `protobuf:"bytes,5,opt,name=data,proto3" json:"data,omitempty"`
+	// Data 是创建后的工作流定义。
+	Data          *Definition `protobuf:"bytes,5,opt,name=data,proto3" json:"data,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *CreateWorkflowResponse) Reset() {
-	*x = CreateWorkflowResponse{}
-	mi := &file_workflow_v1_workflow_proto_msgTypes[19]
+func (x *CreateDefinitionResponse) Reset() {
+	*x = CreateDefinitionResponse{}
+	mi := &file_workflow_v1_workflow_proto_msgTypes[17]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *CreateWorkflowResponse) String() string {
+func (x *CreateDefinitionResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*CreateWorkflowResponse) ProtoMessage() {}
+func (*CreateDefinitionResponse) ProtoMessage() {}
 
-func (x *CreateWorkflowResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_workflow_v1_workflow_proto_msgTypes[19]
+func (x *CreateDefinitionResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_workflow_v1_workflow_proto_msgTypes[17]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1193,47 +1095,47 @@ func (x *CreateWorkflowResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use CreateWorkflowResponse.ProtoReflect.Descriptor instead.
-func (*CreateWorkflowResponse) Descriptor() ([]byte, []int) {
-	return file_workflow_v1_workflow_proto_rawDescGZIP(), []int{19}
+// Deprecated: Use CreateDefinitionResponse.ProtoReflect.Descriptor instead.
+func (*CreateDefinitionResponse) Descriptor() ([]byte, []int) {
+	return file_workflow_v1_workflow_proto_rawDescGZIP(), []int{17}
 }
 
-func (x *CreateWorkflowResponse) GetErrorCode() int32 {
+func (x *CreateDefinitionResponse) GetErrorCode() int32 {
 	if x != nil {
 		return x.ErrorCode
 	}
 	return 0
 }
 
-func (x *CreateWorkflowResponse) GetErrorMsg() string {
+func (x *CreateDefinitionResponse) GetErrorMsg() string {
 	if x != nil {
 		return x.ErrorMsg
 	}
 	return ""
 }
 
-func (x *CreateWorkflowResponse) GetInternalErrorCode() int32 {
+func (x *CreateDefinitionResponse) GetInternalErrorCode() int32 {
 	if x != nil {
 		return x.InternalErrorCode
 	}
 	return 0
 }
 
-func (x *CreateWorkflowResponse) GetInternalErrorMsg() string {
+func (x *CreateDefinitionResponse) GetInternalErrorMsg() string {
 	if x != nil {
 		return x.InternalErrorMsg
 	}
 	return ""
 }
 
-func (x *CreateWorkflowResponse) GetData() *Workflow {
+func (x *CreateDefinitionResponse) GetData() *Definition {
 	if x != nil {
 		return x.Data
 	}
 	return nil
 }
 
-type ListWorkflowsRequest struct {
+type ListDefinitionsRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Uid           int64                  `protobuf:"varint,1,opt,name=uid,proto3" json:"uid,omitempty"`
 	Type          string                 `protobuf:"bytes,2,opt,name=type,proto3" json:"type,omitempty"`
@@ -1243,21 +1145,21 @@ type ListWorkflowsRequest struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *ListWorkflowsRequest) Reset() {
-	*x = ListWorkflowsRequest{}
-	mi := &file_workflow_v1_workflow_proto_msgTypes[20]
+func (x *ListDefinitionsRequest) Reset() {
+	*x = ListDefinitionsRequest{}
+	mi := &file_workflow_v1_workflow_proto_msgTypes[18]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *ListWorkflowsRequest) String() string {
+func (x *ListDefinitionsRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*ListWorkflowsRequest) ProtoMessage() {}
+func (*ListDefinitionsRequest) ProtoMessage() {}
 
-func (x *ListWorkflowsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_workflow_v1_workflow_proto_msgTypes[20]
+func (x *ListDefinitionsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_workflow_v1_workflow_proto_msgTypes[18]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1268,65 +1170,65 @@ func (x *ListWorkflowsRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use ListWorkflowsRequest.ProtoReflect.Descriptor instead.
-func (*ListWorkflowsRequest) Descriptor() ([]byte, []int) {
-	return file_workflow_v1_workflow_proto_rawDescGZIP(), []int{20}
+// Deprecated: Use ListDefinitionsRequest.ProtoReflect.Descriptor instead.
+func (*ListDefinitionsRequest) Descriptor() ([]byte, []int) {
+	return file_workflow_v1_workflow_proto_rawDescGZIP(), []int{18}
 }
 
-func (x *ListWorkflowsRequest) GetUid() int64 {
+func (x *ListDefinitionsRequest) GetUid() int64 {
 	if x != nil {
 		return x.Uid
 	}
 	return 0
 }
 
-func (x *ListWorkflowsRequest) GetType() string {
+func (x *ListDefinitionsRequest) GetType() string {
 	if x != nil {
 		return x.Type
 	}
 	return ""
 }
 
-func (x *ListWorkflowsRequest) GetLimit() int32 {
+func (x *ListDefinitionsRequest) GetLimit() int32 {
 	if x != nil {
 		return x.Limit
 	}
 	return 0
 }
 
-func (x *ListWorkflowsRequest) GetOffset() int32 {
+func (x *ListDefinitionsRequest) GetOffset() int32 {
 	if x != nil {
 		return x.Offset
 	}
 	return 0
 }
 
-type ListWorkflowsResponse struct {
+type ListDefinitionsResponse struct {
 	state             protoimpl.MessageState `protogen:"open.v1"`
 	ErrorCode         int32                  `protobuf:"varint,1,opt,name=error_code,proto3" json:"error_code,omitempty"`
 	ErrorMsg          string                 `protobuf:"bytes,2,opt,name=error_msg,proto3" json:"error_msg,omitempty"`
 	InternalErrorCode int32                  `protobuf:"varint,3,opt,name=internal_error_code,proto3" json:"internal_error_code,omitempty"`
 	InternalErrorMsg  string                 `protobuf:"bytes,4,opt,name=internal_error_msg,proto3" json:"internal_error_msg,omitempty"`
-	Data              *WorkflowPage          `protobuf:"bytes,5,opt,name=data,proto3" json:"data,omitempty"`
+	Data              *DefinitionPage        `protobuf:"bytes,5,opt,name=data,proto3" json:"data,omitempty"`
 	unknownFields     protoimpl.UnknownFields
 	sizeCache         protoimpl.SizeCache
 }
 
-func (x *ListWorkflowsResponse) Reset() {
-	*x = ListWorkflowsResponse{}
-	mi := &file_workflow_v1_workflow_proto_msgTypes[21]
+func (x *ListDefinitionsResponse) Reset() {
+	*x = ListDefinitionsResponse{}
+	mi := &file_workflow_v1_workflow_proto_msgTypes[19]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *ListWorkflowsResponse) String() string {
+func (x *ListDefinitionsResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*ListWorkflowsResponse) ProtoMessage() {}
+func (*ListDefinitionsResponse) ProtoMessage() {}
 
-func (x *ListWorkflowsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_workflow_v1_workflow_proto_msgTypes[21]
+func (x *ListDefinitionsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_workflow_v1_workflow_proto_msgTypes[19]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1337,70 +1239,70 @@ func (x *ListWorkflowsResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use ListWorkflowsResponse.ProtoReflect.Descriptor instead.
-func (*ListWorkflowsResponse) Descriptor() ([]byte, []int) {
-	return file_workflow_v1_workflow_proto_rawDescGZIP(), []int{21}
+// Deprecated: Use ListDefinitionsResponse.ProtoReflect.Descriptor instead.
+func (*ListDefinitionsResponse) Descriptor() ([]byte, []int) {
+	return file_workflow_v1_workflow_proto_rawDescGZIP(), []int{19}
 }
 
-func (x *ListWorkflowsResponse) GetErrorCode() int32 {
+func (x *ListDefinitionsResponse) GetErrorCode() int32 {
 	if x != nil {
 		return x.ErrorCode
 	}
 	return 0
 }
 
-func (x *ListWorkflowsResponse) GetErrorMsg() string {
+func (x *ListDefinitionsResponse) GetErrorMsg() string {
 	if x != nil {
 		return x.ErrorMsg
 	}
 	return ""
 }
 
-func (x *ListWorkflowsResponse) GetInternalErrorCode() int32 {
+func (x *ListDefinitionsResponse) GetInternalErrorCode() int32 {
 	if x != nil {
 		return x.InternalErrorCode
 	}
 	return 0
 }
 
-func (x *ListWorkflowsResponse) GetInternalErrorMsg() string {
+func (x *ListDefinitionsResponse) GetInternalErrorMsg() string {
 	if x != nil {
 		return x.InternalErrorMsg
 	}
 	return ""
 }
 
-func (x *ListWorkflowsResponse) GetData() *WorkflowPage {
+func (x *ListDefinitionsResponse) GetData() *DefinitionPage {
 	if x != nil {
 		return x.Data
 	}
 	return nil
 }
 
-type WorkflowPage struct {
+type DefinitionPage struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Limit         int32                  `protobuf:"varint,1,opt,name=limit,proto3" json:"limit,omitempty"`
 	Offset        int32                  `protobuf:"varint,2,opt,name=offset,proto3" json:"offset,omitempty"`
-	Workflows     []*Workflow            `protobuf:"bytes,4,rep,name=workflows,proto3" json:"workflows,omitempty"`
+	Definitions   []*Definition          `protobuf:"bytes,4,rep,name=definitions,proto3" json:"definitions,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *WorkflowPage) Reset() {
-	*x = WorkflowPage{}
-	mi := &file_workflow_v1_workflow_proto_msgTypes[22]
+func (x *DefinitionPage) Reset() {
+	*x = DefinitionPage{}
+	mi := &file_workflow_v1_workflow_proto_msgTypes[20]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *WorkflowPage) String() string {
+func (x *DefinitionPage) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*WorkflowPage) ProtoMessage() {}
+func (*DefinitionPage) ProtoMessage() {}
 
-func (x *WorkflowPage) ProtoReflect() protoreflect.Message {
-	mi := &file_workflow_v1_workflow_proto_msgTypes[22]
+func (x *DefinitionPage) ProtoReflect() protoreflect.Message {
+	mi := &file_workflow_v1_workflow_proto_msgTypes[20]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1411,55 +1313,55 @@ func (x *WorkflowPage) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use WorkflowPage.ProtoReflect.Descriptor instead.
-func (*WorkflowPage) Descriptor() ([]byte, []int) {
-	return file_workflow_v1_workflow_proto_rawDescGZIP(), []int{22}
+// Deprecated: Use DefinitionPage.ProtoReflect.Descriptor instead.
+func (*DefinitionPage) Descriptor() ([]byte, []int) {
+	return file_workflow_v1_workflow_proto_rawDescGZIP(), []int{20}
 }
 
-func (x *WorkflowPage) GetLimit() int32 {
+func (x *DefinitionPage) GetLimit() int32 {
 	if x != nil {
 		return x.Limit
 	}
 	return 0
 }
 
-func (x *WorkflowPage) GetOffset() int32 {
+func (x *DefinitionPage) GetOffset() int32 {
 	if x != nil {
 		return x.Offset
 	}
 	return 0
 }
 
-func (x *WorkflowPage) GetWorkflows() []*Workflow {
+func (x *DefinitionPage) GetDefinitions() []*Definition {
 	if x != nil {
-		return x.Workflows
+		return x.Definitions
 	}
 	return nil
 }
 
-// GetWorkflowRequest 是查询工作流的请求。
-type GetWorkflowRequest struct {
+// GetDefinitionRequest 是查询工作流定义的请求。
+type GetDefinitionRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	WorkflowId    string                 `protobuf:"bytes,1,opt,name=workflow_id,proto3" json:"workflow_id,omitempty"`
+	DefinitionId  string                 `protobuf:"bytes,1,opt,name=definition_id,proto3" json:"definition_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *GetWorkflowRequest) Reset() {
-	*x = GetWorkflowRequest{}
-	mi := &file_workflow_v1_workflow_proto_msgTypes[23]
+func (x *GetDefinitionRequest) Reset() {
+	*x = GetDefinitionRequest{}
+	mi := &file_workflow_v1_workflow_proto_msgTypes[21]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *GetWorkflowRequest) String() string {
+func (x *GetDefinitionRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*GetWorkflowRequest) ProtoMessage() {}
+func (*GetDefinitionRequest) ProtoMessage() {}
 
-func (x *GetWorkflowRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_workflow_v1_workflow_proto_msgTypes[23]
+func (x *GetDefinitionRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_workflow_v1_workflow_proto_msgTypes[21]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1470,44 +1372,44 @@ func (x *GetWorkflowRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use GetWorkflowRequest.ProtoReflect.Descriptor instead.
-func (*GetWorkflowRequest) Descriptor() ([]byte, []int) {
-	return file_workflow_v1_workflow_proto_rawDescGZIP(), []int{23}
+// Deprecated: Use GetDefinitionRequest.ProtoReflect.Descriptor instead.
+func (*GetDefinitionRequest) Descriptor() ([]byte, []int) {
+	return file_workflow_v1_workflow_proto_rawDescGZIP(), []int{21}
 }
 
-func (x *GetWorkflowRequest) GetWorkflowId() string {
+func (x *GetDefinitionRequest) GetDefinitionId() string {
 	if x != nil {
-		return x.WorkflowId
+		return x.DefinitionId
 	}
 	return ""
 }
 
-type GetWorkflowResponse struct {
+type GetDefinitionResponse struct {
 	state             protoimpl.MessageState `protogen:"open.v1"`
 	ErrorCode         int32                  `protobuf:"varint,1,opt,name=error_code,proto3" json:"error_code,omitempty"`
 	ErrorMsg          string                 `protobuf:"bytes,2,opt,name=error_msg,proto3" json:"error_msg,omitempty"`
 	InternalErrorCode int32                  `protobuf:"varint,3,opt,name=internal_error_code,proto3" json:"internal_error_code,omitempty"`
 	InternalErrorMsg  string                 `protobuf:"bytes,4,opt,name=internal_error_msg,proto3" json:"internal_error_msg,omitempty"`
-	Data              *Workflow              `protobuf:"bytes,5,opt,name=data,proto3" json:"data,omitempty"`
+	Data              *Definition            `protobuf:"bytes,5,opt,name=data,proto3" json:"data,omitempty"`
 	unknownFields     protoimpl.UnknownFields
 	sizeCache         protoimpl.SizeCache
 }
 
-func (x *GetWorkflowResponse) Reset() {
-	*x = GetWorkflowResponse{}
-	mi := &file_workflow_v1_workflow_proto_msgTypes[24]
+func (x *GetDefinitionResponse) Reset() {
+	*x = GetDefinitionResponse{}
+	mi := &file_workflow_v1_workflow_proto_msgTypes[22]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *GetWorkflowResponse) String() string {
+func (x *GetDefinitionResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*GetWorkflowResponse) ProtoMessage() {}
+func (*GetDefinitionResponse) ProtoMessage() {}
 
-func (x *GetWorkflowResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_workflow_v1_workflow_proto_msgTypes[24]
+func (x *GetDefinitionResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_workflow_v1_workflow_proto_msgTypes[22]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1518,59 +1420,59 @@ func (x *GetWorkflowResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use GetWorkflowResponse.ProtoReflect.Descriptor instead.
-func (*GetWorkflowResponse) Descriptor() ([]byte, []int) {
-	return file_workflow_v1_workflow_proto_rawDescGZIP(), []int{24}
+// Deprecated: Use GetDefinitionResponse.ProtoReflect.Descriptor instead.
+func (*GetDefinitionResponse) Descriptor() ([]byte, []int) {
+	return file_workflow_v1_workflow_proto_rawDescGZIP(), []int{22}
 }
 
-func (x *GetWorkflowResponse) GetErrorCode() int32 {
+func (x *GetDefinitionResponse) GetErrorCode() int32 {
 	if x != nil {
 		return x.ErrorCode
 	}
 	return 0
 }
 
-func (x *GetWorkflowResponse) GetErrorMsg() string {
+func (x *GetDefinitionResponse) GetErrorMsg() string {
 	if x != nil {
 		return x.ErrorMsg
 	}
 	return ""
 }
 
-func (x *GetWorkflowResponse) GetInternalErrorCode() int32 {
+func (x *GetDefinitionResponse) GetInternalErrorCode() int32 {
 	if x != nil {
 		return x.InternalErrorCode
 	}
 	return 0
 }
 
-func (x *GetWorkflowResponse) GetInternalErrorMsg() string {
+func (x *GetDefinitionResponse) GetInternalErrorMsg() string {
 	if x != nil {
 		return x.InternalErrorMsg
 	}
 	return ""
 }
 
-func (x *GetWorkflowResponse) GetData() *Workflow {
+func (x *GetDefinitionResponse) GetData() *Definition {
 	if x != nil {
 		return x.Data
 	}
 	return nil
 }
 
-// Workflow 表示工作流定义。
-type Workflow struct {
+// Definition 表示工作流定义资源。
+type Definition struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
-	// WorkflowID 是工作流的稳定标识。
-	WorkflowId string `protobuf:"bytes,1,opt,name=workflow_id,proto3" json:"workflow_id,omitempty"`
+	// DefinitionID 是工作流定义的稳定标识。
+	DefinitionId string `protobuf:"bytes,1,opt,name=definition_id,proto3" json:"definition_id,omitempty"`
 	// UID 标识工作流所属用户。
 	Uid int64 `protobuf:"varint,2,opt,name=uid,proto3" json:"uid,omitempty"`
-	// Name 是工作流的展示名称。
+	// Name 是工作流定义的展示名称。
 	Name string `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
-	// Type 标识工作流类型。
+	// Type 标识工作流定义类型。
 	Type string `protobuf:"bytes,4,opt,name=type,proto3" json:"type,omitempty"`
 	// Definition 是当前工作流图定义。
-	Definition *Definition `protobuf:"bytes,5,opt,name=definition,proto3" json:"definition,omitempty"`
+	Definition *DefinitionGraph `protobuf:"bytes,5,opt,name=definition,proto3" json:"definition,omitempty"`
 	// CreatedAt 是工作流的创建时间。
 	CreatedAt *timestamppb.Timestamp `protobuf:"bytes,6,opt,name=created_at,proto3" json:"created_at,omitempty"`
 	// UpdatedAt 是工作流的更新时间。
@@ -1579,99 +1481,9 @@ type Workflow struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *Workflow) Reset() {
-	*x = Workflow{}
-	mi := &file_workflow_v1_workflow_proto_msgTypes[25]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *Workflow) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*Workflow) ProtoMessage() {}
-
-func (x *Workflow) ProtoReflect() protoreflect.Message {
-	mi := &file_workflow_v1_workflow_proto_msgTypes[25]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use Workflow.ProtoReflect.Descriptor instead.
-func (*Workflow) Descriptor() ([]byte, []int) {
-	return file_workflow_v1_workflow_proto_rawDescGZIP(), []int{25}
-}
-
-func (x *Workflow) GetWorkflowId() string {
-	if x != nil {
-		return x.WorkflowId
-	}
-	return ""
-}
-
-func (x *Workflow) GetUid() int64 {
-	if x != nil {
-		return x.Uid
-	}
-	return 0
-}
-
-func (x *Workflow) GetName() string {
-	if x != nil {
-		return x.Name
-	}
-	return ""
-}
-
-func (x *Workflow) GetType() string {
-	if x != nil {
-		return x.Type
-	}
-	return ""
-}
-
-func (x *Workflow) GetDefinition() *Definition {
-	if x != nil {
-		return x.Definition
-	}
-	return nil
-}
-
-func (x *Workflow) GetCreatedAt() *timestamppb.Timestamp {
-	if x != nil {
-		return x.CreatedAt
-	}
-	return nil
-}
-
-func (x *Workflow) GetUpdatedAt() *timestamppb.Timestamp {
-	if x != nil {
-		return x.UpdatedAt
-	}
-	return nil
-}
-
-// Definition 表示工作流的图定义。
-type Definition struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// Nodes 保存图中的节点定义。
-	Nodes []*Node `protobuf:"bytes,1,rep,name=nodes,proto3" json:"nodes,omitempty"`
-	// Edges 保存节点之间的连线定义。
-	Edges         []*Edge `protobuf:"bytes,2,rep,name=edges,proto3" json:"edges,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
 func (x *Definition) Reset() {
 	*x = Definition{}
-	mi := &file_workflow_v1_workflow_proto_msgTypes[26]
+	mi := &file_workflow_v1_workflow_proto_msgTypes[23]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1683,7 +1495,7 @@ func (x *Definition) String() string {
 func (*Definition) ProtoMessage() {}
 
 func (x *Definition) ProtoReflect() protoreflect.Message {
-	mi := &file_workflow_v1_workflow_proto_msgTypes[26]
+	mi := &file_workflow_v1_workflow_proto_msgTypes[23]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1696,17 +1508,107 @@ func (x *Definition) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Definition.ProtoReflect.Descriptor instead.
 func (*Definition) Descriptor() ([]byte, []int) {
-	return file_workflow_v1_workflow_proto_rawDescGZIP(), []int{26}
+	return file_workflow_v1_workflow_proto_rawDescGZIP(), []int{23}
 }
 
-func (x *Definition) GetNodes() []*Node {
+func (x *Definition) GetDefinitionId() string {
+	if x != nil {
+		return x.DefinitionId
+	}
+	return ""
+}
+
+func (x *Definition) GetUid() int64 {
+	if x != nil {
+		return x.Uid
+	}
+	return 0
+}
+
+func (x *Definition) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *Definition) GetType() string {
+	if x != nil {
+		return x.Type
+	}
+	return ""
+}
+
+func (x *Definition) GetDefinition() *DefinitionGraph {
+	if x != nil {
+		return x.Definition
+	}
+	return nil
+}
+
+func (x *Definition) GetCreatedAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.CreatedAt
+	}
+	return nil
+}
+
+func (x *Definition) GetUpdatedAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.UpdatedAt
+	}
+	return nil
+}
+
+// DefinitionGraph 表示工作流的图定义。
+type DefinitionGraph struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// Nodes 保存图中的节点定义。
+	Nodes []*Node `protobuf:"bytes,1,rep,name=nodes,proto3" json:"nodes,omitempty"`
+	// Edges 保存节点之间的连线定义。
+	Edges         []*Edge `protobuf:"bytes,2,rep,name=edges,proto3" json:"edges,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DefinitionGraph) Reset() {
+	*x = DefinitionGraph{}
+	mi := &file_workflow_v1_workflow_proto_msgTypes[24]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DefinitionGraph) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DefinitionGraph) ProtoMessage() {}
+
+func (x *DefinitionGraph) ProtoReflect() protoreflect.Message {
+	mi := &file_workflow_v1_workflow_proto_msgTypes[24]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DefinitionGraph.ProtoReflect.Descriptor instead.
+func (*DefinitionGraph) Descriptor() ([]byte, []int) {
+	return file_workflow_v1_workflow_proto_rawDescGZIP(), []int{24}
+}
+
+func (x *DefinitionGraph) GetNodes() []*Node {
 	if x != nil {
 		return x.Nodes
 	}
 	return nil
 }
 
-func (x *Definition) GetEdges() []*Edge {
+func (x *DefinitionGraph) GetEdges() []*Edge {
 	if x != nil {
 		return x.Edges
 	}
@@ -1715,7 +1617,7 @@ func (x *Definition) GetEdges() []*Edge {
 
 type Node struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
-	// ID 在当前 Definition 内唯一，并供 Edge 引用。
+	// ID 在当前 DefinitionGraph 内唯一，并供 Edge 引用。
 	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
 	// Type 标识节点的执行类型。
 	Type string `protobuf:"bytes,2,opt,name=type,proto3" json:"type,omitempty"`
@@ -1727,7 +1629,7 @@ type Node struct {
 
 func (x *Node) Reset() {
 	*x = Node{}
-	mi := &file_workflow_v1_workflow_proto_msgTypes[27]
+	mi := &file_workflow_v1_workflow_proto_msgTypes[25]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1739,7 +1641,7 @@ func (x *Node) String() string {
 func (*Node) ProtoMessage() {}
 
 func (x *Node) ProtoReflect() protoreflect.Message {
-	mi := &file_workflow_v1_workflow_proto_msgTypes[27]
+	mi := &file_workflow_v1_workflow_proto_msgTypes[25]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1752,7 +1654,7 @@ func (x *Node) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Node.ProtoReflect.Descriptor instead.
 func (*Node) Descriptor() ([]byte, []int) {
-	return file_workflow_v1_workflow_proto_rawDescGZIP(), []int{27}
+	return file_workflow_v1_workflow_proto_rawDescGZIP(), []int{25}
 }
 
 func (x *Node) GetId() string {
@@ -1795,7 +1697,7 @@ type Edge struct {
 
 func (x *Edge) Reset() {
 	*x = Edge{}
-	mi := &file_workflow_v1_workflow_proto_msgTypes[28]
+	mi := &file_workflow_v1_workflow_proto_msgTypes[26]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1807,7 +1709,7 @@ func (x *Edge) String() string {
 func (*Edge) ProtoMessage() {}
 
 func (x *Edge) ProtoReflect() protoreflect.Message {
-	mi := &file_workflow_v1_workflow_proto_msgTypes[28]
+	mi := &file_workflow_v1_workflow_proto_msgTypes[26]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1820,7 +1722,7 @@ func (x *Edge) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Edge.ProtoReflect.Descriptor instead.
 func (*Edge) Descriptor() ([]byte, []int) {
-	return file_workflow_v1_workflow_proto_rawDescGZIP(), []int{28}
+	return file_workflow_v1_workflow_proto_rawDescGZIP(), []int{26}
 }
 
 func (x *Edge) GetFromNode() string {
@@ -1866,57 +1768,55 @@ const file_workflow_v1_workflow_proto_rawDesc = "" +
 	"\x1dWorkflowServiceHealthzRequest\" \n" +
 	"\x1eWorkflowServiceHealthzResponse\"\x1e\n" +
 	"\x1cWorkflowServiceReadyzRequest\"\x1f\n" +
-	"\x1dWorkflowServiceReadyzResponse\"\xc9\x01\n" +
-	"\x16CreateExecutionRequest\x12*\n" +
+	"\x1dWorkflowServiceReadyzResponse\"\xd5\x01\n" +
+	"\x1eCreateWorkflowExecutionRequest\x12*\n" +
 	"\x03uid\x18\x01 \x01(\x03B\x18\xe0A\x02\xbaG\x12\xca\x01\ainteger\x9a\x02\x05int64R\x03uid\x12-\n" +
-	"\x0fidempotency_key\x18\x02 \x01(\tB\x03\xe0A\x02R\x0fidempotency_key\x12%\n" +
-	"\vworkflow_id\x18\x03 \x01(\tB\x03\xe0A\x02R\vworkflow_id\x12-\n" +
-	"\x05input\x18\x04 \x01(\v2\x17.google.protobuf.StructR\x05input\"\xef\x01\n" +
-	"\x17CreateExecutionResponse\x12\x1e\n" +
+	"\x0fidempotency_key\x18\x02 \x01(\tB\x03\xe0A\x02R\x0fidempotency_key\x12)\n" +
+	"\rdefinition_id\x18\x03 \x01(\tB\x03\xe0A\x02R\rdefinition_id\x12-\n" +
+	"\x05input\x18\x04 \x01(\v2\x17.google.protobuf.StructR\x05input\"\xff\x01\n" +
+	"\x1fCreateWorkflowExecutionResponse\x12\x1e\n" +
 	"\n" +
 	"error_code\x18\x01 \x01(\x05R\n" +
 	"error_code\x12\x1c\n" +
 	"\terror_msg\x18\x02 \x01(\tR\terror_msg\x120\n" +
 	"\x13internal_error_code\x18\x03 \x01(\x05R\x13internal_error_code\x12.\n" +
-	"\x12internal_error_msg\x18\x04 \x01(\tR\x12internal_error_msg\x124\n" +
-	"\x04data\x18\x05 \x01(\v2 .workflow.v1.CreateExecutionDataR\x04data\"9\n" +
-	"\x13CreateExecutionData\x12\"\n" +
-	"\fexecution_id\x18\x01 \x01(\tR\fexecution_id\"9\n" +
-	"\x13GetExecutionRequest\x12\"\n" +
-	"\fexecution_id\x18\x01 \x01(\tR\fexecution_id\"\xe2\x01\n" +
-	"\x14GetExecutionResponse\x12\x1e\n" +
+	"\x12internal_error_msg\x18\x04 \x01(\tR\x12internal_error_msg\x12<\n" +
+	"\x04data\x18\x05 \x01(\v2(.workflow.v1.CreateWorkflowExecutionDataR\x04data\"S\n" +
+	"\x1bCreateWorkflowExecutionData\x124\n" +
+	"\x15workflow_execution_id\x18\x01 \x01(\tR\x15workflow_execution_id\"S\n" +
+	"\x1bGetWorkflowExecutionRequest\x124\n" +
+	"\x15workflow_execution_id\x18\x01 \x01(\tR\x15workflow_execution_id\"\xf2\x01\n" +
+	"\x1cGetWorkflowExecutionResponse\x12\x1e\n" +
 	"\n" +
 	"error_code\x18\x01 \x01(\x05R\n" +
 	"error_code\x12\x1c\n" +
 	"\terror_msg\x18\x02 \x01(\tR\terror_msg\x120\n" +
 	"\x13internal_error_code\x18\x03 \x01(\x05R\x13internal_error_code\x12.\n" +
-	"\x12internal_error_msg\x18\x04 \x01(\tR\x12internal_error_msg\x12*\n" +
-	"\x04data\x18\x05 \x01(\v2\x16.workflow.v1.ExecutionR\x04data\"\x94\x01\n" +
-	"\x15ListExecutionsRequest\x12'\n" +
-	"\x03uid\x18\x01 \x01(\x03B\x15\xbaG\x12\xca\x01\ainteger\x9a\x02\x05int64R\x03uid\x12$\n" +
-	"\rworkflow_type\x18\x02 \x01(\tR\rworkflow_type\x12\x14\n" +
+	"\x12internal_error_msg\x18\x04 \x01(\tR\x12internal_error_msg\x122\n" +
+	"\x04data\x18\x05 \x01(\v2\x1e.workflow.v1.WorkflowExecutionR\x04data\"\xa0\x01\n" +
+	"\x1dListWorkflowExecutionsRequest\x12'\n" +
+	"\x03uid\x18\x01 \x01(\x03B\x15\xbaG\x12\xca\x01\ainteger\x9a\x02\x05int64R\x03uid\x12(\n" +
+	"\x0fdefinition_type\x18\x02 \x01(\tR\x0fdefinition_type\x12\x14\n" +
 	"\x05limit\x18\x03 \x01(\x05R\x05limit\x12\x16\n" +
-	"\x06offset\x18\x04 \x01(\x05R\x06offset\"\xe8\x01\n" +
-	"\x16ListExecutionsResponse\x12\x1e\n" +
+	"\x06offset\x18\x04 \x01(\x05R\x06offset\"\xf8\x01\n" +
+	"\x1eListWorkflowExecutionsResponse\x12\x1e\n" +
 	"\n" +
 	"error_code\x18\x01 \x01(\x05R\n" +
 	"error_code\x12\x1c\n" +
 	"\terror_msg\x18\x02 \x01(\tR\terror_msg\x120\n" +
 	"\x13internal_error_code\x18\x03 \x01(\x05R\x13internal_error_code\x12.\n" +
-	"\x12internal_error_msg\x18\x04 \x01(\tR\x12internal_error_msg\x12.\n" +
-	"\x04data\x18\x05 \x01(\v2\x1a.workflow.v1.ExecutionPageR\x04data\"u\n" +
-	"\rExecutionPage\x12\x14\n" +
+	"\x12internal_error_msg\x18\x04 \x01(\tR\x12internal_error_msg\x126\n" +
+	"\x04data\x18\x05 \x01(\v2\".workflow.v1.WorkflowExecutionPageR\x04data\"\x97\x01\n" +
+	"\x15WorkflowExecutionPage\x12\x14\n" +
 	"\x05limit\x18\x01 \x01(\x05R\x05limit\x12\x16\n" +
-	"\x06offset\x18\x02 \x01(\x05R\x06offset\x126\n" +
-	"\n" +
-	"executions\x18\x04 \x03(\v2\x16.workflow.v1.ExecutionR\n" +
-	"executions\"\xc7\x05\n" +
-	"\tExecution\x12\"\n" +
-	"\fexecution_id\x18\x01 \x01(\tR\fexecution_id\x12'\n" +
+	"\x06offset\x18\x02 \x01(\x05R\x06offset\x12P\n" +
+	"\x13workflow_executions\x18\x04 \x03(\v2\x1e.workflow.v1.WorkflowExecutionR\x13workflow_executions\"\xe9\x05\n" +
+	"\x11WorkflowExecution\x124\n" +
+	"\x15workflow_execution_id\x18\x01 \x01(\tR\x15workflow_execution_id\x12'\n" +
 	"\x03uid\x18\x02 \x01(\x03B\x15\xbaG\x12\xca\x01\ainteger\x9a\x02\x05int64R\x03uid\x12(\n" +
-	"\x0fidempotency_key\x18\x03 \x01(\tR\x0fidempotency_key\x12 \n" +
-	"\vworkflow_id\x18\x04 \x01(\tR\vworkflow_id\x12$\n" +
-	"\rworkflow_type\x18\x05 \x01(\tR\rworkflow_type\x12\x16\n" +
+	"\x0fidempotency_key\x18\x03 \x01(\tR\x0fidempotency_key\x12$\n" +
+	"\rdefinition_id\x18\x04 \x01(\tR\rdefinition_id\x12(\n" +
+	"\x0fdefinition_type\x18\x05 \x01(\tR\x0fdefinition_type\x12\x16\n" +
 	"\x06status\x18\x06 \x01(\tR\x06status\x12-\n" +
 	"\x05input\x18\a \x01(\v2\x17.google.protobuf.StructR\x05input\x12.\n" +
 	"\x06output\x18\b \x01(\v2\x16.google.protobuf.ValueR\x06output\x120\n" +
@@ -1933,85 +1833,73 @@ const file_workflow_v1_workflow_proto_rawDesc = "" +
 	"\fcompleted_at\x18\x0e \x01(\v2\x1a.google.protobuf.TimestampR\fcompleted_at\x12:\n" +
 	"\n" +
 	"updated_at\x18\x0f \x01(\v2\x1a.google.protobuf.TimestampR\n" +
-	"updated_at\"\x16\n" +
-	"\x14ListNodeTypesRequest\"N\n" +
-	"\x15ListNodeTypesResponse\x125\n" +
+	"updated_at\"\x18\n" +
+	"\x16ListNodeSchemasRequest\"V\n" +
+	"\x17ListNodeSchemasResponse\x12;\n" +
+	"\fnode_schemas\x18\x01 \x03(\v2\x17.workflow.v1.NodeSchemaR\fnode_schemas\"\xb9\x01\n" +
 	"\n" +
-	"node_types\x18\x01 \x03(\v2\x15.workflow.v1.NodeTypeR\n" +
-	"node_types\"\xcb\x02\n" +
-	"\bNodeType\x12\x12\n" +
-	"\x04type\x18\x01 \x01(\tR\x04type\x129\n" +
-	"\x06inputs\x18\x02 \x03(\v2!.workflow.v1.NodeType.InputsEntryR\x06inputs\x12<\n" +
-	"\aoutputs\x18\x03 \x03(\v2\".workflow.v1.NodeType.OutputsEntryR\aoutputs\x1aW\n" +
-	"\vInputsEntry\x12\x10\n" +
-	"\x03key\x18\x01 \x01(\tR\x03key\x122\n" +
-	"\x05value\x18\x02 \x01(\v2\x1c.workflow.v1.InputDefinitionR\x05value:\x028\x01\x1aY\n" +
-	"\fOutputsEntry\x12\x10\n" +
-	"\x03key\x18\x01 \x01(\tR\x03key\x123\n" +
-	"\x05value\x18\x02 \x01(\v2\x1d.workflow.v1.OutputDefinitionR\x05value:\x028\x01\"A\n" +
-	"\x0fInputDefinition\x12\x12\n" +
-	"\x04type\x18\x01 \x01(\tR\x04type\x12\x1a\n" +
-	"\brequired\x18\x02 \x01(\bR\brequired\"&\n" +
-	"\x10OutputDefinition\x12\x12\n" +
-	"\x04type\x18\x01 \x01(\tR\x04type\"\xa1\x01\n" +
-	"\x15CreateWorkflowRequest\x12'\n" +
+	"NodeSchema\x12\x12\n" +
+	"\x04type\x18\x01 \x01(\tR\x04type\x12;\n" +
+	"\finput_schema\x18\x04 \x01(\v2\x17.google.protobuf.StructR\finput_schema\x12=\n" +
+	"\routput_schema\x18\x05 \x01(\v2\x17.google.protobuf.StructR\routput_schemaJ\x04\b\x02\x10\x03J\x04\b\x03\x10\x04R\x06inputsR\aoutputs\"\xa8\x01\n" +
+	"\x17CreateDefinitionRequest\x12'\n" +
 	"\x03uid\x18\x01 \x01(\x03B\x15\xbaG\x12\xca\x01\ainteger\x9a\x02\x05int64R\x03uid\x12\x12\n" +
 	"\x04name\x18\x02 \x01(\tR\x04name\x12\x12\n" +
-	"\x04type\x18\x03 \x01(\tR\x04type\x127\n" +
+	"\x04type\x18\x03 \x01(\tR\x04type\x12<\n" +
 	"\n" +
-	"definition\x18\x04 \x01(\v2\x17.workflow.v1.DefinitionR\n" +
-	"definition\"\xe3\x01\n" +
-	"\x16CreateWorkflowResponse\x12\x1e\n" +
+	"definition\x18\x04 \x01(\v2\x1c.workflow.v1.DefinitionGraphR\n" +
+	"definition\"\xe7\x01\n" +
+	"\x18CreateDefinitionResponse\x12\x1e\n" +
 	"\n" +
 	"error_code\x18\x01 \x01(\x05R\n" +
 	"error_code\x12\x1c\n" +
 	"\terror_msg\x18\x02 \x01(\tR\terror_msg\x120\n" +
 	"\x13internal_error_code\x18\x03 \x01(\x05R\x13internal_error_code\x12.\n" +
-	"\x12internal_error_msg\x18\x04 \x01(\tR\x12internal_error_msg\x12)\n" +
-	"\x04data\x18\x05 \x01(\v2\x15.workflow.v1.WorkflowR\x04data\"\x81\x01\n" +
-	"\x14ListWorkflowsRequest\x12'\n" +
+	"\x12internal_error_msg\x18\x04 \x01(\tR\x12internal_error_msg\x12+\n" +
+	"\x04data\x18\x05 \x01(\v2\x17.workflow.v1.DefinitionR\x04data\"\x83\x01\n" +
+	"\x16ListDefinitionsRequest\x12'\n" +
 	"\x03uid\x18\x01 \x01(\x03B\x15\xbaG\x12\xca\x01\ainteger\x9a\x02\x05int64R\x03uid\x12\x12\n" +
 	"\x04type\x18\x02 \x01(\tR\x04type\x12\x14\n" +
 	"\x05limit\x18\x03 \x01(\x05R\x05limit\x12\x16\n" +
-	"\x06offset\x18\x04 \x01(\x05R\x06offset\"\xe6\x01\n" +
-	"\x15ListWorkflowsResponse\x12\x1e\n" +
+	"\x06offset\x18\x04 \x01(\x05R\x06offset\"\xea\x01\n" +
+	"\x17ListDefinitionsResponse\x12\x1e\n" +
 	"\n" +
 	"error_code\x18\x01 \x01(\x05R\n" +
 	"error_code\x12\x1c\n" +
 	"\terror_msg\x18\x02 \x01(\tR\terror_msg\x120\n" +
 	"\x13internal_error_code\x18\x03 \x01(\x05R\x13internal_error_code\x12.\n" +
-	"\x12internal_error_msg\x18\x04 \x01(\tR\x12internal_error_msg\x12-\n" +
-	"\x04data\x18\x05 \x01(\v2\x19.workflow.v1.WorkflowPageR\x04data\"q\n" +
-	"\fWorkflowPage\x12\x14\n" +
+	"\x12internal_error_msg\x18\x04 \x01(\tR\x12internal_error_msg\x12/\n" +
+	"\x04data\x18\x05 \x01(\v2\x1b.workflow.v1.DefinitionPageR\x04data\"y\n" +
+	"\x0eDefinitionPage\x12\x14\n" +
 	"\x05limit\x18\x01 \x01(\x05R\x05limit\x12\x16\n" +
-	"\x06offset\x18\x02 \x01(\x05R\x06offset\x123\n" +
-	"\tworkflows\x18\x04 \x03(\v2\x15.workflow.v1.WorkflowR\tworkflows\"6\n" +
-	"\x12GetWorkflowRequest\x12 \n" +
-	"\vworkflow_id\x18\x01 \x01(\tR\vworkflow_id\"\xe0\x01\n" +
-	"\x13GetWorkflowResponse\x12\x1e\n" +
+	"\x06offset\x18\x02 \x01(\x05R\x06offset\x129\n" +
+	"\vdefinitions\x18\x04 \x03(\v2\x17.workflow.v1.DefinitionR\vdefinitions\"<\n" +
+	"\x14GetDefinitionRequest\x12$\n" +
+	"\rdefinition_id\x18\x01 \x01(\tR\rdefinition_id\"\xe4\x01\n" +
+	"\x15GetDefinitionResponse\x12\x1e\n" +
 	"\n" +
 	"error_code\x18\x01 \x01(\x05R\n" +
 	"error_code\x12\x1c\n" +
 	"\terror_msg\x18\x02 \x01(\tR\terror_msg\x120\n" +
 	"\x13internal_error_code\x18\x03 \x01(\x05R\x13internal_error_code\x12.\n" +
-	"\x12internal_error_msg\x18\x04 \x01(\tR\x12internal_error_msg\x12)\n" +
-	"\x04data\x18\x05 \x01(\v2\x15.workflow.v1.WorkflowR\x04data\"\xae\x02\n" +
-	"\bWorkflow\x12 \n" +
-	"\vworkflow_id\x18\x01 \x01(\tR\vworkflow_id\x12'\n" +
+	"\x12internal_error_msg\x18\x04 \x01(\tR\x12internal_error_msg\x12+\n" +
+	"\x04data\x18\x05 \x01(\v2\x17.workflow.v1.DefinitionR\x04data\"\xb9\x02\n" +
+	"\n" +
+	"Definition\x12$\n" +
+	"\rdefinition_id\x18\x01 \x01(\tR\rdefinition_id\x12'\n" +
 	"\x03uid\x18\x02 \x01(\x03B\x15\xbaG\x12\xca\x01\ainteger\x9a\x02\x05int64R\x03uid\x12\x12\n" +
 	"\x04name\x18\x03 \x01(\tR\x04name\x12\x12\n" +
-	"\x04type\x18\x04 \x01(\tR\x04type\x127\n" +
+	"\x04type\x18\x04 \x01(\tR\x04type\x12<\n" +
 	"\n" +
-	"definition\x18\x05 \x01(\v2\x17.workflow.v1.DefinitionR\n" +
+	"definition\x18\x05 \x01(\v2\x1c.workflow.v1.DefinitionGraphR\n" +
 	"definition\x12:\n" +
 	"\n" +
 	"created_at\x18\x06 \x01(\v2\x1a.google.protobuf.TimestampR\n" +
 	"created_at\x12:\n" +
 	"\n" +
 	"updated_at\x18\a \x01(\v2\x1a.google.protobuf.TimestampR\n" +
-	"updated_at\"^\n" +
-	"\n" +
-	"Definition\x12'\n" +
+	"updated_at\"c\n" +
+	"\x0fDefinitionGraph\x12'\n" +
 	"\x05nodes\x18\x01 \x03(\v2\x11.workflow.v1.NodeR\x05nodes\x12'\n" +
 	"\x05edges\x18\x02 \x03(\v2\x11.workflow.v1.EdgeR\x05edges\"\xb4\x01\n" +
 	"\x04Node\x12\x0e\n" +
@@ -2026,18 +1914,17 @@ const file_workflow_v1_workflow_proto_rawDesc = "" +
 	"\vfrom_branch\x18\x02 \x01(\tR\vfrom_branch\x12\x1c\n" +
 	"\tfrom_port\x18\x03 \x01(\tR\tfrom_port\x12\x18\n" +
 	"\ato_node\x18\x04 \x01(\tR\ato_node\x12\x1a\n" +
-	"\bto_input\x18\x05 \x01(\tR\bto_input2\xed\b\n" +
-	"\x0fWorkflowService\x12t\n" +
-	"\aHealthz\x12*.workflow.v1.WorkflowServiceHealthzRequest\x1a+.workflow.v1.WorkflowServiceHealthzResponse\"\x10\x82\xd3\xe4\x93\x02\n" +
-	"\x12\b/healthz\x12p\n" +
-	"\x06Readyz\x12).workflow.v1.WorkflowServiceReadyzRequest\x1a*.workflow.v1.WorkflowServiceReadyzResponse\"\x0f\x82\xd3\xe4\x93\x02\t\x12\a/readyz\x12\x80\x01\n" +
-	"\x0fCreateExecution\x12#.workflow.v1.CreateExecutionRequest\x1a$.workflow.v1.CreateExecutionResponse\"\"\x82\xd3\xe4\x93\x02\x1c:\x01*\"\x17/internal/v1/executions\x12\x83\x01\n" +
-	"\fGetExecution\x12 .workflow.v1.GetExecutionRequest\x1a!.workflow.v1.GetExecutionResponse\".\x82\xd3\xe4\x93\x02(\x12&/internal/v1/executions/{execution_id}\x12z\n" +
-	"\x0eListExecutions\x12\".workflow.v1.ListExecutionsRequest\x1a#.workflow.v1.ListExecutionsResponse\"\x1f\x82\xd3\xe4\x93\x02\x19\x12\x17/internal/v1/executions\x12w\n" +
-	"\rListNodeTypes\x12!.workflow.v1.ListNodeTypesRequest\x1a\".workflow.v1.ListNodeTypesResponse\"\x1f\x82\xd3\xe4\x93\x02\x19\x12\x17/internal/v1/node-types\x12|\n" +
-	"\x0eCreateWorkflow\x12\".workflow.v1.CreateWorkflowRequest\x1a#.workflow.v1.CreateWorkflowResponse\"!\x82\xd3\xe4\x93\x02\x1b:\x01*\"\x16/internal/v1/workflows\x12v\n" +
-	"\rListWorkflows\x12!.workflow.v1.ListWorkflowsRequest\x1a\".workflow.v1.ListWorkflowsResponse\"\x1e\x82\xd3\xe4\x93\x02\x18\x12\x16/internal/v1/workflows\x12~\n" +
-	"\vGetWorkflow\x12\x1f.workflow.v1.GetWorkflowRequest\x1a .workflow.v1.GetWorkflowResponse\",\x82\xd3\xe4\x93\x02&\x12$/internal/v1/workflows/{workflow_id}B0Z.github.com/hobbyGG/workflow/api/workflow/v1;v1b\x06proto3"
+	"\bto_input\x18\x05 \x01(\tR\bto_input2\xfa\t\n" +
+	"\x0fWorkflowService\x12q\n" +
+	"\aHealthz\x12*.workflow.v1.WorkflowServiceHealthzRequest\x1a+.workflow.v1.WorkflowServiceHealthzResponse\"\r\x82\xd3\xe4\x93\x02\a\x12\x05/live\x12o\n" +
+	"\x06Readyz\x12).workflow.v1.WorkflowServiceReadyzRequest\x1a*.workflow.v1.WorkflowServiceReadyzResponse\"\x0e\x82\xd3\xe4\x93\x02\b\x12\x06/ready\x12\xa1\x01\n" +
+	"\x17CreateWorkflowExecution\x12+.workflow.v1.CreateWorkflowExecutionRequest\x1a,.workflow.v1.CreateWorkflowExecutionResponse\"+\x82\xd3\xe4\x93\x02%:\x01*\" /internal/v1/workflow-executions\x12\xad\x01\n" +
+	"\x14GetWorkflowExecution\x12(.workflow.v1.GetWorkflowExecutionRequest\x1a).workflow.v1.GetWorkflowExecutionResponse\"@\x82\xd3\xe4\x93\x02:\x128/internal/v1/workflow-executions/{workflow_execution_id}\x12\x9b\x01\n" +
+	"\x16ListWorkflowExecutions\x12*.workflow.v1.ListWorkflowExecutionsRequest\x1a+.workflow.v1.ListWorkflowExecutionsResponse\"(\x82\xd3\xe4\x93\x02\"\x12 /internal/v1/workflow-executions\x12\x7f\n" +
+	"\x0fListNodeSchemas\x12#.workflow.v1.ListNodeSchemasRequest\x1a$.workflow.v1.ListNodeSchemasResponse\"!\x82\xd3\xe4\x93\x02\x1b\x12\x19/internal/v1/node-schemas\x12\x84\x01\n" +
+	"\x10CreateDefinition\x12$.workflow.v1.CreateDefinitionRequest\x1a%.workflow.v1.CreateDefinitionResponse\"#\x82\xd3\xe4\x93\x02\x1d:\x01*\"\x18/internal/v1/definitions\x12~\n" +
+	"\x0fListDefinitions\x12#.workflow.v1.ListDefinitionsRequest\x1a$.workflow.v1.ListDefinitionsResponse\" \x82\xd3\xe4\x93\x02\x1a\x12\x18/internal/v1/definitions\x12\x88\x01\n" +
+	"\rGetDefinition\x12!.workflow.v1.GetDefinitionRequest\x1a\".workflow.v1.GetDefinitionResponse\"0\x82\xd3\xe4\x93\x02*\x12(/internal/v1/definitions/{definition_id}B0Z.github.com/hobbyGG/workflow/api/workflow/v1;v1b\x06proto3"
 
 var (
 	file_workflow_v1_workflow_proto_rawDescOnce sync.Once
@@ -2051,96 +1938,90 @@ func file_workflow_v1_workflow_proto_rawDescGZIP() []byte {
 	return file_workflow_v1_workflow_proto_rawDescData
 }
 
-var file_workflow_v1_workflow_proto_msgTypes = make([]protoimpl.MessageInfo, 32)
+var file_workflow_v1_workflow_proto_msgTypes = make([]protoimpl.MessageInfo, 28)
 var file_workflow_v1_workflow_proto_goTypes = []any{
-	(*WorkflowServiceHealthzRequest)(nil),  // 0: workflow.v1.WorkflowServiceHealthzRequest
-	(*WorkflowServiceHealthzResponse)(nil), // 1: workflow.v1.WorkflowServiceHealthzResponse
-	(*WorkflowServiceReadyzRequest)(nil),   // 2: workflow.v1.WorkflowServiceReadyzRequest
-	(*WorkflowServiceReadyzResponse)(nil),  // 3: workflow.v1.WorkflowServiceReadyzResponse
-	(*CreateExecutionRequest)(nil),         // 4: workflow.v1.CreateExecutionRequest
-	(*CreateExecutionResponse)(nil),        // 5: workflow.v1.CreateExecutionResponse
-	(*CreateExecutionData)(nil),            // 6: workflow.v1.CreateExecutionData
-	(*GetExecutionRequest)(nil),            // 7: workflow.v1.GetExecutionRequest
-	(*GetExecutionResponse)(nil),           // 8: workflow.v1.GetExecutionResponse
-	(*ListExecutionsRequest)(nil),          // 9: workflow.v1.ListExecutionsRequest
-	(*ListExecutionsResponse)(nil),         // 10: workflow.v1.ListExecutionsResponse
-	(*ExecutionPage)(nil),                  // 11: workflow.v1.ExecutionPage
-	(*Execution)(nil),                      // 12: workflow.v1.Execution
-	(*ListNodeTypesRequest)(nil),           // 13: workflow.v1.ListNodeTypesRequest
-	(*ListNodeTypesResponse)(nil),          // 14: workflow.v1.ListNodeTypesResponse
-	(*NodeType)(nil),                       // 15: workflow.v1.NodeType
-	(*InputDefinition)(nil),                // 16: workflow.v1.InputDefinition
-	(*OutputDefinition)(nil),               // 17: workflow.v1.OutputDefinition
-	(*CreateWorkflowRequest)(nil),          // 18: workflow.v1.CreateWorkflowRequest
-	(*CreateWorkflowResponse)(nil),         // 19: workflow.v1.CreateWorkflowResponse
-	(*ListWorkflowsRequest)(nil),           // 20: workflow.v1.ListWorkflowsRequest
-	(*ListWorkflowsResponse)(nil),          // 21: workflow.v1.ListWorkflowsResponse
-	(*WorkflowPage)(nil),                   // 22: workflow.v1.WorkflowPage
-	(*GetWorkflowRequest)(nil),             // 23: workflow.v1.GetWorkflowRequest
-	(*GetWorkflowResponse)(nil),            // 24: workflow.v1.GetWorkflowResponse
-	(*Workflow)(nil),                       // 25: workflow.v1.Workflow
-	(*Definition)(nil),                     // 26: workflow.v1.Definition
-	(*Node)(nil),                           // 27: workflow.v1.Node
-	(*Edge)(nil),                           // 28: workflow.v1.Edge
-	nil,                                    // 29: workflow.v1.NodeType.InputsEntry
-	nil,                                    // 30: workflow.v1.NodeType.OutputsEntry
-	nil,                                    // 31: workflow.v1.Node.PresetEntry
-	(*structpb.Struct)(nil),                // 32: google.protobuf.Struct
-	(*structpb.Value)(nil),                 // 33: google.protobuf.Value
-	(*timestamppb.Timestamp)(nil),          // 34: google.protobuf.Timestamp
+	(*WorkflowServiceHealthzRequest)(nil),   // 0: workflow.v1.WorkflowServiceHealthzRequest
+	(*WorkflowServiceHealthzResponse)(nil),  // 1: workflow.v1.WorkflowServiceHealthzResponse
+	(*WorkflowServiceReadyzRequest)(nil),    // 2: workflow.v1.WorkflowServiceReadyzRequest
+	(*WorkflowServiceReadyzResponse)(nil),   // 3: workflow.v1.WorkflowServiceReadyzResponse
+	(*CreateWorkflowExecutionRequest)(nil),  // 4: workflow.v1.CreateWorkflowExecutionRequest
+	(*CreateWorkflowExecutionResponse)(nil), // 5: workflow.v1.CreateWorkflowExecutionResponse
+	(*CreateWorkflowExecutionData)(nil),     // 6: workflow.v1.CreateWorkflowExecutionData
+	(*GetWorkflowExecutionRequest)(nil),     // 7: workflow.v1.GetWorkflowExecutionRequest
+	(*GetWorkflowExecutionResponse)(nil),    // 8: workflow.v1.GetWorkflowExecutionResponse
+	(*ListWorkflowExecutionsRequest)(nil),   // 9: workflow.v1.ListWorkflowExecutionsRequest
+	(*ListWorkflowExecutionsResponse)(nil),  // 10: workflow.v1.ListWorkflowExecutionsResponse
+	(*WorkflowExecutionPage)(nil),           // 11: workflow.v1.WorkflowExecutionPage
+	(*WorkflowExecution)(nil),               // 12: workflow.v1.WorkflowExecution
+	(*ListNodeSchemasRequest)(nil),          // 13: workflow.v1.ListNodeSchemasRequest
+	(*ListNodeSchemasResponse)(nil),         // 14: workflow.v1.ListNodeSchemasResponse
+	(*NodeSchema)(nil),                      // 15: workflow.v1.NodeSchema
+	(*CreateDefinitionRequest)(nil),         // 16: workflow.v1.CreateDefinitionRequest
+	(*CreateDefinitionResponse)(nil),        // 17: workflow.v1.CreateDefinitionResponse
+	(*ListDefinitionsRequest)(nil),          // 18: workflow.v1.ListDefinitionsRequest
+	(*ListDefinitionsResponse)(nil),         // 19: workflow.v1.ListDefinitionsResponse
+	(*DefinitionPage)(nil),                  // 20: workflow.v1.DefinitionPage
+	(*GetDefinitionRequest)(nil),            // 21: workflow.v1.GetDefinitionRequest
+	(*GetDefinitionResponse)(nil),           // 22: workflow.v1.GetDefinitionResponse
+	(*Definition)(nil),                      // 23: workflow.v1.Definition
+	(*DefinitionGraph)(nil),                 // 24: workflow.v1.DefinitionGraph
+	(*Node)(nil),                            // 25: workflow.v1.Node
+	(*Edge)(nil),                            // 26: workflow.v1.Edge
+	nil,                                     // 27: workflow.v1.Node.PresetEntry
+	(*structpb.Struct)(nil),                 // 28: google.protobuf.Struct
+	(*structpb.Value)(nil),                  // 29: google.protobuf.Value
+	(*timestamppb.Timestamp)(nil),           // 30: google.protobuf.Timestamp
 }
 var file_workflow_v1_workflow_proto_depIdxs = []int32{
-	32, // 0: workflow.v1.CreateExecutionRequest.input:type_name -> google.protobuf.Struct
-	6,  // 1: workflow.v1.CreateExecutionResponse.data:type_name -> workflow.v1.CreateExecutionData
-	12, // 2: workflow.v1.GetExecutionResponse.data:type_name -> workflow.v1.Execution
-	11, // 3: workflow.v1.ListExecutionsResponse.data:type_name -> workflow.v1.ExecutionPage
-	12, // 4: workflow.v1.ExecutionPage.executions:type_name -> workflow.v1.Execution
-	32, // 5: workflow.v1.Execution.input:type_name -> google.protobuf.Struct
-	33, // 6: workflow.v1.Execution.output:type_name -> google.protobuf.Value
-	34, // 7: workflow.v1.Execution.created_at:type_name -> google.protobuf.Timestamp
-	34, // 8: workflow.v1.Execution.started_at:type_name -> google.protobuf.Timestamp
-	34, // 9: workflow.v1.Execution.completed_at:type_name -> google.protobuf.Timestamp
-	34, // 10: workflow.v1.Execution.updated_at:type_name -> google.protobuf.Timestamp
-	15, // 11: workflow.v1.ListNodeTypesResponse.node_types:type_name -> workflow.v1.NodeType
-	29, // 12: workflow.v1.NodeType.inputs:type_name -> workflow.v1.NodeType.InputsEntry
-	30, // 13: workflow.v1.NodeType.outputs:type_name -> workflow.v1.NodeType.OutputsEntry
-	26, // 14: workflow.v1.CreateWorkflowRequest.definition:type_name -> workflow.v1.Definition
-	25, // 15: workflow.v1.CreateWorkflowResponse.data:type_name -> workflow.v1.Workflow
-	22, // 16: workflow.v1.ListWorkflowsResponse.data:type_name -> workflow.v1.WorkflowPage
-	25, // 17: workflow.v1.WorkflowPage.workflows:type_name -> workflow.v1.Workflow
-	25, // 18: workflow.v1.GetWorkflowResponse.data:type_name -> workflow.v1.Workflow
-	26, // 19: workflow.v1.Workflow.definition:type_name -> workflow.v1.Definition
-	34, // 20: workflow.v1.Workflow.created_at:type_name -> google.protobuf.Timestamp
-	34, // 21: workflow.v1.Workflow.updated_at:type_name -> google.protobuf.Timestamp
-	27, // 22: workflow.v1.Definition.nodes:type_name -> workflow.v1.Node
-	28, // 23: workflow.v1.Definition.edges:type_name -> workflow.v1.Edge
-	31, // 24: workflow.v1.Node.preset:type_name -> workflow.v1.Node.PresetEntry
-	16, // 25: workflow.v1.NodeType.InputsEntry.value:type_name -> workflow.v1.InputDefinition
-	17, // 26: workflow.v1.NodeType.OutputsEntry.value:type_name -> workflow.v1.OutputDefinition
-	33, // 27: workflow.v1.Node.PresetEntry.value:type_name -> google.protobuf.Value
-	0,  // 28: workflow.v1.WorkflowService.Healthz:input_type -> workflow.v1.WorkflowServiceHealthzRequest
-	2,  // 29: workflow.v1.WorkflowService.Readyz:input_type -> workflow.v1.WorkflowServiceReadyzRequest
-	4,  // 30: workflow.v1.WorkflowService.CreateExecution:input_type -> workflow.v1.CreateExecutionRequest
-	7,  // 31: workflow.v1.WorkflowService.GetExecution:input_type -> workflow.v1.GetExecutionRequest
-	9,  // 32: workflow.v1.WorkflowService.ListExecutions:input_type -> workflow.v1.ListExecutionsRequest
-	13, // 33: workflow.v1.WorkflowService.ListNodeTypes:input_type -> workflow.v1.ListNodeTypesRequest
-	18, // 34: workflow.v1.WorkflowService.CreateWorkflow:input_type -> workflow.v1.CreateWorkflowRequest
-	20, // 35: workflow.v1.WorkflowService.ListWorkflows:input_type -> workflow.v1.ListWorkflowsRequest
-	23, // 36: workflow.v1.WorkflowService.GetWorkflow:input_type -> workflow.v1.GetWorkflowRequest
-	1,  // 37: workflow.v1.WorkflowService.Healthz:output_type -> workflow.v1.WorkflowServiceHealthzResponse
-	3,  // 38: workflow.v1.WorkflowService.Readyz:output_type -> workflow.v1.WorkflowServiceReadyzResponse
-	5,  // 39: workflow.v1.WorkflowService.CreateExecution:output_type -> workflow.v1.CreateExecutionResponse
-	8,  // 40: workflow.v1.WorkflowService.GetExecution:output_type -> workflow.v1.GetExecutionResponse
-	10, // 41: workflow.v1.WorkflowService.ListExecutions:output_type -> workflow.v1.ListExecutionsResponse
-	14, // 42: workflow.v1.WorkflowService.ListNodeTypes:output_type -> workflow.v1.ListNodeTypesResponse
-	19, // 43: workflow.v1.WorkflowService.CreateWorkflow:output_type -> workflow.v1.CreateWorkflowResponse
-	21, // 44: workflow.v1.WorkflowService.ListWorkflows:output_type -> workflow.v1.ListWorkflowsResponse
-	24, // 45: workflow.v1.WorkflowService.GetWorkflow:output_type -> workflow.v1.GetWorkflowResponse
-	37, // [37:46] is the sub-list for method output_type
-	28, // [28:37] is the sub-list for method input_type
-	28, // [28:28] is the sub-list for extension type_name
-	28, // [28:28] is the sub-list for extension extendee
-	0,  // [0:28] is the sub-list for field type_name
+	28, // 0: workflow.v1.CreateWorkflowExecutionRequest.input:type_name -> google.protobuf.Struct
+	6,  // 1: workflow.v1.CreateWorkflowExecutionResponse.data:type_name -> workflow.v1.CreateWorkflowExecutionData
+	12, // 2: workflow.v1.GetWorkflowExecutionResponse.data:type_name -> workflow.v1.WorkflowExecution
+	11, // 3: workflow.v1.ListWorkflowExecutionsResponse.data:type_name -> workflow.v1.WorkflowExecutionPage
+	12, // 4: workflow.v1.WorkflowExecutionPage.workflow_executions:type_name -> workflow.v1.WorkflowExecution
+	28, // 5: workflow.v1.WorkflowExecution.input:type_name -> google.protobuf.Struct
+	29, // 6: workflow.v1.WorkflowExecution.output:type_name -> google.protobuf.Value
+	30, // 7: workflow.v1.WorkflowExecution.created_at:type_name -> google.protobuf.Timestamp
+	30, // 8: workflow.v1.WorkflowExecution.started_at:type_name -> google.protobuf.Timestamp
+	30, // 9: workflow.v1.WorkflowExecution.completed_at:type_name -> google.protobuf.Timestamp
+	30, // 10: workflow.v1.WorkflowExecution.updated_at:type_name -> google.protobuf.Timestamp
+	15, // 11: workflow.v1.ListNodeSchemasResponse.node_schemas:type_name -> workflow.v1.NodeSchema
+	28, // 12: workflow.v1.NodeSchema.input_schema:type_name -> google.protobuf.Struct
+	28, // 13: workflow.v1.NodeSchema.output_schema:type_name -> google.protobuf.Struct
+	24, // 14: workflow.v1.CreateDefinitionRequest.definition:type_name -> workflow.v1.DefinitionGraph
+	23, // 15: workflow.v1.CreateDefinitionResponse.data:type_name -> workflow.v1.Definition
+	20, // 16: workflow.v1.ListDefinitionsResponse.data:type_name -> workflow.v1.DefinitionPage
+	23, // 17: workflow.v1.DefinitionPage.definitions:type_name -> workflow.v1.Definition
+	23, // 18: workflow.v1.GetDefinitionResponse.data:type_name -> workflow.v1.Definition
+	24, // 19: workflow.v1.Definition.definition:type_name -> workflow.v1.DefinitionGraph
+	30, // 20: workflow.v1.Definition.created_at:type_name -> google.protobuf.Timestamp
+	30, // 21: workflow.v1.Definition.updated_at:type_name -> google.protobuf.Timestamp
+	25, // 22: workflow.v1.DefinitionGraph.nodes:type_name -> workflow.v1.Node
+	26, // 23: workflow.v1.DefinitionGraph.edges:type_name -> workflow.v1.Edge
+	27, // 24: workflow.v1.Node.preset:type_name -> workflow.v1.Node.PresetEntry
+	29, // 25: workflow.v1.Node.PresetEntry.value:type_name -> google.protobuf.Value
+	0,  // 26: workflow.v1.WorkflowService.Healthz:input_type -> workflow.v1.WorkflowServiceHealthzRequest
+	2,  // 27: workflow.v1.WorkflowService.Readyz:input_type -> workflow.v1.WorkflowServiceReadyzRequest
+	4,  // 28: workflow.v1.WorkflowService.CreateWorkflowExecution:input_type -> workflow.v1.CreateWorkflowExecutionRequest
+	7,  // 29: workflow.v1.WorkflowService.GetWorkflowExecution:input_type -> workflow.v1.GetWorkflowExecutionRequest
+	9,  // 30: workflow.v1.WorkflowService.ListWorkflowExecutions:input_type -> workflow.v1.ListWorkflowExecutionsRequest
+	13, // 31: workflow.v1.WorkflowService.ListNodeSchemas:input_type -> workflow.v1.ListNodeSchemasRequest
+	16, // 32: workflow.v1.WorkflowService.CreateDefinition:input_type -> workflow.v1.CreateDefinitionRequest
+	18, // 33: workflow.v1.WorkflowService.ListDefinitions:input_type -> workflow.v1.ListDefinitionsRequest
+	21, // 34: workflow.v1.WorkflowService.GetDefinition:input_type -> workflow.v1.GetDefinitionRequest
+	1,  // 35: workflow.v1.WorkflowService.Healthz:output_type -> workflow.v1.WorkflowServiceHealthzResponse
+	3,  // 36: workflow.v1.WorkflowService.Readyz:output_type -> workflow.v1.WorkflowServiceReadyzResponse
+	5,  // 37: workflow.v1.WorkflowService.CreateWorkflowExecution:output_type -> workflow.v1.CreateWorkflowExecutionResponse
+	8,  // 38: workflow.v1.WorkflowService.GetWorkflowExecution:output_type -> workflow.v1.GetWorkflowExecutionResponse
+	10, // 39: workflow.v1.WorkflowService.ListWorkflowExecutions:output_type -> workflow.v1.ListWorkflowExecutionsResponse
+	14, // 40: workflow.v1.WorkflowService.ListNodeSchemas:output_type -> workflow.v1.ListNodeSchemasResponse
+	17, // 41: workflow.v1.WorkflowService.CreateDefinition:output_type -> workflow.v1.CreateDefinitionResponse
+	19, // 42: workflow.v1.WorkflowService.ListDefinitions:output_type -> workflow.v1.ListDefinitionsResponse
+	22, // 43: workflow.v1.WorkflowService.GetDefinition:output_type -> workflow.v1.GetDefinitionResponse
+	35, // [35:44] is the sub-list for method output_type
+	26, // [26:35] is the sub-list for method input_type
+	26, // [26:26] is the sub-list for extension type_name
+	26, // [26:26] is the sub-list for extension extendee
+	0,  // [0:26] is the sub-list for field type_name
 }
 
 func init() { file_workflow_v1_workflow_proto_init() }
@@ -2154,7 +2035,7 @@ func file_workflow_v1_workflow_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_workflow_v1_workflow_proto_rawDesc), len(file_workflow_v1_workflow_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   32,
+			NumMessages:   28,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

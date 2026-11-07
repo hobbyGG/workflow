@@ -13,6 +13,7 @@ import (
 	"github.com/hobbyGG/workflow/internal/data"
 	"github.com/hobbyGG/workflow/internal/server"
 	"github.com/hobbyGG/workflow/internal/service"
+	"github.com/hobbyGG/workflow/pkg/metrics"
 	"log/slog"
 )
 
@@ -28,21 +29,30 @@ func wireApp(confServer *conf.Server, confData *conf.Data, logger *slog.Logger) 
 	if err != nil {
 		return nil, nil, err
 	}
-	client, cleanup2, err := data.NewTemporalClient(confData, logger)
+	registry, cleanup2, err := metrics.New(logger)
 	if err != nil {
+		cleanup()
+		return nil, nil, err
+	}
+	v := metrics.NewTemporalHandler(registry)
+	client, cleanup3, err := data.NewTemporalClient(confData, logger, v)
+	if err != nil {
+		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
 	httpClient := data.NewHTTPClient()
 	dataData := data.NewData(confData, pool, client, httpClient)
-	executionStatusRepo := data.NewExecutionStatusRepo(dataData)
+	wfExecutionStatusRepo := data.NewWfExecutionStatusRepo(dataData)
+	nodeExecutionStatusRepo := data.NewNodeExecutionStatusRepo(dataData)
 	workerNodeRepo := data.NewWorkerNodeRepo(dataData)
-	workerUsecase := biz.NewWorkerUsecase(executionStatusRepo, workerNodeRepo)
+	workerUsecase := biz.NewWorkerUsecase(wfExecutionStatusRepo, nodeExecutionStatusRepo, workerNodeRepo)
 	workerService := service.NewWorkerService(workerUsecase)
-	httpServer := server.NewWorkerHTTPServer(confServer, workerService, logger)
+	httpServer := server.NewWorkerHTTPServer(confServer, workerService, logger, registry)
 	temporalWorker := server.NewTemporalWorker(confData, client, workerService)
 	app := newApp(logger, httpServer, temporalWorker)
 	return app, func() {
+		cleanup3()
 		cleanup2()
 		cleanup()
 	}, nil

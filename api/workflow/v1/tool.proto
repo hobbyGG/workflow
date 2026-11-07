@@ -1,0 +1,86 @@
+syntax = "proto3";
+
+package workflow.v1;
+
+import "google/api/annotations.proto";
+import "google/api/field_behavior.proto";
+import "google/protobuf/struct.proto";
+import "workflow/v1/workflow.proto";
+
+option go_package = "github.com/hobbyGG/workflow/api/workflow/v1;v1";
+
+service ToolService {
+  rpc ListTools(ListToolsRequest) returns (ListToolsResponse) {
+    option (google.api.http) = {get: "/internal/v1/tool/nodes"};
+  }
+
+  // ExecuteTool 发起一次工具执行。
+  // 作为内部接口调用时，调用方必须提供稳定的幂等键，避免重试造成重复执行；
+  // 直接暴露为 Agent 工具时，幂等键应由 MCP Host 或 Adapter 注入，不应作为 Agent 可见参数。
+  rpc ExecuteTool(ExecuteToolRequest) returns (ExecuteToolResponse) {
+    option (google.api.http) = {
+      post: "/internal/v1/tool/node"
+      body: "*"
+    };
+  }
+
+  rpc CheckToolExecution(CheckToolExecutionRequest) returns (CheckToolExecutionResponse) {
+    option (google.api.http) = {
+      post: "/internal/v1/tool/execution"
+      body: "*"
+    };
+  }
+}
+
+message ListToolsRequest {}
+
+// ListToolsResponse 返回所有可供 Agent 选择和执行的工具节点。
+message ListToolsResponse {
+  repeated ToolNode tools = 1;
+}
+
+// ToolNode 描述工具节点的调用约束和历史执行画像。
+message ToolNode {
+  NodeSchema schema = 1;
+  // Profile 在节点尚无历史执行数据时为空。
+  ToolProfile profile = 2;
+}
+
+// ToolProfile 描述 Agent 选择工具节点时可参考的历史执行表现。
+message ToolProfile {
+  // SuccessRate 是历史执行成功数占执行总数的比例，取值范围为 [0, 1]。
+  double success_rate = 1 [json_name = "success_rate"];
+  // AverageDurationMs 是历史执行的平均耗时，单位为毫秒。
+  double average_duration_ms = 2 [json_name = "average_duration_ms"];
+}
+
+message ExecuteToolRequest {
+  string node_type = 1 [
+    json_name = "node_type",
+    (google.api.field_behavior) = REQUIRED
+  ];
+  google.protobuf.Struct input = 2;
+  // IdempotencyKey 由内部调用方维护；直接面向 Agent 的工具 schema 应隐藏该字段。
+  string idempotency_key = 3 [
+    json_name = "idempotency_key",
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+message ExecuteToolResponse {
+  string node_execution_id = 1 [json_name = "node_execution_id"];
+}
+
+message CheckToolExecutionRequest {
+  string node_execution_id = 1 [
+    json_name = "node_execution_id",
+    (google.api.field_behavior) = REQUIRED
+  ];
+}
+
+message CheckToolExecutionResponse {
+  string status = 1;
+  google.protobuf.Struct output = 2;
+  string internal_error_message = 3 [json_name = "internal_error_message"];
+  int64 duration_ms = 4 [json_name = "duration_ms"];
+}

@@ -11,6 +11,7 @@ import (
 	"github.com/hobbyGG/workflow/internal/biz"
 
 	"github.com/go-viper/mapstructure/v2"
+	"github.com/google/jsonschema-go/jsonschema"
 	"go.temporal.io/sdk/temporal"
 )
 
@@ -57,6 +58,10 @@ func (r *nodeRepo) GetActivityNodes() []biz.ActivityNode {
 	return nodes
 }
 
+func defaultActivityRetryPolicy() temporal.RetryPolicy {
+	return temporal.RetryPolicy{MaximumAttempts: 3}
+}
+
 type saySomethingNode struct{}
 
 type saySomethingInput struct {
@@ -67,17 +72,26 @@ func (*saySomethingNode) Type() biz.NodeType {
 	return biz.NodeTypeSaySomething
 }
 
+func (*saySomethingNode) RetryPolicy() temporal.RetryPolicy {
+	return defaultActivityRetryPolicy()
+}
+
 func (*saySomethingNode) Schema() biz.NodeSchema {
 	return biz.NodeSchema{
 		Type: biz.NodeTypeSaySomething,
-		Inputs: map[string]biz.InputDefinition{
-			"prompt": {
-				Type:     "string",
-				Required: true,
+		InputSchema: &jsonschema.Schema{
+			Type: "object",
+			Properties: map[string]*jsonschema.Schema{
+				"prompt": {Type: "string", Description: "需要回复的内容"},
 			},
+			Required: []string{"prompt"},
 		},
-		Outputs: map[string]biz.OutputDefinition{
-			"text": {Type: "string"},
+		OutputSchema: &jsonschema.Schema{
+			Type: "object",
+			Properties: map[string]*jsonschema.Schema{
+				"text": {Type: "string", Description: "回复内容"},
+			},
+			Required: []string{"text"},
 		},
 	}
 }
@@ -111,13 +125,21 @@ func (*exampleNode) Type() biz.NodeType {
 	return biz.NodeTypeExample
 }
 
+func (*exampleNode) RetryPolicy() temporal.RetryPolicy {
+	return defaultActivityRetryPolicy()
+}
+
 func (*exampleNode) Schema() biz.NodeSchema {
 	return biz.NodeSchema{
-		Type:   biz.NodeTypeExample,
-		Inputs: map[string]biz.InputDefinition{},
-		Outputs: map[string]biz.OutputDefinition{
-			"status_code": {Type: "integer"},
-			"body":        {Type: "string"},
+		Type:        biz.NodeTypeExample,
+		InputSchema: &jsonschema.Schema{Type: "object"},
+		OutputSchema: &jsonschema.Schema{
+			Type: "object",
+			Properties: map[string]*jsonschema.Schema{
+				"status_code": {Type: "integer", Description: "HTTP 状态码"},
+				"body":        {Type: "string", Description: "HTTP 响应正文"},
+			},
+			Required: []string{"status_code", "body"},
 		},
 	}
 }

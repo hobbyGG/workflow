@@ -29,8 +29,8 @@ type WorkerServiceHTTPServer interface {
 
 func RegisterWorkerServiceHTTPServer(s *http.Server, srv WorkerServiceHTTPServer) {
 	r := s.Route("/")
-	r.Handle("GET", "/healthz", _WorkerService_Healthz0_HTTP_Handler(srv))
-	r.Handle("GET", "/readyz", _WorkerService_Readyz0_HTTP_Handler(srv))
+	r.Handle("GET", "/live", _WorkerService_Healthz0_HTTP_Handler(srv))
+	r.Handle("GET", "/ready", _WorkerService_Readyz0_HTTP_Handler(srv))
 }
 
 func _WorkerService_Healthz0_HTTP_Handler(srv WorkerServiceHTTPServer) func(ctx http.Context) error {
@@ -89,7 +89,7 @@ func NewWorkerServiceHTTPClient(client *http.Client) WorkerServiceHTTPClient {
 // Healthz Healthz 检查 Worker 进程是否存活。
 func (c *WorkerServiceHTTPClientImpl) Healthz(ctx context.Context, in *HealthzRequest, opts ...http.CallOption) (*HealthzResponse, error) {
 	var out HealthzResponse
-	pattern := "/healthz"
+	pattern := "/live"
 	path := http.BuildPath(pattern, in, http.WithQueryParams())
 	opts = append([]http.CallOption{
 		http.Accept("application/protojson"),
@@ -106,7 +106,7 @@ func (c *WorkerServiceHTTPClientImpl) Healthz(ctx context.Context, in *HealthzRe
 // Readyz Readyz 检查 Worker 是否可以接收任务。
 func (c *WorkerServiceHTTPClientImpl) Readyz(ctx context.Context, in *ReadyzRequest, opts ...http.CallOption) (*ReadyzResponse, error) {
 	var out ReadyzResponse
-	pattern := "/readyz"
+	pattern := "/ready"
 	path := http.BuildPath(pattern, in, http.WithQueryParams())
 	opts = append([]http.CallOption{
 		http.Accept("application/protojson"),

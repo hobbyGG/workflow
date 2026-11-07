@@ -174,11 +174,10 @@ const file_worker_v1_worker_proto_rawDesc = "" +
 	"\x0eHealthzRequest\"\x11\n" +
 	"\x0fHealthzResponse\"\x0f\n" +
 	"\rReadyzRequest\"\x10\n" +
-	"\x0eReadyzResponse2\xb3\x01\n" +
-	"\rWorkerService\x12R\n" +
-	"\aHealthz\x12\x19.worker.v1.HealthzRequest\x1a\x1a.worker.v1.HealthzResponse\"\x10\x82\xd3\xe4\x93\x02\n" +
-	"\x12\b/healthz\x12N\n" +
-	"\x06Readyz\x12\x18.worker.v1.ReadyzRequest\x1a\x19.worker.v1.ReadyzResponse\"\x0f\x82\xd3\xe4\x93\x02\t\x12\a/readyzB.Z,github.com/hobbyGG/workflow/api/worker/v1;v1b\x06proto3"
+	"\x0eReadyzResponse2\xaf\x01\n" +
+	"\rWorkerService\x12O\n" +
+	"\aHealthz\x12\x19.worker.v1.HealthzRequest\x1a\x1a.worker.v1.HealthzResponse\"\r\x82\xd3\xe4\x93\x02\a\x12\x05/live\x12M\n" +
+	"\x06Readyz\x12\x18.worker.v1.ReadyzRequest\x1a\x19.worker.v1.ReadyzResponse\"\x0e\x82\xd3\xe4\x93\x02\b\x12\x06/readyB.Z,github.com/hobbyGG/workflow/api/worker/v1;v1b\x06proto3"
 
 var (
 	file_worker_v1_worker_proto_rawDescOnce sync.Once
